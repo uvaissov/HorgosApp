@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 
+import { HeaderUI } from '../../components/ui/HeaderUI'
+
 
 class Main extends Component {
   render() {
@@ -11,6 +13,7 @@ class Main extends Component {
     }
     return (
       <View>
+        <HeaderUI style={{ marginHorizontal: 15 }} />
         <Text>Main</Text>
       </View>
     )

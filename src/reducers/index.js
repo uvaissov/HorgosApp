@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import mainReducer from '../pages/Main/reducers'
+import mainReducer from '../pages/main/reducers'
 
 const reducers = combineReducers({
   main: mainReducer

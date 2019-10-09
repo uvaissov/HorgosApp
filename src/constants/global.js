@@ -13,13 +13,9 @@ export const FONT = 'CenturyGothic'
 export const statusBarHeight = Platform.OS === 'ios' ? isIphoneX() ? 30 : 20 : StatusBar.currentHeight
 
 export const BORDER_COLOR = '#ddd'
-export const BG_COLOR = '#F8F8F8'
+export const BG_COLOR = '#FFF'
+export const BG_COLOR_HEADER = '#F4F0FB'
 export const TRASPARENT = 'transparent'
-
-export const MAIN_COLOR = '#4388D6'
-
-export const ITEM = 'ITEM'
-export const SALE = 'SALE'
 
 export const win = Dimensions.get('window')
 export const w = win.width
