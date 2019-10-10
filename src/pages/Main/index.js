@@ -1,20 +1,31 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
 
-import { HeaderUI } from '../../components/ui/HeaderUI'
+import { HeaderUI, ScrollWithTitle } from '../../components/ui/view'
+import { WHITE, normalize } from '../../constants/global'
 
+const styles = StyleSheet.create({
+  view: { backgroundColor: WHITE, flex: 1 },
+  body: { flex: 1 },
+  scrollView: { flex: 1 },
+  text: { fontWeight: 'bold', fontSize: normalize(13) }
+})
 
 class Main extends Component {
   render() {
-    const { isLoading } = this.props
+    const { isLoading, navigation } = this.props
     if (isLoading === true) {
       return null
     }
     return (
-      <View>
-        <HeaderUI style={{ marginHorizontal: 15 }} />
-        <Text>Main</Text>
+      <View style={styles.view}>
+        <HeaderUI style={{ margin: 15 }} placeHolder="Ввведите название" navigation={navigation} />
+        <View style={styles.body}>
+          <ScrollView style={styles.scrollView}>
+            <ScrollWithTitle title="Рекомендуем" element={<Text style={styles.text}>смотреть все</Text>} />
+          </ScrollView>
+        </View>
       </View>
     )
   }
