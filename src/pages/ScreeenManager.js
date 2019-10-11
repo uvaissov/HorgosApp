@@ -6,7 +6,7 @@ import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-dr
 //import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
 import Main from './main'
-import { w, WHITE, FONT, normalize } from '../constants/global'
+import { w, WHITE, normalize } from '../constants/global'
 
 const styles = StyleSheet.create({
   image: {
