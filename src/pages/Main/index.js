@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { connect } from 'react-redux'
 
 import { HeaderUI, FooterUI, ScrollWithTitle } from '../../components/ui/view'
 import { WHITE, normalize } from '../../constants/global'
@@ -31,11 +30,4 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('main')
-  return {
-    isLoading: state.main.isLoading
-  }
-}
-
-export default connect(mapStateToProps, { })(Main)
+export default Main
