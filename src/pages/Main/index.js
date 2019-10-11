@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, Text } from 'react-native'
+import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
 
 import { HeaderUI, ScrollWithTitle } from '../../components/ui/view'
@@ -19,14 +19,14 @@ class Main extends Component {
       return null
     }
     return (
-      <View style={styles.view}>
+      <SafeAreaView style={styles.view}>
         <HeaderUI style={{ margin: 15 }} placeHolder="Ввведите название" navigation={navigation} />
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
             <ScrollWithTitle title="Рекомендуем" element={<Text style={styles.text}>смотреть все</Text>} />
           </ScrollView>
         </View>
-      </View>
+      </SafeAreaView>
     )
   }
 }
