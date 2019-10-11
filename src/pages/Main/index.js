@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
 
-import { HeaderUI, ScrollWithTitle } from '../../components/ui/view'
+import { HeaderUI, FooterUI, ScrollWithTitle } from '../../components/ui/view'
 import { WHITE, normalize } from '../../constants/global'
 
 const styles = StyleSheet.create({
@@ -26,6 +26,7 @@ class Main extends Component {
             <ScrollWithTitle title="Рекомендуем" element={<Text style={styles.text}>смотреть все</Text>} />
           </ScrollView>
         </View>
+        <FooterUI selected="main" />
       </View>
     )
   }
