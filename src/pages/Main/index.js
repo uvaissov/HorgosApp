@@ -20,7 +20,7 @@ class Main extends Component {
     }
     return (
       <View style={styles.view}>
-        <HeaderUI style={{ margin: 15 }} placeHolder="Ввведите название" navigation={navigation} />
+        <HeaderUI style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
             <ScrollWithTitle title="Рекомендуем" element={<Text style={styles.text}>смотреть все</Text>} />
