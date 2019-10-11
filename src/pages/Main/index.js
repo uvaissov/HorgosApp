@@ -24,6 +24,8 @@ class Main extends Component {
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
             <ScrollWithTitle title="Рекомендуем" element={<Text style={styles.text}>смотреть все</Text>} />
+            <ScrollWithTitle title="Выбор покупателей" element={<Text style={styles.text}>смотреть все</Text>} />
+            <ScrollWithTitle title="Популярные бутики" element={<Text style={styles.text}>смотреть все</Text>} />
           </ScrollView>
         </View>
         <FooterUI selected="main" />
