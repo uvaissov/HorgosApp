@@ -2,10 +2,11 @@ import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, ScrollView, FlatList } from 'react-native'
 import { MaskGradient } from '../kit/MaskGradient'
 import { BLACK, normalize } from '../../../constants/global'
+import { CardBig } from './index'
 
 const styles = StyleSheet.create({
-  view: { },
-  header: { flexDirection: 'row', paddingHorizontal: 15 },
+  view: { marginVertical: 15 },
+  header: { flexDirection: 'row', paddingHorizontal: 15, marginBottom: 15 },
   title: { color: BLACK, flex: 1, fontSize: normalize(16), fontWeight: 'bold' },
   button: { height: '100%', width: 150 }
 })
@@ -18,10 +19,10 @@ const ScrollWithTitle = (props) => {
         <Text style={styles.title}>{title}</Text>
         <TouchableOpacity onPress={onPress} style={styles.button}><MaskGradient element={element} /></TouchableOpacity>
       </View>
-      <ScrollView horizontal>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <FlatList
           data={['1', '2', '1', '2']}
-          renderItem={(item) => (<View style={{ width: 150 }}><Text>{item.item}</Text></View>)}
+          renderItem={(item) => (<CardBig height={207} width={168} item={item.item} index={item.index} />)}
           horizontal
         />
       </ScrollView>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native'
+import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
 
-import { HeaderUI, ScrollWithTitle } from '../../components/ui/view'
+import { HeaderUI, FooterUI, ScrollWithTitle } from '../../components/ui/view'
 import { WHITE, normalize } from '../../constants/global'
 
 const styles = StyleSheet.create({
@@ -14,19 +14,19 @@ const styles = StyleSheet.create({
 
 class Main extends Component {
   render() {
-    const { isLoading, navigation } = this.props
-    if (isLoading === true) {
-      return null
-    }
+    const { navigation } = this.props
     return (
-      <SafeAreaView style={styles.view}>
-        <HeaderUI style={{ margin: 15 }} placeHolder="Ввведите название" navigation={navigation} />
+      <View style={styles.view}>
+        <HeaderUI style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
             <ScrollWithTitle title="Рекомендуем" element={<Text style={styles.text}>смотреть все</Text>} />
+            <ScrollWithTitle title="Выбор покупателей" element={<Text style={styles.text}>смотреть все</Text>} />
+            <ScrollWithTitle title="Популярные бутики" element={<Text style={styles.text}>смотреть все</Text>} />
           </ScrollView>
         </View>
-      </SafeAreaView>
+        <FooterUI selected="main" />
+      </View>
     )
   }
 }
