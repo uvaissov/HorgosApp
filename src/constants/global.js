@@ -6,13 +6,20 @@ export const STORE_KEY_NAME = '@MyLocalStore:reduxStoreName'
 
 export const WHITE = '#fff'
 export const BLACK = '#000'
-export const GREEN = '#6ACB6D'
-export const RED = '#E54B65'
+export const ORANGE = '#FFB800'
+export const GREEN = '#28D86E'
+export const RED = '#FF3A52'
+export const GRAY = '#56506C'
+export const GRAY_SECOND = '#9193AC'
+
+
+export const BORDER_COLOR = '#E2E8F0'
+
 export const FONT = 'CenturyGothic'
 
 export const statusBarHeight = Platform.OS === 'ios' ? isIphoneX() ? 30 : 20 : StatusBar.currentHeight
 
-export const BORDER_COLOR = '#ddd'
+
 export const BG_COLOR = '#FFF'
 export const BG_COLOR_HEADER = '#F4F0FB'
 export const TRASPARENT = 'transparent'

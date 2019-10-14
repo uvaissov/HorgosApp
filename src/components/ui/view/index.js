@@ -1,4 +1,4 @@
 export * from './HeaderUI'
-export * from './ScrollWithTitle'
 export * from './FooterUI'
 export * from './card/CardBig'
+export * from './round/RoundWithDiscont'
