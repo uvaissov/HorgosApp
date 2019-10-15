@@ -1,9 +1,11 @@
 import React from 'react'
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import nextId from 'react-id-generator'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 import { w, WHITE } from '../../../constants/global'
+
 
 const width = w - 30
 const height = width * 0.5
@@ -23,7 +25,7 @@ this._renderSwiper = (data) => (
     <Swiper paginationStyle={{ marginHorizontal: 15 }} key={data.length} height={height} activeDotColor={WHITE} dotStyle={{ borderColor: 'rgba(255,255,255,0.8)', borderWidth: 1 }}>
       {
         data.map((item) => (
-          <TouchableWithoutFeedback key={item.id} onPress={() => {}}>
+          <TouchableWithoutFeedback key={nextId()} onPress={() => {}}>
             <View key={item.id} style={[styles.child, { width }]}>
               <FastImage
                 style={{ flex: 1 }}
