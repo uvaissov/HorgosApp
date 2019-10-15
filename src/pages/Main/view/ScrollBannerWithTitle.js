@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, ScrollView, FlatList, View } from 'react-native'
+import { StyleSheet, FlatList, View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Icon from 'react-native-vector-icons/Feather'
+import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 //import { BLACK, normalize } from '../../../constants/global'
 import { w } from '../../../constants/global'
@@ -28,13 +29,13 @@ const ScrollBannerWithTitle = (props) => {
   const { onPress, masked, title } = props
   return (
     <BlockTitleAndButton onPress={onPress} element={<Icon name="arrow-right" size={20} />} title={title} masked={masked}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} styles={styles.scrollView}>
-        <FlatList
-          data={['1', '2', '1', '2']}
-          renderItem={renderItem}
-          horizontal
-        />
-      </ScrollView>
+      <FlatList
+        data={['1', '2', '1', '2']}
+        renderItem={renderItem}
+        horizontal
+        keyExtractor={() => nextId()}
+        showsHorizontalScrollIndicator={false}
+      />
     </BlockTitleAndButton>
   )
 }

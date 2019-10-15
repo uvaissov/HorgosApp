@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
-import { ScrollView, StyleSheet, SafeAreaView } from 'react-native'
+import { ScrollView, StyleSheet, SafeAreaView, Platform } from 'react-native'
 import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer'
 //import { ifIphoneX } from 'react-native-iphone-x-helper'
 import FastImage from 'react-native-fast-image'
 import Main from './main'
+import Boutique from './boutique'
 import { w, WHITE, normalize } from '../constants/global'
 
 const styles = StyleSheet.create({
@@ -25,10 +27,23 @@ const CustomDrawerContentComponent = props => (
   </ScrollView>
 )
 
+const MainStack = createStackNavigator(
+  {
+    Main,
+    Boutique
+  },
+  {
+    initialRouteName: 'Main',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
 const Screens = createDrawerNavigator(
   {
     Main: {
-      screen: Main,
+      screen: MainStack,
       navigationOptions: {
         drawerLabel: 'Главная',
         drawerIcon: () => (

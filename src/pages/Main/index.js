@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native'
 
-import { HeaderUI, FooterUI } from '../../components/ui/view'
+import { HeaderUI, FooterUI, SliderApp } from '../../components/ui/view'
 import { ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle } from './view'
 import { WHITE, normalize } from '../../constants/global'
 
@@ -20,15 +20,16 @@ class Main extends Component {
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
             <HeaderUI style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
+            <SliderApp data={['1']} />
             <AdBlockWithTitle title="Специально для вас" />
             <ScrollBannerWithTitle title="Скидки по категориям" />
             <ScrollRoundWithTitle title="Лучшие товары" />
-            <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} />
-            <ScrollCardWithTitle title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} />
-            <ScrollCardWithTitle title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} />
+            <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
+            <ScrollCardWithTitle title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
+            <ScrollCardWithTitle title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
           </ScrollView>
         </View>
-        <FooterUI selected="main" />
+        <FooterUI selected="main" navigation={navigation} />
       </SafeAreaView>
     )
   }
