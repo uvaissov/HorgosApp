@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView, SafeAreaView, Text, InteractionManager } from 'react-native'
 import { ScrollCardWithTitle } from '../main/view'
 import { HeaderUI, FooterUI, SliderApp } from '../../components/ui/view'
-import { DetailInfo, FavoriteCmp, Description } from './view'
+import { DetailInfo, FavoriteCmp, Description, ProductPrices } from './view'
 import { WHITE, normalize } from '../../constants/global'
 import Loader from '../../components/Loader'
 
@@ -35,6 +35,7 @@ class Boutique extends Component {
         <FavoriteCmp />
         <DetailInfo data={[{ key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }]} />
         <Description />
+        <ProductPrices data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
         <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
         <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
       </ScrollView>

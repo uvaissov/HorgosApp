@@ -2,16 +2,20 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import ViewMoreText from 'react-native-view-more-text'
-//import { TouchableOpacity } from 'react-native-gesture-handler'
-//import { WHITE, RED, GRAY_SECOND, ORANGE, normalize, w } from '../../../constants/global'
-
+import LinearGradient from 'react-native-linear-gradient'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
+import { BLACK, WHITE, normalize } from '../../../constants/global'
 
 const styles = StyleSheet.create({
-  view: { margin: 15, flexDirection: 'row', alignItems: 'center' },
-  cardText: { fontSize: 12 }
+  view: { margin: 15 },
+  cardText: { fontSize: normalize(12), lineHeight: normalize(16) },
+  linearGradient: { flex: 1 },
+  titleView: { marginBottom: 15 },
+  title: { color: BLACK, fontSize: normalize(16), fontWeight: 'bold' }
 })
 
-const text = 'Сеть меховых салонов «IMPERIA furs» специализиру- ется на розничной и оптовой торговле меховыми изделиями в международном центре приграничного сотрудничества!'
+const text = 'Сеть меховых салонов «IMPERIA furs» специализиру- ется на розничной и оптовой торговле меховыми изделиями в международном центре приграничного сотрудничества! Сеть меховых салонов «IMPERIA furs» специализиру- ется на розничной и оптовой торговле меховыми изделиями в международном центре приграничного сотрудничества!'
 
 const Description = () => {
   const [isView, showView] = useState(false)
@@ -19,24 +23,27 @@ const Description = () => {
   this.renderViewMore = (onPress) => {
     showView(true)
     return (
-      <Text onPress={onPress}>View more</Text>
+      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient element={<Text>Подробнее</Text>} /></TouchableOpacity>
     )
   }
 
   this.renderViewLess = (onPress) => {
     showView(false)
     return (
-      <Text onPress={onPress}>View less</Text>
+      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 50, marginTop: 10 }}><MaskGradient element={<Text>Скрыть</Text>} /></TouchableOpacity>
     )
   }
 
   return (
     <View style={styles.view}>
+      <View style={styles.titleView}>
+        <Text style={styles.title}>Описание магазина</Text>
+      </View>
       <ViewMoreText
-        numberOfLines={3}
+        numberOfLines={4}
         renderViewMore={this.renderViewMore}
         renderViewLess={this.renderViewLess}
-        //textStyle={{ textAlign: 'center' }}
+        textStyle={styles.cardText}
       >
         <Text>
           {text }
@@ -44,7 +51,9 @@ const Description = () => {
       </ViewMoreText>
       {
         isView === true &&
-        <View style={{ position: 'absolute', bottom: 15, height: 30, backgroundColor: 'rgba(0,0,0,0.5)' }} />
+        <View style={{ position: 'absolute', bottom: 25, height: 20, width: '100%' }}>
+          <LinearGradient colors={[WHITE, 'rgba(255,255,255,0.3)']} style={styles.linearGradient} angle={360} locations={[0, 0.8]} useAngle start={{ x: 0, y: 0 }} end={{ x: 0, y: 0 }} />
+        </View>
       }
     </View>
   )
