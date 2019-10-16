@@ -19,7 +19,7 @@ class Boutique extends Component {
 
   componentDidMount = () => {
     InteractionManager.runAfterInteractions(() => {
-      setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 100)
+      setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 0)
     })
   }
 

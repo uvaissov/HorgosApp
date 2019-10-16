@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-
+import _ from 'lodash'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { WHITE, RED, GRAY_SECOND, ORANGE, normalize } from '../../../constants/global'
 
@@ -34,7 +34,7 @@ const FavoriteCmp = () => {
       </View>
       <View style={styles.raitingView}>
         <View style={styles.startsView}>{
-          Array(5).fill().map(() => <FontAwesome style={styles.startStyle} name="star" color={ORANGE} size={10} />)
+          Array(5).fill().map(() => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={ORANGE} size={10} />)
           }
         </View>
         <View><Text style={styles.raitingText}>5/5 (148 отзывов)</Text></View>

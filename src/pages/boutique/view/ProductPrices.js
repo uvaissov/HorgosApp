@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import _ from 'lodash'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 import { Col, Row, Grid } from 'react-native-easy-grid'
@@ -39,7 +40,7 @@ const ProductPrices = ({ data }) => {
           data.map((item) => {
             const { name, value } = item
             return (
-              <Row style={{ marginVertical: 10 }}>
+              <Row key={_.uniqueId()} style={{ marginVertical: 10 }}>
                 <Col>
                   <View style={styles.row}>
                     <View><Entypo name="dot-single" size={22} color={RED} /></View>

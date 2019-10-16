@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import _ from 'lodash'
 import { WHITE, GRAY_LIGHT, normalize, GRAY_SECOND, BLACK } from '../../../constants/global'
 
 
@@ -21,7 +22,7 @@ const DetailInfo = ({ data }) => {
         data.map((item, index) => {
           const { key, value } = item
           return (
-            <View style={[styles.row, { backgroundColor: index % 2 === 0 ? WHITE : GRAY_LIGHT }]}>
+            <View key={_.uniqueId()} style={[styles.row, { backgroundColor: index % 2 === 0 ? WHITE : GRAY_LIGHT }]}>
               <View style={styles.element}><Text style={styles.keyText}>{key}:</Text></View>
               <View style={styles.element}><Text style={styles.valueText}>{value}</Text></View>
             </View>
