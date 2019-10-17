@@ -10,6 +10,8 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -43,6 +45,9 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    Fresco.initialize(this);
+
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
 
