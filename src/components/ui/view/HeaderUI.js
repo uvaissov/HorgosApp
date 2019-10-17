@@ -36,8 +36,8 @@ const HeaderUI = (props) => {
       <TouchableOpacity style={styles.menu} onPress={() => navigation.openDrawer()}><MaskGradient element={<Feather name="menu" size={23} />} /></TouchableOpacity>
       <TextInput style={{ flex: 1, fontSize: normalize(14) }} placeholder={placeHolder} />
       <View style={styles.rightView}>
-        <TouchableOpacity style={styles.search}><MaskGradient element={<Feather name="search" size={23} />} /></TouchableOpacity>
-        <TouchableOpacity style={styles.share}><MaskGradient element={<Feather name="share-2" size={23} />} /></TouchableOpacity>
+        <TouchableOpacity style={styles.search}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>
+        <TouchableOpacity style={styles.share}><MaskGradient element={<Feather name="share-2" size={20} />} /></TouchableOpacity>
       </View>
     </View>
   )
