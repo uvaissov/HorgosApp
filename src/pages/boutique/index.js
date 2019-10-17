@@ -4,7 +4,8 @@ import { StyleSheet, ScrollView, View, Text, InteractionManager, Animated } from
 import { ScrollCardWithTitle } from '../main/view'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, ProductList, MapShow } from './view'
-import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT } from '../../constants/global'
+import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, TRASPARENT } from '../../constants/global'
+import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 
 const styles = StyleSheet.create({
@@ -66,6 +67,7 @@ class Boutique extends Component {
     })
     return (
       <View style={[styles.view]}>
+        <CustomStatusBar backgroundColor={TRASPARENT} barStyle="light-content" blank />
         <Animated.View style={[styles.body]}>
           {this.init(headerHeight)}
           <HeaderScroll headerHeight={headerHeight} navigation={navigation} inputOpacity={inputOpacity} />
