@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { StyleSheet, ScrollView, View, Text, InteractionManager, Animated } from 'react-native'
 import { ScrollCardWithTitle } from '../main/view'
 import { FooterUI, SliderApp } from '../../components/ui/view'
-import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, ProductList, MapShow } from './view'
+import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, ProductList, MapShow, ResponseList } from './view'
 import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, TRASPARENT } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
@@ -46,6 +46,7 @@ class Boutique extends Component {
           <ProductPrices data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
           <ProductList data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />
           <MapShow data={require('../../../resources/image/image.png')} />
+          <ResponseList data={['1', '2']} />
           <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
           <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
         </Animated.View>
