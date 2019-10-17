@@ -30,7 +30,7 @@ const Description = () => {
   this.renderViewLess = (onPress) => {
     showView(false)
     return (
-      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 50, marginTop: 10 }}><MaskGradient element={<Text>Скрыть</Text>} /></TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient style={{ alignItems: 'flex-start' }} element={<Text>Скрыть</Text>} /></TouchableOpacity>
     )
   }
 

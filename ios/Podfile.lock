@@ -11,6 +11,7 @@ PODS:
     - React-Core (= 0.61.2)
     - React-jsi (= 0.61.2)
     - ReactCommon/turbomodule/core (= 0.61.2)
+  - FLAnimatedImage (1.0.12)
   - Folly (2018.10.22.00):
     - boost-for-react-native
     - DoubleConversion
@@ -30,6 +31,16 @@ PODS:
   - libwebp/mux (1.0.3):
     - libwebp/demux
   - libwebp/webp (1.0.3)
+  - MerryPhotoViewer (3.1.0):
+    - NYTPhotoViewer
+    - React
+  - NYTPhotoViewer (2.0.0):
+    - NYTPhotoViewer/AnimatedGifSupport (= 2.0.0)
+    - NYTPhotoViewer/Core (= 2.0.0)
+  - NYTPhotoViewer/AnimatedGifSupport (2.0.0):
+    - FLAnimatedImage (~> 1.0.12)
+    - NYTPhotoViewer/Core
+  - NYTPhotoViewer/Core (2.0.0)
   - RCTRequired (0.61.2)
   - RCTTypeSafety (0.61.2):
     - FBLazyVector (= 0.61.2)
@@ -193,6 +204,8 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
   - React-jsinspector (0.61.2)
+  - react-native-viewpager (2.0.1):
+    - React
   - React-RCTActionSheet (0.61.2):
     - React-Core/RCTActionSheetHeaders (= 0.61.2)
   - React-RCTAnimation (0.61.2):
@@ -242,6 +255,8 @@ PODS:
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
+  - RNSVG (9.11.1):
+    - React
   - RNVectorIcons (6.6.0):
     - React
   - SDWebImage (5.2.2):
@@ -259,6 +274,7 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - "MerryPhotoViewer (from `../node_modules/@merryjs/photo-viewer`)"
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -270,6 +286,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -287,13 +304,16 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
+    - FLAnimatedImage
     - libwebp
+    - NYTPhotoViewer
     - SDWebImage
     - SDWebImageWebPCoder
 
@@ -310,6 +330,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  MerryPhotoViewer:
+    :path: "../node_modules/@merryjs/photo-viewer"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -328,6 +350,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-viewpager:
+    :path: "../node_modules/@react-native-community/viewpager"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -360,6 +384,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -371,9 +397,12 @@ SPEC CHECKSUMS:
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 68b6a76960fbd8ecd9fb7ce0aadd3329c3340a99
   FBReactNativeSpec: 5a764c60abdc3336a213e5310c40b74741f32839
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   libwebp: 057912d6d0abfb6357d8bb05c0ea470301f5d61e
+  MerryPhotoViewer: fe57bd672cc84030ea1f4cbec50e5817719987b6
+  NYTPhotoViewer: 34b8bd6bcc297466adec1668f9a01249d73c90e6
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
   RCTTypeSafety: dc23fb655d6c77667c78e327bf661bc11e3b8aec
   React: 7e586e5d7bec12b91c1a096826b0fc9ab1da7865
@@ -383,6 +412,7 @@ SPEC CHECKSUMS:
   React-jsi: 32285a21b1b24c36060493ed3057a34677d58d09
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
+  react-native-viewpager: f41b42bba71407e916654d64e87ff2680edecc92
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
   React-RCTAnimation: e3cefa93c38c004c318f7ec04b883eb14b8b8235
   React-RCTBlob: d26ac0e313fbf14e7203473fd593ccaaeee8329e
@@ -399,6 +429,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
   RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
+  RNSVG: be27aa7c58819f97399388ae53d7fa0572f32c7f
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 5fcdb02cc35e05fc35791ec514b191d27189f872
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987

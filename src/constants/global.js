@@ -18,10 +18,10 @@ export const BORDER_COLOR = '#E2E8F0'
 
 export const FONT = 'CenturyGothic'
 
-export const statusBarHeight = Platform.OS === 'ios' ? isIphoneX() ? 30 : 20 : StatusBar.currentHeight
+export const statusBarHeight = Platform.OS === 'ios' ? (isIphoneX() ? 30 : 20) : StatusBar.currentHeight
 
-export const HEADER_MAX_HEIGHT = 130
-export const HEADER_MIN_HEIGHT = 60
+export const HEADER_MAX_HEIGHT = 130 + statusBarHeight
+export const HEADER_MIN_HEIGHT = 60 + statusBarHeight
 export const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 
 

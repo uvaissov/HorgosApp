@@ -1,9 +1,9 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, SafeAreaView, Text, InteractionManager, Animated } from 'react-native'
+import { StyleSheet, ScrollView, View, Text, InteractionManager, Animated } from 'react-native'
 import { ScrollCardWithTitle } from '../main/view'
 import { FooterUI, SliderApp } from '../../components/ui/view'
-import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll } from './view'
+import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, ProductList, MapShow } from './view'
 import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT } from '../../constants/global'
 import Loader from '../../components/Loader'
 
@@ -34,6 +34,7 @@ class Boutique extends Component {
       <ScrollView
         style={[styles.scrollView]}
         scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }])}
       >
         <Animated.View style={[styles.scrollViewContent, { marginTop: headerHeight }]}>
@@ -42,6 +43,8 @@ class Boutique extends Component {
           <DetailInfo data={[{ key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }]} />
           <Description />
           <ProductPrices data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
+          <ProductList data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />
+          <MapShow data={require('../../../resources/image/image.png')} />
           <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
           <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
         </Animated.View>
@@ -62,13 +65,13 @@ class Boutique extends Component {
       extrapolate: 'clamp'
     })
     return (
-      <SafeAreaView style={[styles.view]}>
+      <View style={[styles.view]}>
         <Animated.View style={[styles.body]}>
           {this.init(headerHeight)}
           <HeaderScroll headerHeight={headerHeight} navigation={navigation} inputOpacity={inputOpacity} />
         </Animated.View>
         <FooterUI navigation={navigation} />
-      </SafeAreaView>
+      </View>
     )
   }
 }

@@ -5,10 +5,11 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { normalize, GRAY_SECOND, BLACK, BORDER_COLOR, RED, GRAY } from '../../../constants/global'
 
 const styles = StyleSheet.create({
-  view: { margin: 15 },
+  view: { marginHorizontal: 15 },
   row: { flexDirection: 'row', flex: 1, alignItems: 'center' },
   nameText: { flex: 1, fontSize: normalize(12), color: GRAY_SECOND },
   valueText: { fontSize: normalize(10), color: GRAY, marginVertical: 5, marginHorizontal: 10, fontWeight: 'bold' },
@@ -25,39 +26,32 @@ const ProductPrices = ({ data }) => {
   if (!data) return null
 
   return (
-    <View style={styles.view}>
-      <View style={styles.titleView}>
-        <Text style={styles.title}>Цены на товары</Text>
-        <TouchableOpacity>
-          <View style={styles.currencyView}>
-            <Text style={styles.currencyText}>₸ KZT</Text>
-            <Feather name="chevron-down" color={GRAY_SECOND} size={15} />
-          </View>
-        </TouchableOpacity>
+    <BlockTitleAndButton onPress={() => {}} element={<TouchableOpacity><View style={styles.currencyView}><Text style={styles.currencyText}>₸ KZT</Text><Feather name="chevron-down" color={GRAY_SECOND} size={15} /></View></TouchableOpacity>} title="Цены на товары">
+      <View style={styles.view}>
+        <Grid>
+          {
+            data.map((item) => {
+              const { name, value } = item
+              return (
+                <Row key={_.uniqueId()} style={{ marginVertical: 10 }}>
+                  <Col>
+                    <View style={styles.row}>
+                      <View><Entypo name="dot-single" size={22} color={RED} /></View>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.nameText}>{name}</Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View style={styles.tdView}>
+                      <View style={styles.valueView}><Text style={styles.valueText}>{value}</Text></View>
+                    </View>
+                  </Col>
+                </Row>
+              )
+            })
+          }
+        </Grid>
       </View>
-      <Grid>
-        {
-          data.map((item) => {
-            const { name, value } = item
-            return (
-              <Row key={_.uniqueId()} style={{ marginVertical: 10 }}>
-                <Col>
-                  <View style={styles.row}>
-                    <View><Entypo name="dot-single" size={22} color={RED} /></View>
-                    <Text numberOfLines={1} ellipsizeMode="tail" style={styles.nameText}>{name}</Text>
-                  </View>
-                </Col>
-                <Col>
-                  <View style={styles.tdView}>
-                    <View style={styles.valueView}><Text style={styles.valueText}>{value}</Text></View>
-                  </View>
-                </Col>
-              </Row>
-            )
-          })
-        }
-      </Grid>
-    </View>
+    </BlockTitleAndButton>
   )
 }
 

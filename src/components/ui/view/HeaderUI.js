@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 10,
     borderRadius: 5
   },
