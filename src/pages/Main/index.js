@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { HeaderUI, FooterUI, SliderApp } from '../../components/ui/view'
-import { ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle } from './view'
+import { FooterUI, SliderApp } from '../../components/ui/view'
+import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle } from './view'
 import { WHITE, normalize } from '../../constants/global'
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ class Main extends Component {
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
-            <HeaderUI style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
+            <Header style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
             <SliderApp data={['1']} />
             <AdBlockWithTitle title="Специально для вас" />
             <ScrollBannerWithTitle title="Скидки по категориям" />

@@ -7,14 +7,14 @@ import { normalize, BLACK } from '../../../constants/global'
 
 const styles = StyleSheet.create({
   view: {
-    height: 65,
+    height: 85,
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderTopWidth: 1,
     borderTopColor: '#E2E8F0',
     paddingTop: 5
   },
-  element: { flex: 1 },
+  element: { flex: 1, minHeight: 25 },
   iconView: { flex: 1.5, justifyContent: 'center', alignItems: 'center' },
   textView: { flex: 1, justifyContent: 'flex-start', alignItems: 'center' },
   image: { height: 22, width: 22 },

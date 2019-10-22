@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
 })
 
 
-const ProductPrices = ({ data }) => {
+const ProductPrices = ({ ref, data }) => {
   if (!data) return null
 
   return (
-    <BlockTitleAndButton onPress={() => {}} element={<TouchableOpacity><View style={styles.currencyView}><Text style={styles.currencyText}>₸ KZT</Text><Feather name="chevron-down" color={GRAY_SECOND} size={15} /></View></TouchableOpacity>} title="Цены на товары">
+    <BlockTitleAndButton ref={ref} onPress={() => {}} element={<TouchableOpacity><View style={styles.currencyView}><Text style={styles.currencyText}>₸ KZT</Text><Feather name="chevron-down" color={GRAY_SECOND} size={15} /></View></TouchableOpacity>} title="Цены на товары">
       <View style={styles.view}>
         <Grid>
           {

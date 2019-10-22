@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 
 
 const HeaderScroll = ({ headerHeight, navigation, inputOpacity }) => (
-  <Animated.View style={[styles.header, { height: headerHeight }]}>
+  <Animated.View style={[styles.header, { transform: [{ translateY: headerHeight }] }]}>
     <LinearGradient useAngle angle={91} locations={[0, 0.5, 1]} colors={['#9D47D1', '#9071EA', '#7B71EA']} style={styles.linearGradient}>
       <Animated.View style={[styles.searchView, { opacity: inputOpacity }]}>
         <TouchableOpacity style={styles.menu} onPress={() => navigation.goBack()}><MaskGradient element={<Feather name="arrow-left" size={23} />} /></TouchableOpacity>

@@ -1,6 +1,6 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { StyleSheet, ScrollView, View, Text, InteractionManager, Animated } from 'react-native'
+import { StyleSheet, View, Text, InteractionManager, Animated } from 'react-native'
 import { ScrollCardWithTitle } from '../main/view'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, ProductList, MapShow, ResponseList } from './view'
@@ -32,25 +32,30 @@ class Boutique extends Component {
       return <Loader />
     }
     return (
-      <ScrollView
+      <Animated.ScrollView
         style={[styles.scrollView]}
-        scrollEventThrottle={16}
+        scrollEventThrottle={8}
         showsVerticalScrollIndicator={false}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }])}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+          {
+            useNativeDriver: true
+          }
+        )}
       >
-        <Animated.View style={[styles.scrollViewContent, { marginTop: headerHeight }]}>
+        <Animated.View style={[styles.scrollViewContent, { transform: [{ translateY: headerHeight }] }]}>
           <SliderApp data={['1']} />
           <FavoriteCmp />
           <DetailInfo data={[{ key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }]} />
           <Description />
           <ProductPrices data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
-          <ProductList data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />
+          <ProductList onPress={() => navigation.push('Products')} data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />
           <MapShow data={require('../../../resources/image/image.png')} />
           <ResponseList data={['1', '2']} />
           <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
           <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
         </Animated.View>
-      </ScrollView>
+      </Animated.ScrollView>
     )
   }
 
@@ -58,7 +63,7 @@ class Boutique extends Component {
     const { navigation } = this.props
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+      outputRange: [0, -HEADER_MIN_HEIGHT],
       extrapolate: 'clamp'
     })
     const inputOpacity = this.state.scrollY.interpolate({
@@ -66,6 +71,7 @@ class Boutique extends Component {
       outputRange: [1, 0.8, 0],
       extrapolate: 'clamp'
     })
+    console.log(this.state.scrollY)
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={TRASPARENT} barStyle="light-content" blank />

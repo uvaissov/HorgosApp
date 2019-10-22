@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 })
 
 const BlockTitleAndButton = (props) => {
-  const { onPress, masked, title, element } = props
+  const { onPress, masked, title, element, ref } = props
   const showButton = () => {
     if (masked) {
       return (<TouchableOpacity onPress={onPress} style={styles.button}><MaskGradient element={element} /></TouchableOpacity>)
@@ -20,7 +20,7 @@ const BlockTitleAndButton = (props) => {
     return (<TouchableOpacity onPress={onPress} style={styles.button}>{element}</TouchableOpacity>)
   }
   return (
-    <View style={[styles.view, props.style]}>
+    <View ref={ref} style={[styles.view, props.style]}>
       <View style={styles.header}>
         <View style={styles.titleView}>
           <Text style={styles.title}>{title}</Text>

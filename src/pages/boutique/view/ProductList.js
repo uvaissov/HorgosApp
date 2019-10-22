@@ -10,16 +10,16 @@ import { normalize, GRAY, BORDER_COLOR } from '../../../constants/global'
 const styles = StyleSheet.create({
   view: { marginHorizontal: 15 },
   row: { flexDirection: 'row', justifyContent: 'space-evenly' },
-  keytext: { fontSize: normalize(12), color: GRAY },
+  text: { fontSize: normalize(13), color: GRAY },
   element: { flex: 1, paddingVertical: 15, borderTopWidth: 1, borderTopColor: BORDER_COLOR }
 })
 
 
-const ProductList = ({ data }) => {
+const ProductList = ({ data, onPress }) => {
   if (!data) return null
 
   return (
-    <BlockTitleAndButton onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Ассортимент товаров А-Я">
+    <BlockTitleAndButton onPress={() => onPress()} element={<Icon name="arrow-right" size={20} />} title="Ассортимент товаров А-Я">
       <View style={styles.view}>
         {
           data.map((item, index) => {
