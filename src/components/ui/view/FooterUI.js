@@ -40,15 +40,15 @@ const FooterUI = (props) => {
           <Image source={require('../../../../resources/icons/footer/idea.png')} style={styles.image} resizeMode="stretch" />
         </View>
         <View style={styles.textView}>
-          <Text style={[styles.text, { color: selected === 'favorite' ? BLACK : unSelectColor }]}>Советы</Text>
+          <Text style={[styles.text, { color: selected === 'idea' ? BLACK : unSelectColor }]}>Советы</Text>
         </View>
       </TouchView>
       <TouchView style={styles.element}>
         <View style={styles.iconView}>
-          <Icon name="phone-call" size={22} color={selected === 'ca' ? BLACK : unSelectColor} />
+          <Icon name="phone-call" size={22} color={selected === 'call' ? BLACK : unSelectColor} />
         </View>
         <View style={styles.textView}>
-          <Text style={[styles.text, { color: selected === 'favorite' ? BLACK : unSelectColor }]}>Помощь</Text>
+          <Text style={[styles.text, { color: selected === 'call' ? BLACK : unSelectColor }]}>Помощь</Text>
         </View>
       </TouchView>
       <TouchView style={styles.element}>
