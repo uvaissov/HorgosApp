@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
 })
 
 
-const ResponseList = ({ data }) => {
+const ResponseList = ({ data, onLayourRef }) => {
   if (!data) return null
 
   return (
-    <BlockTitleAndButton onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
+    <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
       <View style={styles.view}>
         {
           data.map((item) => (

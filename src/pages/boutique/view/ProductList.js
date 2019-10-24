@@ -15,11 +15,11 @@ const styles = StyleSheet.create({
 })
 
 
-const ProductList = ({ data, onPress }) => {
+const ProductList = ({ data, onPress, onLayourRef }) => {
   if (!data) return null
 
   return (
-    <BlockTitleAndButton onPress={() => onPress()} element={<Icon name="arrow-right" size={20} />} title="Ассортимент товаров А-Я">
+    <BlockTitleAndButton onLayourRef={onLayourRef} name="product" onPress={() => onPress()} element={<Icon name="arrow-right" size={20} />} title="Ассортимент товаров А-Я">
       <View style={styles.view}>
         {
           data.map((item, index) => {
