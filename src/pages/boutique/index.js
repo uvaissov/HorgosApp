@@ -17,12 +17,34 @@ const styles = StyleSheet.create({
 })
 
 class Boutique extends Component {
-  state = { didFinishInitialAnimation: false, scrollY: new Animated.Value(0) }
+  state = { didFinishInitialAnimation: false, scrollY: new Animated.Value(0), refs: {} }
 
   componentDidMount = () => {
     InteractionManager.runAfterInteractions(() => {
-      setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 0)
+      setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
+  }
+
+  pressToText = (target) => {
+    const { refs } = this.state
+    if (refs[target] && this.scrollView) {
+      const ref = refs[target]
+      //const { nativeEvent: { layout: { y } } } = view
+      //this.scrollView.getNode().scrollTo({ y, animation: true })
+      console.log(ref.current)
+    }
+  }
+
+  onLayourRef = async (ref, target) => {
+    console.log(ref, target)
+    const { refs } = this.state
+    if (!refs[target]) {
+      console.log('added')
+      refs[target] = ref
+      this.setState(refs)
+    } else {
+      console.log('non')
+    }
   }
 
   init = (headerHeight) => {
@@ -33,6 +55,7 @@ class Boutique extends Component {
     }
     return (
       <Animated.ScrollView
+        ref={(ref) => this.scrollView = ref}
         style={[styles.scrollView]}
         scrollEventThrottle={8}
         showsVerticalScrollIndicator={false}
@@ -48,10 +71,10 @@ class Boutique extends Component {
           <FavoriteCmp />
           <DetailInfo data={[{ key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }]} />
           <Description />
-          <ProductPrices data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
-          <ProductList onPress={() => navigation.push('Products')} data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />
-          <MapShow data={require('../../../resources/image/image.png')} />
-          <ResponseList data={['1', '2']} />
+          <ProductPrices onLayourRef={this.onLayourRef} data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
+          <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products')} data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />
+          <MapShow onLayourRef={this.onLayourRef} data={require('../../../resources/image/image.png')} />
+          <ResponseList onLayourRef={this.onLayourRef} data={['1', '2']} />
           <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
           <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
         </Animated.View>
@@ -77,7 +100,7 @@ class Boutique extends Component {
         <CustomStatusBar backgroundColor={TRASPARENT} barStyle="light-content" blank />
         <Animated.View style={[styles.body]}>
           {this.init(headerHeight)}
-          <HeaderScroll headerHeight={headerHeight} navigation={navigation} inputOpacity={inputOpacity} />
+          <HeaderScroll headerHeight={headerHeight} navigation={navigation} inputOpacity={inputOpacity} pressToText={this.pressToText} />
         </Animated.View>
         <FooterUI navigation={navigation} />
       </View>

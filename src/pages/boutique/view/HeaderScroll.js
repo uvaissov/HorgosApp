@@ -20,13 +20,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 50,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     flexDirection: 'row'
   },
   title: {
     backgroundColor: 'transparent',
     color: 'white',
-    fontSize: 14
+    fontSize: 14,
+    textAlign: 'center'
   },
   linearGradient: { flex: 1, justifyContent: 'flex-end', backgroundColor: '#2D94DF' },
   searchView: {
@@ -52,11 +53,14 @@ const styles = StyleSheet.create({
   },
   share: {
     flex: 1
+  },
+  element: {
+    flex: 1, justifyContent: 'center', alignContent: 'center'
   }
 })
 
 
-const HeaderScroll = ({ headerHeight, navigation, inputOpacity }) => (
+const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText }) => (
   <Animated.View style={[styles.header, { transform: [{ translateY: headerHeight }] }]}>
     <LinearGradient useAngle angle={91} locations={[0, 0.5, 1]} colors={['#9D47D1', '#9071EA', '#7B71EA']} style={styles.linearGradient}>
       <Animated.View style={[styles.searchView, { opacity: inputOpacity }]}>
@@ -68,10 +72,18 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity }) => (
         </View>
       </Animated.View>
       <View style={styles.bar}>
-        <View><Text style={styles.title}>Цена</Text></View>
-        <View><Text style={styles.title}>Товар</Text></View>
-        <View><Text style={styles.title}>Карта</Text></View>
-        <View><Text style={styles.title}>Отзывы</Text></View>
+        <TouchableOpacity onPress={() => pressToText('price')} style={styles.element}>
+          <View style={styles.element}><Text style={styles.title}>Цена</Text></View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => pressToText('product')} style={styles.element}>
+          <View style={styles.element}><Text style={styles.title}>Товар</Text></View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => pressToText('map')} style={styles.element}>
+          <View style={styles.element}><Text style={styles.title}>Карта</Text></View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => pressToText('response')} style={styles.element}>
+          <View style={styles.element}><Text style={styles.title}>Отзывы</Text></View>
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   </Animated.View>

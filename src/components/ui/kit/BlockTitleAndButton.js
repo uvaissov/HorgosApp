@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { MaskGradient } from './MaskGradient'
 import { BLACK, normalize } from '../../../constants/global'
@@ -12,7 +12,19 @@ const styles = StyleSheet.create({
 })
 
 const BlockTitleAndButton = (props) => {
-  const { onPress, masked, title, element, ref } = props
+  const { onPress, masked, title, element, onLayourRef, name } = props
+  const ref = useRef(null)
+
+  const _onLayout = async () => {
+    if (name && onLayourRef) {
+      onLayourRef(ref, name)
+    }
+  }
+
+  useEffect(() => {
+    _onLayout()
+  })
+
   const showButton = () => {
     if (masked) {
       return (<TouchableOpacity onPress={onPress} style={styles.button}><MaskGradient element={element} /></TouchableOpacity>)
