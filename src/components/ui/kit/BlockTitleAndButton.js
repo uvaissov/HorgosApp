@@ -15,14 +15,16 @@ const BlockTitleAndButton = (props) => {
   const { onPress, masked, title, element, onLayourRef, name } = props
   const ref = useRef(null)
 
-  const _onLayout = async () => {
+  const _onLayout = async (view) => {
+    const { nativeEvent: { layout: { y, height } } } = view
+    //console.log(view.nativeEvent)
     if (name && onLayourRef) {
-      onLayourRef(ref, name)
+      onLayourRef({ y, height, name }, name)
     }
   }
 
   useEffect(() => {
-    _onLayout()
+    //_onLayout()
   })
 
   const showButton = () => {
@@ -32,7 +34,7 @@ const BlockTitleAndButton = (props) => {
     return (<TouchableOpacity onPress={onPress} style={styles.button}>{element}</TouchableOpacity>)
   }
   return (
-    <View ref={ref} style={[styles.view, props.style]}>
+    <View ref={ref} style={[styles.view, props.style]} onLayout={_onLayout}>
       <View style={styles.header}>
         <View style={styles.titleView}>
           <Text style={styles.title}>{title}</Text>

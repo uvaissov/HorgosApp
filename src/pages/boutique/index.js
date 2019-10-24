@@ -28,24 +28,18 @@ class Boutique extends Component {
   pressToText = (target) => {
     const { refs } = this.state
     if (refs[target] && this.scrollView) {
-      const ref = refs[target]
-      //const { nativeEvent: { layout: { y } } } = view
-      //this.scrollView.getNode().scrollTo({ y, animation: true })
-      console.log(ref.current)
+      const { y } = refs[target]
+      this.scrollView.getNode().scrollTo({ y, animation: true })
     }
   }
 
   onLayourRef = async (ref, target) => {
-    console.log(ref, target)
     const { refs } = this.state
-    if (!refs[target]) {
-      console.log('added')
-      refs[target] = ref
-      this.setState(refs)
-    } else {
-      console.log('non')
-    }
+    refs[target] = ref
+    console.log(refs)
   }
+
+  higlightHeader
 
   init = (headerHeight) => {
     const { didFinishInitialAnimation } = this.state
@@ -62,7 +56,11 @@ class Boutique extends Component {
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
           {
-            useNativeDriver: true
+            useNativeDriver: true,
+            listener: event => {
+              const offsetY = event.nativeEvent.contentOffset.y
+              console.log(offsetY)
+            }
           }
         )}
       >
