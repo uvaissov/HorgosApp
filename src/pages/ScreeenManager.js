@@ -8,6 +8,7 @@ import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-dr
 import FastImage from 'react-native-fast-image'
 import Main from './main'
 import Boutique from './boutique'
+import BoutiqueList from './boutiqueList'
 import Products from './products'
 import { w, WHITE, normalize } from '../constants/global'
 
@@ -32,6 +33,7 @@ const MainStack = createStackNavigator(
   {
     Main,
     Boutique,
+    BoutiqueList,
     Products
   },
   {

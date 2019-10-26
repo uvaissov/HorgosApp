@@ -22,12 +22,12 @@ class Main extends Component {
           <ScrollView style={styles.scrollView}>
             <Header style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
             <SliderApp data={['1']} />
+            <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
             <AdBlockWithTitle title="Специально для вас" />
             <ScrollBannerWithTitle title="Скидки по категориям" />
             <ScrollRoundWithTitle title="Лучшие товары" />
-            <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
-            <ScrollCardWithTitle title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
-            <ScrollCardWithTitle title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
+            <ScrollCardWithTitle title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+            <ScrollCardWithTitle title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
           </ScrollView>
         </View>
         <FooterUI selected="main" navigation={navigation} />
