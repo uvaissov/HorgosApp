@@ -5,7 +5,7 @@
   "scripts": {
     "ios": "react-native run-ios --simulator='iPhone X' && npm run lint-watch",
     "android": "react-native run-android && npm run lint-watch",
-    "dev-win": "%ANDROID_HOME%\\tools && emulator -avd Nexus_5X_API_27",
+    "dev-win": "c: && cd %ANDROID_HOME%\\tools && emulator -avd Nexus_5X_API_27",
     "lint": "esw src/**",
     "lint-watch": "esw -w --changed src/**"
   },
