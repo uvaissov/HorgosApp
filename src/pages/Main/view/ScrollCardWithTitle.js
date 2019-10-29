@@ -10,9 +10,8 @@ const styles = StyleSheet.create({
 })
 
 const ScrollCardWithTitle = (props) => {
-  const { onPress, masked, title, element, navigation } = props
+  const { onPress, masked, title, element, navigation, hit } = props
   const onItemPress = (item) => {
-    console.log('pressed to Boutique', item)
     navigation.push('Boutique', { item })
   }
   return (
@@ -20,7 +19,7 @@ const ScrollCardWithTitle = (props) => {
       <FlatList
         style={styles.scrollView}
         data={['1', '2', '3', '4']}
-        renderItem={(item) => (<CardBig height={207} width={168} item={item.item} index={item.index} onPress={onItemPress} />)}
+        renderItem={(item) => (<CardBig hit={hit} height={207} width={168} item={item.item} index={item.index} onPress={onItemPress} />)}
         horizontal
         keyExtractor={() => nextId()}
         showsHorizontalScrollIndicator={false}

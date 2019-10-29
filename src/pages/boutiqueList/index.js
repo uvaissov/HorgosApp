@@ -1,15 +1,17 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 //import _ from 'lodash'
-import { StyleSheet, View, Text, InteractionManager, ScrollView } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import { ScrollRoundWithTitle } from './view'
+import { ScrollCardWithTitle } from '../main/view'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
-  body: { flex: 1, marginHorizontal: 15 },
+  body: { flex: 1 },
   sortView: { paddingHorizontal: 15, borderBottomWidth: 1, borderBottomColor: BORDER_COLOR, paddingBottom: 15, marginBottom: 10 }
 })
 
@@ -25,13 +27,15 @@ class BoutiqueList extends Component {
   }
 
   init = () => {
+    const { navigation } = this.props
     const { didFinishInitialAnimation } = this.state
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
     return (
       <ScrollView>
-        <Text>`12</Text>
+        <ScrollRoundWithTitle title="Торговые дома" />
+        <ScrollCardWithTitle hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
       </ScrollView>
     )
   }

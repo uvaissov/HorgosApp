@@ -35,12 +35,15 @@ const BlockTitleAndButton = (props) => {
   }
   return (
     <View ref={ref} style={[styles.view, props.style]} onLayout={_onLayout}>
-      <View style={styles.header}>
-        <View style={styles.titleView}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-        { showButton() }
-      </View>
+      {
+          title &&
+          <View style={styles.header}>
+            <View style={styles.titleView}>
+              <Text style={styles.title}>{title}</Text>
+            </View>
+            { showButton() }
+          </View>
+      }
       {props.children}
     </View>
   )

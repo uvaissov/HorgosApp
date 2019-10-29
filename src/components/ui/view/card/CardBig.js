@@ -13,12 +13,20 @@ const styles = StyleSheet.create({
   marginView: { margin: 5 }
 })
 
-const CardBig = ({ width, style, index, onPress, item }) => {
+const CardBig = ({ width, style, index, onPress, item, hit }) => {
   const imageH = width * 0.5
+  const hitW = width * 0.4
+  const hitH = hitW * 0.5
   return (
     <View style={[styles.marginView, { marginLeft: index === 0 ? 15 : 5 }]}>
       <TouchableHighlight onPress={() => onPress(item)}>
         <View style={[styles.view, styles.shadow, style, { width }]}>
+          {
+            hit &&
+            <View style={{ position: 'absolute', top: 10, left: -5, zIndex: 20 }}>
+              <FastImage source={require('../../../../../resources/icons/element/hit.png')} style={[styles.image, { width: hitW, height: hitH }]} resizeMode={FastImage.resizeMode.cover} />
+            </View>
+          }
           <View>
             <FastImage source={require('../../../../../resources/image/image.png')} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
           </View>
