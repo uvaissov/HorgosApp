@@ -5,7 +5,7 @@ import { WHITE, normalize, GRAY, GRAY_SECOND } from '../../../../constants/globa
 
 const styles = StyleSheet.create({
   view: { borderRadius: 6, backgroundColor: WHITE, borderWidth: 1, borderColor: '#E2E8F0' },
-  shadow: { shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 1.22, elevation: 4 },
+  shadow: { shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 1.22, elevation: 2 },
   image: { flex: 1, height: undefined, width: undefined, borderTopLeftRadius: 6, borderTopRightRadius: 6 },
   infoView: { flex: 1, paddingHorizontal: 10, paddingVertical: 10 },
   title: { fontSize: normalize(12), fontWeight: 'bold', marginBottom: 10, color: GRAY },

@@ -9,6 +9,7 @@ import FastImage from 'react-native-fast-image'
 import Main from './main'
 import Boutique from './boutique'
 import BoutiqueList from './boutiqueList'
+import CouncilsList from './сouncils'
 import Products from './products'
 import { w, WHITE, normalize } from '../constants/global'
 
@@ -50,6 +51,18 @@ const Screens = createDrawerNavigator(
       screen: MainStack,
       navigationOptions: {
         drawerLabel: 'Главная',
+        drawerIcon: () => (
+          <FastImage
+            style={styles.image}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        )
+      }
+    },
+    Councils: {
+      screen: CouncilsList,
+      navigationOptions: {
+        drawerLabel: 'Советы',
         drawerIcon: () => (
           <FastImage
             style={styles.image}

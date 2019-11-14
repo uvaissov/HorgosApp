@@ -1,13 +1,11 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 //import _ from 'lodash'
-import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
-import { ScrollRoundWithTitle, BootiqueGrid } from './view'
-import { ScrollCardWithTitle } from '../main/view'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -15,7 +13,7 @@ const styles = StyleSheet.create({
   sortView: { paddingHorizontal: 15, borderBottomWidth: 1, borderBottomColor: BORDER_COLOR, paddingBottom: 15, marginBottom: 10 }
 })
 
-class BoutiqueList extends Component {
+class CouncilsList extends Component {
   state = {
     didFinishInitialAnimation: false
   }
@@ -27,16 +25,14 @@ class BoutiqueList extends Component {
   }
 
   init = () => {
-    const { navigation } = this.props
+    //const { navigation } = this.props
     const { didFinishInitialAnimation } = this.state
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
     return (
       <ScrollView>
-        <ScrollRoundWithTitle title="Торговые дома" />
-        <ScrollCardWithTitle hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
-        <BootiqueGrid navigation={navigation} />
+        <Text>1</Text>
       </ScrollView>
     )
   }
@@ -53,7 +49,7 @@ class BoutiqueList extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="light-content" />
-        <HeaderUI text={'Товары магазина "Меховой салон Imperia Furs"'} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} />
+        <HeaderUI text={'Товары магазина "Меховой салон Imperia Furs"'} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}
@@ -64,4 +60,4 @@ class BoutiqueList extends Component {
   }
 }
 
-export default BoutiqueList
+export default CouncilsList

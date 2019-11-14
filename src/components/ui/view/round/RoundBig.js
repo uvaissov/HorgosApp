@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
   discontText: { fontSize: normalize(10), textAlign: 'center', color: WHITE, fontWeight: '600' }
 })
 
-const RoundBig = ({ style, item = {}, index }) => {
+const RoundBig = ({ style, item = {}, selected, onPress }) => {
   console.log(item)
   return (
-    <TouchableHighlight>
+    <TouchableHighlight onPress={onPress}>
       <>
         <View style={[styles.view, style]}>
-          <View style={[styles.imageView, styles.shadow, { borderWidth: index % 2 !== 0 ? 5 : 0 }]}>
+          <View style={[styles.imageView, styles.shadow, { borderWidth: selected ? 5 : 0 }]}>
             <FastImage source={require('../../../../../resources/image/round_big.png')} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
