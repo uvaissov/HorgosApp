@@ -1,16 +1,20 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 //import _ from 'lodash'
-import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
+import { StyleSheet, View, InteractionManager } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import { ConcilItem } from './element/ConcilItem'
+
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
   body: { flex: 1 },
-  sortView: { paddingHorizontal: 15, borderBottomWidth: 1, borderBottomColor: BORDER_COLOR, paddingBottom: 15, marginBottom: 10 }
+  sortView: { paddingHorizontal: 15, borderBottomWidth: 1, borderBottomColor: BORDER_COLOR, paddingBottom: 15 },
+  flatListStyle: { paddingHorizontal: 15 }
 })
 
 class CouncilsList extends Component {
@@ -25,15 +29,17 @@ class CouncilsList extends Component {
   }
 
   init = () => {
-    //const { navigation } = this.props
+    const { navigation } = this.props
     const { didFinishInitialAnimation } = this.state
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
     return (
-      <ScrollView>
-        <Text>1</Text>
-      </ScrollView>
+      <FlatList
+        style={styles.flatListStyle}
+        data={Array(20).fill().map(() => ({ title: 'Как установить WeChat?', date: '12 августа 2019', description: 'Для того чтобы использовать популярный китайский мессенджер, необходимо установить его на свое Для того чтобы использовать популярный китайский мессенджер, необходимо установить его на свое', img: require('../../../resources/image/image.png') }))}
+        renderItem={(item) => <ConcilItem item={item.item} onPress={() => navigation.push('CouncilItemView', { item: item.item })} />}
+      />
     )
   }
 
@@ -48,8 +54,8 @@ class CouncilsList extends Component {
 
     return (
       <View style={[styles.view]}>
-        <CustomStatusBar backgroundColor={WHITE} barStyle="light-content" />
-        <HeaderUI text={'Товары магазина "Меховой салон Imperia Furs"'} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
+        <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
+        <HeaderUI text="Советы" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

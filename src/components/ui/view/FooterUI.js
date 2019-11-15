@@ -35,7 +35,7 @@ const FooterUI = (props) => {
           <Text style={[styles.text, { color: selected === 'main' ? BLACK : unSelectColor }]}>Главная</Text>
         </View>
       </TouchView>
-      <TouchView style={styles.element}>
+      <TouchView style={styles.element} onPress={() => navigation.navigate('Councils')}>
         <View style={styles.iconView}>
           <Image source={require('../../../../resources/icons/footer/idea.png')} style={styles.image} resizeMode="stretch" />
         </View>

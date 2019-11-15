@@ -44,12 +44,6 @@ class BoutiqueList extends Component {
 
   render() {
     const { navigation } = this.props
-    const { didFinishInitialAnimation } = this.state
-
-    if (didFinishInitialAnimation === false) {
-      return <Loader />
-    }
-
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="light-content" />

@@ -1,47 +1,35 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import Feather from 'react-native-vector-icons/Feather'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import _ from 'lodash'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { WHITE, RED, GRAY_SECOND, ORANGE, normalize } from '../../../constants/global'
+import FastImage from 'react-native-fast-image'
+import { w, normalize, BLACK, GRAY_SECOND } from '../../../constants/global'
 
 
 const styles = StyleSheet.create({
-  view: { margin: 15, flexDirection: 'row', alignItems: 'center' },
-  adButtomView: { borderRadius: 6, borderWidth: 1, borderColor: RED, paddingVertical: 5, paddingHorizontal: 10, flexDirection: 'row', alignItems: 'center' },
-  adText: { marginHorizontal: 10, color: RED },
-  raitingView: { marginLeft: 15 },
-  raitingText: { color: GRAY_SECOND, fontSize: normalize(10) },
-  startsView: { flexDirection: 'row', marginBottom: 5 },
-  startStyle: { marginRight: 4 }
+  view: { flexWrap: 'wrap', paddingVertical: 30, borderBottomColor: '#E9ECF0', borderBottomWidth: 1 },
+  imgView: { alignItems: 'center' },
+  textTitle: { fontSize: normalize(15), fontWeight: 'bold', color: BLACK, marginBottom: 7 },
+  textDate: { fontSize: normalize(11), color: GRAY_SECOND, marginBottom: 10 },
+  textDesc: { fontSize: normalize(12), color: BLACK, marginBottom: 15 }
 })
 
 
-const FavoriteCmp = () => {
-  const [selected, setSelected] = useState(false)
-  const color = selected ? WHITE : RED
-  const backgroundColor = !selected ? WHITE : RED
+const ConcilItem = ({ item, onPress }) => {
+  const imageW = w - 30
+  const imageH = imageW * 0.45
   return (
-    <View style={styles.view}>
+    <TouchableOpacity style={styles.view} onPress={onPress}>
       <View>
-        <TouchableOpacity onPress={() => setSelected(!selected)}>
-          <View style={[styles.adButtomView, { backgroundColor }]}>
-            <Feather name="heart" size={20} color={color} />
-            <Text style={[styles.adText, { color }]}>В избранное</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.raitingView}>
-        <View style={styles.startsView}>{
-          Array(5).fill().map(() => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={ORANGE} size={10} />)
-          }
+        <Text style={styles.textTitle}>{item.title}</Text>
+        <Text style={styles.textDate}>{item.date}</Text>
+        <Text style={styles.textDesc} numberOfLines={2} ellipsizeMode="tail">{item.description}</Text>
+        <View style={styles.imgView}>
+          <FastImage style={{ height: imageH, width: imageW, borderRadius: 6 }} resizeMode={FastImage.resizeMode.cover} source={item.img} />
         </View>
-        <View><Text style={styles.raitingText}>5/5 (148 отзывов)</Text></View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
 
-export { FavoriteCmp }
+export { ConcilItem }

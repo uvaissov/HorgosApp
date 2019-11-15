@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   text: { flex: 1, fontSize: normalize(13), color: BLACK }
 })
 
-const HeaderUI = ({ text, placeHolder, leftIcon, leftOnPress, style }) => {
+const HeaderUI = ({ text, placeHolder, leftIcon, leftOnPress, style, withSearch = true }) => {
   const [isSearch, setSearch] = useState(false)
   const renderText = () => {
     if (isSearch) {
@@ -46,9 +46,12 @@ const HeaderUI = ({ text, placeHolder, leftIcon, leftOnPress, style }) => {
     <View style={[styles.view, style]}>
       <TouchableOpacity style={styles.menu} onPress={() => leftOnPress()}><MaskGradient element={<Feather name={leftIcon} size={23} />} /></TouchableOpacity>
       {renderText()}
-      <View style={styles.rightView}>
-        <TouchableOpacity onPress={() => clickToIcon()} style={styles.search}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>
-      </View>
+      {
+        withSearch &&
+        <View style={styles.rightView}>
+          <TouchableOpacity onPress={() => clickToIcon()} style={styles.search}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>
+        </View>
+      }
     </View>
   )
 }
