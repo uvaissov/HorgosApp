@@ -13,6 +13,7 @@ import CouncilsList from './сouncils'
 import CouncilItemView from './сouncils/item'
 import Products from './products'
 import MapShow from './map'
+import Comments from './comments'
 import { w, WHITE, normalize, statusBarHeight } from '../constants/global'
 
 const styles = StyleSheet.create({
@@ -102,6 +103,18 @@ const Screens = createDrawerNavigator(
       screen: MapShow,
       navigationOptions: {
         drawerLabel: 'Карта хоргос',
+        drawerIcon: () => (
+          <FastImage
+            style={styles.image}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        )
+      }
+    },
+    Comments: {
+      screen: Comments,
+      navigationOptions: {
+        drawerLabel: 'Отзывы о Хоргос',
         drawerIcon: () => (
           <FastImage
             style={styles.image}

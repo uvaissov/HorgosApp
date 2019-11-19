@@ -17,14 +17,6 @@ const styles = StyleSheet.create({
 const MapShow = ({ data, onLayourRef }) => {
   if (!data) return null
   const [isImageViewVisible, setImageViewVisible] = useState(false)
-  // const images = [
-  //   {
-  //     source: require('../../../../resources/image/map.png'),
-  //     title: 'Карта торгового центра'
-  //     //width: w,
-  //     //height: w * 0.5
-  //   }
-  // ]
   return (
     <BlockTitleAndButton onLayourRef={onLayourRef} name="map" title="Карта торгового центра">
       <TouchableOpacity onPress={() => setImageViewVisible(true)}>

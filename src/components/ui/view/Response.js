@@ -8,7 +8,7 @@ import { Comment } from './Comment'
 import { ORANGE, normalize, BLACK, GRAY_SECOND } from '../../../constants/global'
 
 const styles = StyleSheet.create({
-  view: { marginBottom: 15 },
+  view: { marginBottom: 25 },
   headerView: { flexDirection: 'row', marginBottom: 5 },
   avatarView: { borderRadius: 100, overflow: 'hidden', margin: 5 },
   image: { width: 40, height: 40 },
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
 })
 
 
-const Response = () => (
-  <View style={styles.view}>
+const Response = ({ index }) => (
+  <View style={[styles.view, { marginTop: index === 0 ? 15 : 0 }]}>
     <View style={styles.headerView}>
       <View style={styles.avatarView}>
         <FastImage source={require('../../../../resources/image/image.png')} style={[styles.image]} resizeMode={FastImage.resizeMode.cover} />
