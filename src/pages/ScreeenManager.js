@@ -14,6 +14,8 @@ import CouncilItemView from './сouncils/item'
 import Products from './products'
 import MapShow from './map'
 import Comments from './comments'
+import Help from './help'
+import Favorite from './favorite'
 import { w, WHITE, normalize, statusBarHeight } from '../constants/global'
 
 const styles = StyleSheet.create({
@@ -73,24 +75,36 @@ const CouncilsStack = createStackNavigator(
   }
 )
 
+const HelpStack = createStackNavigator(
+  {
+    Help
+  },
+  {
+    initialRouteName: 'Help',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
+const FavotiteStack = createStackNavigator(
+  {
+    Favorite
+  },
+  {
+    initialRouteName: 'Favorite',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
 const Screens = createDrawerNavigator(
   {
     Main: {
       screen: MainStack,
       navigationOptions: {
         drawerLabel: 'Каталог бутиков',
-        drawerIcon: () => (
-          <FastImage
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        )
-      }
-    },
-    Councils: {
-      screen: CouncilsStack,
-      navigationOptions: {
-        drawerLabel: 'Советы',
         drawerIcon: () => (
           <FastImage
             style={styles.image}
@@ -121,6 +135,30 @@ const Screens = createDrawerNavigator(
             resizeMode={FastImage.resizeMode.contain}
           />
         )
+      }
+    },
+    Councils: {
+      screen: CouncilsStack,
+      navigationOptions: {
+        drawerLabel: 'Советы',
+        drawerIcon: () => (
+          <FastImage
+            style={styles.image}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        )
+      }
+    },
+    Help: {
+      screen: HelpStack,
+      navigationOptions: {
+        drawerLabel: () => null
+      }
+    },
+    Favorite: {
+      screen: FavotiteStack,
+      navigationOptions: {
+        drawerLabel: () => null
       }
     }
   },
