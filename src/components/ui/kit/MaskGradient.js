@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import MaskedViewIOS from '@react-native-community/masked-view'
+import MaskedView from '@react-native-community/masked-view'
 import LinearGradient from 'react-native-linear-gradient'
 //import { w } from '../../constants/global'
 
@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
 const MaskGradient = (props) => {
   const { element, style } = props
   return (
-    <MaskedViewIOS maskElement={<View style={[styles.viewIn, style || {}]}>{element}</View>} style={styles.view}>
+    <MaskedView maskElement={<View style={[styles.viewIn, style || { }]}>{element}</View>} style={styles.view}>
       <LinearGradient colors={['#9071EA', '#9D47D1']} style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} />
-    </MaskedViewIOS>
+    </MaskedView>
   )
 }
 

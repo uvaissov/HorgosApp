@@ -25,7 +25,7 @@ const Response = ({ index }) => (
   <View style={[styles.view, { marginTop: index === 0 ? 15 : 0 }]}>
     <View style={styles.headerView}>
       <View style={styles.avatarView}>
-        <FastImage source={require('../../../../resources/image/image.png')} style={[styles.image]} resizeMode={FastImage.resizeMode.cover} />
+        <FastImage source={require('../../../../resources/image/avatar.png')} style={[styles.image]} resizeMode={FastImage.resizeMode.cover} />
       </View>
       <View style={styles.infoView}>
         <View style={styles.nameAndStartView}>

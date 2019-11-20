@@ -1,10 +1,12 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import { ScrollRoundWithTitle, ScrollListWithTitle } from './view'
 
 
 const styles = StyleSheet.create({
@@ -31,7 +33,10 @@ class Categories extends Component {
       return <Loader />
     }
     return (
-      <View />
+      <ScrollView>
+        <ScrollRoundWithTitle title="Популярные категории" />
+        <ScrollListWithTitle title="Все категории" />
+      </ScrollView>
     )
   }
 

@@ -1,10 +1,11 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { StyleSheet, View, InteractionManager } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import { ScrollListWithTitle } from './view'
 
 
 const styles = StyleSheet.create({
@@ -31,7 +32,9 @@ class Help extends Component {
       return <Loader />
     }
     return (
-      <View />
+      <ScrollView>
+        <ScrollListWithTitle title="Частые вопросы" />
+      </ScrollView>
     )
   }
 

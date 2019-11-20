@@ -16,6 +16,7 @@ import MapShow from './map'
 import Comments from './comments'
 import Help from './help'
 import Favorite from './favorite'
+import Categories from './categories'
 import { w, WHITE, normalize, statusBarHeight } from '../constants/global'
 
 const styles = StyleSheet.create({
@@ -99,8 +100,33 @@ const FavotiteStack = createStackNavigator(
   }
 )
 
+const CategoriesStack = createStackNavigator(
+  {
+    Categories
+  },
+  {
+    initialRouteName: 'Categories',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
+
 const Screens = createDrawerNavigator(
   {
+    Categories: {
+      screen: CategoriesStack,
+      navigationOptions: {
+        drawerLabel: 'Категории товаров',
+        drawerIcon: () => (
+          <FastImage
+            style={styles.image}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        )
+      }
+    },
     Main: {
       screen: MainStack,
       navigationOptions: {
