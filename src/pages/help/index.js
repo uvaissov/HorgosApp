@@ -5,7 +5,7 @@ import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
-import { ScrollListWithTitle } from './view'
+import { ScrollListWithTitle, RequestView } from './view'
 
 
 const styles = StyleSheet.create({
@@ -34,6 +34,7 @@ class Help extends Component {
     return (
       <ScrollView>
         <ScrollListWithTitle title="Частые вопросы" />
+        <RequestView title="Остались вопросы?" />
       </ScrollView>
     )
   }

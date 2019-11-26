@@ -8,7 +8,7 @@ import { ListItem } from './element/ListItem'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import { w, normalize } from '../../../constants/global'
 
-const staticLimit = 6
+const staticLimit = 5
 const textWidth = w / 3
 const styles = StyleSheet.create({
   scrollView: { marginHorizontal: 15 },

@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
-    borderRadius: 5
+    borderRadius: 5,
+    paddingTop: 15
   },
   menu: {
     paddingRight: 15,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   search: {
     flex: 1
   },
-  text: { flex: 1, fontSize: normalize(13), color: BLACK }
+  text: { flex: 1, fontSize: normalize(13), color: BLACK, paddingVertical: 0 }
 })
 
 const HeaderUI = ({ text, placeHolder, leftIcon, leftOnPress, style, withSearch = true }) => {

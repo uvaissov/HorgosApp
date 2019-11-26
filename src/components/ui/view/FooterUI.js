@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, StyleSheet, Text, Image } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Feather'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { normalize, BLACK } from '../../../constants/global'
 
 
@@ -37,7 +38,8 @@ const FooterUI = (props) => {
       </TouchView>
       <TouchView style={styles.element} onPress={() => navigation.navigate('Councils')}>
         <View style={styles.iconView}>
-          <Image source={require('../../../../resources/icons/footer/idea.png')} style={styles.image} resizeMode="stretch" />
+          {/* <Image source={require('../../../../resources/icons/footer/idea.png')} style={styles.image} resizeMode="stretch" /> */}
+          <MaterialCommunityIcons name="lightbulb-on-outline" size={24} color={selected === 'idea' ? BLACK : unSelectColor} />
         </View>
         <View style={styles.textView}>
           <Text style={[styles.text, { color: selected === 'idea' ? BLACK : unSelectColor }]}>Советы</Text>
