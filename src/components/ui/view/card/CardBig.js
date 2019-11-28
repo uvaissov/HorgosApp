@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
 })
 
 const CardBig = ({ width, style, index, onPress, item, hit }) => {
+  const { name, img } = item
   const imageH = width * 0.5
   const hitW = width * 0.4
   const hitH = hitW * 0.5
@@ -28,11 +29,11 @@ const CardBig = ({ width, style, index, onPress, item, hit }) => {
             </View>
           }
           <View>
-            <FastImage source={require('../../../../../resources/image/image.png')} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
+            <FastImage source={img} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
             <Text style={styles.title}>Бутик #1090</Text>
-            <Text style={styles.desc}>Сумки и рюкзаки</Text>
+            <Text style={styles.desc}>{name}</Text>
             <Text style={styles.desc} ellipsizeMode="tail" numberOfLines={3}>
               ТЦ Чжун Кэ
             </Text>

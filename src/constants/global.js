@@ -1,7 +1,7 @@
 import { Dimensions, Platform, PixelRatio, StatusBar } from 'react-native'
 import { isIphoneX } from 'react-native-iphone-x-helper'
 
-export const hostName = 'http://dostamarket.ibeacon.kz'
+export const hostName = 'http://horgos.ibeacon.kz'
 export const STORE_KEY_NAME = '@MyLocalStore:reduxStoreName'
 
 export const WHITE = '#fff'
