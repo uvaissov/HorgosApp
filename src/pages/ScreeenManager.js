@@ -1,10 +1,11 @@
+/* eslint-disable import/no-dynamic-require */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 import { ScrollView, StyleSheet, Platform, ImageBackground, View, Text } from 'react-native'
 import { createAppContainer, SafeAreaView } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer'
-//import { ifIphoneX } from 'react-native-iphone-x-helper'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FastImage from 'react-native-fast-image'
 import Main from './main'
 import Boutique from './boutique'
@@ -21,12 +22,34 @@ import { w, WHITE, normalize, statusBarHeight } from '../constants/global'
 
 const styles = StyleSheet.create({
   headerView: {
-    paddingTop: statusBarHeight
+    paddingTop: statusBarHeight,
+    flexDirection: 'row'
+  },
+  btnStyle: {
+    margin: 20
+  },
+  avatar: {
+    height: 60,
+    width: 60,
+    margin: 20
+  },
+  loginText: {
+    color: WHITE,
+    fontSize: normalize(16)
+  },
+  numberText: {
+    color: WHITE,
+    fontSize: normalize(13)
   },
   image: {
-    backgroundColor: WHITE,
-    height: 50,
-    width: 50
+    height: 25,
+    width: 25
+  },
+  mainView: {
+    flex: 1
+  },
+  textView: {
+    marginHorizontal: 20
   }
 })
 
@@ -38,9 +61,22 @@ const CustomDrawerContentComponent = props => (
     >
       <ImageBackground source={require('../../resources/image/header_background.png')} style={{ width: '100%', height: 200 }}>
         <View style={styles.headerView}>
-          <Text>1123</Text>
-          <Text>1123</Text>
-          <Text>1123</Text>
+          <View style={styles.mainView}>
+            <View>
+              <FastImage
+                style={styles.avatar}
+                resizeMode={FastImage.resizeMode.contain}
+                source={require('../../resources/image/profile.png')}
+              />
+            </View>
+            <View style={styles.textView}>
+              <Text style={styles.loginText}>Константин Ивлев</Text>
+              <Text style={styles.numberText}>+77753559997</Text>
+            </View>
+          </View>
+          <View>
+            <MaterialCommunityIcons style={styles.btnStyle} name="dots-vertical" size={normalize(23)} color={WHITE} />
+          </View>
         </View>
       </ImageBackground>
       <DrawerNavigatorItems {...props} />
@@ -119,60 +155,95 @@ const Screens = createDrawerNavigator(
       screen: CategoriesStack,
       navigationOptions: {
         drawerLabel: 'Категории товаров',
-        drawerIcon: () => (
-          <FastImage
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        )
+        drawerIcon: ({ focused }) => {
+          let literal = require('../../resources/icons/menu/standart/menu.png')
+          if (focused) {
+            literal = require('../../resources/icons/menu/selected/menu.png')
+          }
+          return (
+            <FastImage
+              style={styles.image}
+              source={literal}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )
+        }
       }
     },
     Main: {
       screen: MainStack,
       navigationOptions: {
         drawerLabel: 'Каталог бутиков',
-        drawerIcon: () => (
-          <FastImage
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        )
+        drawerIcon: ({ focused }) => {
+          let literal = require('../../resources/icons/menu/standart/store.png')
+          if (focused) {
+            literal = require('../../resources/icons/menu/selected/store.png')
+          }
+          return (
+            <FastImage
+              style={styles.image}
+              source={literal}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )
+        }
       }
     },
     Map: {
       screen: MapShow,
       navigationOptions: {
         drawerLabel: 'Карта хоргос',
-        drawerIcon: () => (
-          <FastImage
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        )
+        drawerIcon: ({ focused }) => {
+          let literal = require('../../resources/icons/menu/standart/address.png')
+          if (focused) {
+            literal = require('../../resources/icons/menu/selected/address.png')
+          }
+          return (
+            <FastImage
+              style={styles.image}
+              source={literal}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )
+        }
       }
     },
     Comments: {
       screen: Comments,
       navigationOptions: {
         drawerLabel: 'Отзывы о Хоргос',
-        drawerIcon: () => (
-          <FastImage
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        )
+        drawerIcon: ({ focused }) => {
+          let literal = require('../../resources/icons/menu/standart/favorites.png')
+          if (focused) {
+            literal = require('../../resources/icons/menu/selected/favorites.png')
+          }
+          return (
+            <FastImage
+              style={styles.image}
+              source={literal}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )
+        }
       }
     },
     Councils: {
       screen: CouncilsStack,
       navigationOptions: {
         drawerLabel: 'Советы',
-        drawerIcon: () => (
-          <FastImage
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        )
+        drawerIcon: ({ focused }) => {
+          let literal = require('../../resources/icons/menu/standart/elemental-tip.png')
+          if (focused) {
+            literal = require('../../resources/icons/menu/selected/elemental-tip.png')
+          }
+          return (
+            <FastImage
+              style={styles.image}
+              source={literal}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          )
+        }
       }
     },
     Help: {
@@ -192,14 +263,17 @@ const Screens = createDrawerNavigator(
     initialRouteName: 'Main',
     drawerWidth: w * 0.8,
     contentOptions: {
-      activeTintColor: '#FF6E36',
-      inactiveTintColor: 'rgba(0, 0, 0, 0.54)',
-      activeBackgroundColor: '#FFFFFF',
+      activeTintColor: '#9071EA',
+      inactiveTintColor: '#272833',
+      activeBackgroundColor: 'rgba(157, 71, 209, 0.08)',
       cityName: this.props,
       itemsContainerStyle: {
         backgroundColor: '#FFFFFF'
       },
-      labelStyle: { fontSize: normalize(13), color: 'rgba(23, 7, 1, 0.87)', fontWeight: 'normal' }
+      iconContainerStyle: {
+        opacity: 1
+      },
+      labelStyle: { fontSize: normalize(13), fontWeight: 'normal' }
     },
     contentComponent: CustomDrawerContentComponent
 

@@ -9,3 +9,6 @@ const instance = axios.create({
 
 export const getRecomended = async () =>
   instance.get('/api/recommended')
+
+export const getCategories = async () =>
+  instance.get('/api/categories')

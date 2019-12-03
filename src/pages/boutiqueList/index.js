@@ -46,7 +46,7 @@ class BoutiqueList extends Component {
     const { navigation } = this.props
     return (
       <View style={[styles.view]}>
-        <CustomStatusBar backgroundColor={WHITE} barStyle="light-content" />
+        <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
         <HeaderUI text={'Товары магазина "Меховой салон Imperia Furs"'} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} />
         <View style={styles.sortView} />
         <View style={styles.body}>
