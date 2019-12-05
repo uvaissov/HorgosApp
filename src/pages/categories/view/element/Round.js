@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { WHITE, normalize, w } from '../../../../constants/global'
 
@@ -15,21 +15,19 @@ const styles = StyleSheet.create({
   title: { fontSize: normalize(11), textAlign: 'center' }
 })
 
-const Round = ({ style, index, item = {} }) => {
-  console.log(item)
+const Round = ({ style, index, item = {}, onPress }) => {
+  const { name, img } = item
   return (
-    <TouchableHighlight>
-      <>
-        <View style={[styles.view, style, { marginLeft: index === 0 ? 15 : 15 }]}>
-          <View style={[styles.imageView, styles.shadow]}>
-            <FastImage source={require('../../../../../resources/image/batinki.png')} style={styles.image} resizeMode={FastImage.resizeMode.contain} />
-          </View>
-          <View style={styles.infoView}>
-            <Text ellipsizeMode="clip" style={styles.title}>Спортивный инвентарь</Text>
-          </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={[styles.view, style, { marginLeft: index === 0 ? 15 : 15 }]}>
+        <View style={[styles.imageView, styles.shadow]}>
+          <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.contain} />
         </View>
-      </>
-    </TouchableHighlight>
+        <View style={styles.infoView}>
+          <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   )
 }
 

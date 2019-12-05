@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { WHITE, normalize, w, BORDER_COLOR } from '../../../../constants/global'
 
@@ -14,21 +14,21 @@ const styles = StyleSheet.create({
   title: { fontSize: normalize(11) }
 })
 
-const ListItem = ({ style, item = {} }) => {
-  console.log(item)
+const ListItem = ({ style, item = {}, onPress }) => {
+  const { name, img } = item
   return (
-    <TouchableHighlight>
+    <TouchableOpacity onPress={onPress}>
       <>
         <View style={[styles.view, style]}>
           <View style={[styles.imageView]}>
-            <FastImage source={require('../../../../../resources/image/batinki.png')} style={styles.image} resizeMode={FastImage.resizeMode.contain} />
+            <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.contain} />
           </View>
           <View style={styles.infoView}>
-            <Text ellipsizeMode="clip" style={styles.title}>Спортивный инвентарь</Text>
+            <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>
           </View>
         </View>
       </>
-    </TouchableHighlight>
+    </TouchableOpacity>
   )
 }
 

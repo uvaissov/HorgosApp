@@ -8,10 +8,17 @@ export const getRecomended = async (online = true) => {
   return data
 }
 
-export const getCategories = async (online = true) => {
+export const getCategories = async (online = true, params = {}) => {
   const data = online ?
-    await apiManager.getCategories() :
+    await apiManager.getCategories(params) :
     null
 
+  return data
+}
+
+export const getBoutiqueList = async (online = true, params = {}) => {
+  const data = online ?
+    await apiManager.getBoutiqueList(params) :
+    null
   return data
 }

@@ -8,6 +8,7 @@ import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ScrollRoundWithTitle, BootiqueGrid } from './view'
 import { ScrollCardWithTitle } from '../main/view'
+import * as manager from '../../service/manager'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -17,19 +18,33 @@ const styles = StyleSheet.create({
 
 class BoutiqueList extends Component {
   state = {
-    didFinishInitialAnimation: false
+    didFinishInitialAnimation: false,
+    isLoading: true
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     InteractionManager.runAfterInteractions(() => {
-      setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
+      this.setState({ didFinishInitialAnimation: true })
     })
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    const { navigation } = this.props
+    //....all params here
+    const cat_id = navigation.getParam('cat_id')
+    const filter = navigation.getParam('filter')
+    //....call service
+    const data = manager.getBoutiqueList(true, { cat_id, filter })
+    //....set all data
+    console.log('data', data)
+    this.setState({ isLoading: false, ...data })
   }
 
   init = () => {
     const { navigation } = this.props
-    const { didFinishInitialAnimation } = this.state
-    if (didFinishInitialAnimation === false) {
+    const { didFinishInitialAnimation, isLoading } = this.state
+    if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (

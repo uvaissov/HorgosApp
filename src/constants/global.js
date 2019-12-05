@@ -12,6 +12,7 @@ export const RED = '#FF3A52'
 export const GRAY = '#56506C'
 export const GRAY_SECOND = '#9193AC'
 export const GRAY_LIGHT = '#F6F6F6'
+export const MAIN_COLOR = '#9071EA'
 
 
 export const BORDER_COLOR = '#E2E8F0'
