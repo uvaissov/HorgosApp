@@ -6,6 +6,7 @@ import { getRecomended } from './actions'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle } from './view'
 import { WHITE, normalize } from '../../constants/global'
+import { BY_BOUTIQUE_IDS } from '../../constants/static'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -21,6 +22,7 @@ class Main extends Component {
 
   render() {
     const { navigation, recomended } = this.props
+    console.log('recomended:', recomended, recomended.map(el => el.id))
     return (
       <View style={styles.view}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
@@ -28,7 +30,7 @@ class Main extends Component {
           <ScrollView style={styles.scrollView}>
             <Header style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
             <SliderApp data={['1']} />
-            <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+            <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
             <AdBlockWithTitle title="Специально для вас" />
             <ScrollBannerWithTitle title="Скидки по категориям" />
             <ScrollRoundWithTitle title="Лучшие товары" />

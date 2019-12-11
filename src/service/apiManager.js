@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { hostName } from '../constants/global'
 import * as transform from './transform'
-import { BY_CATEGORY } from '../constants/static'
+import { BY_CATEGORY, BY_BOUTIQUE_IDS } from '../constants/static'
 
 const instance = axios.create({
   baseURL: hostName,
@@ -48,24 +48,40 @@ export const getCategories = async () => {
 export const getBoutiqueList = async (params) => {
   try {
     let url = '/api/boutiques?'
-    const { cat_id, filter } = params
+    const { cat_id, filter, ids } = params
     switch (filter) {
       case BY_CATEGORY:
         url += `categories=${cat_id}`
         break
+      case BY_BOUTIQUE_IDS:
+        url += `ids=${ids.join()}`
+        break
 
       default:
-        url = undefined
-        break
+        return {
+          payload: {
+            list: [],
+            populare: [],
+            error: 'No filter to search'
+          }
+        }
     }
-
+    console.log(url)
     const { data } = await instance.get(url)
-    console.log('log', data)
+    const trading_houses = []
+    data.map(el => {
+      const [house] = el.trading_houses
+      if (house && !trading_houses.find((dir) => dir.id === house.id)) {
+        trading_houses.push(house)
+      }
+      return null
+    })
+
     return {
       payload: {
-        trading_houses: data.map((el) => transform.toBoutique(el)),
-        list: data.map((el) => transform.toBoutique(el)),
-        hits: data.filter((el) => el.is_hit === 1).map((el) => transform.toBoutique(el))
+        trading_houses: trading_houses.map(el => transform.toHouse(el)),
+        list: data.map(el => transform.toBoutique(el)),
+        hits: data.filter(el => el.is_hit === 1).map(el => transform.toBoutique(el))
       }
     }
   } catch (error) {

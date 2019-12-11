@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
@@ -10,13 +10,12 @@ const styles = StyleSheet.create({
 })
 
 const ScrollRoundWithTitle = (props) => {
-  const [selected, setSelected] = useState(0)
-  const { onPress, masked, title } = props
+  const { onPress, masked, title, data, selected, setSelected } = props
   return (
     <BlockTitleAndButton onPress={onPress} element={<Icon name="arrow-right" size={20} />} title={title} masked={masked}>
       <FlatList
         style={styles.scrollView}
-        data={['1', '2', '1', '2', '2', '1', '2']}
+        data={data}
         renderItem={(item) => (<RoundBig item={item.item} onPress={() => setSelected(item.index)} selected={selected === item.index} />)}
         horizontal
         keyExtractor={() => nextId()}

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   flexView: { }
 })
 
-const BootiqueGrid = ({ navigation }) => {
+const BootiqueGrid = ({ navigation, data }) => {
   const onItemPress = (item) => {
     navigation.push('Boutique', { item })
   }
@@ -19,7 +19,7 @@ const BootiqueGrid = ({ navigation }) => {
       <FlatList
         style={styles.flexView}
         numColumns={3}
-        data={['', '', '', '']}
+        data={data}
         renderItem={(item) => (<CardSmall width={elWidth} item={item.item} index={item.index} onPress={onItemPress} />)}
       />
     </View>

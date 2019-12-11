@@ -14,7 +14,11 @@ const styles = StyleSheet.create({
 })
 
 const CardBig = ({ width, style, index, onPress, item, hit }) => {
-  const { name, img } = item
+  const { name, img, trading_house_name, categoriesName, boutique = {} } = item //main info
+  const { name: nameB, trading_house_name: trading_house_nameB, categoriesName: categoriesNameB } = boutique //secondary info
+  const nameField = name || nameB
+  const categoriesNameField = categoriesName || categoriesNameB
+  const tradingHouseName = trading_house_name || trading_house_nameB
   const imageH = width * 0.5
   const hitW = width * 0.4
   const hitH = hitW * 0.5
@@ -32,10 +36,10 @@ const CardBig = ({ width, style, index, onPress, item, hit }) => {
             <FastImage source={img} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
-            <Text style={styles.title}>Бутик #1090</Text>
-            <Text style={styles.desc}>{name}</Text>
+            <Text style={styles.title}>{nameField}</Text>
+            <Text style={styles.desc}>{categoriesNameField}</Text>
             <Text style={styles.desc} ellipsizeMode="tail" numberOfLines={3}>
-              ТЦ Чжун Кэ
+              {tradingHouseName}
             </Text>
           </View>
         </View>

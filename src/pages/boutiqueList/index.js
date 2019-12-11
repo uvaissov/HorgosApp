@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
 class BoutiqueList extends Component {
   state = {
     didFinishInitialAnimation: false,
-    isLoading: true
+    isLoading: true,
+    selected: 0
   }
 
   componentDidMount = async () => {
@@ -33,25 +34,30 @@ class BoutiqueList extends Component {
     const { navigation } = this.props
     //....all params here
     const cat_id = navigation.getParam('cat_id')
+    const ids = navigation.getParam('ids')
     const filter = navigation.getParam('filter')
     //....call service
-    const data = manager.getBoutiqueList(true, { cat_id, filter })
+    const { payload: data } = await manager.getBoutiqueList(true, { cat_id, filter, ids })
     //....set all data
-    console.log('data', data)
     this.setState({ isLoading: false, ...data })
+  }
+
+  setSelected = (selected) => {
+    this.setState({ selected })
   }
 
   init = () => {
     const { navigation } = this.props
-    const { didFinishInitialAnimation, isLoading } = this.state
+    const { didFinishInitialAnimation, isLoading, hits, list, trading_houses, selected } = this.state
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
+    const trading_house = trading_houses[selected] || {}
     return (
       <ScrollView>
-        <ScrollRoundWithTitle title="Торговые дома" />
-        <ScrollCardWithTitle hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
-        <BootiqueGrid navigation={navigation} />
+        <ScrollRoundWithTitle selected={selected} setSelected={this.setSelected} title="Торговые дома" data={trading_houses} />
+        <ScrollCardWithTitle data={hits.filter(el => el.trading_house_id === trading_house.id)} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+        <BootiqueGrid data={list.filter(el => el.trading_house_id === trading_house.id)} navigation={navigation} />
       </ScrollView>
     )
   }

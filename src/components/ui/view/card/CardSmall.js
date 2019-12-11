@@ -14,16 +14,17 @@ const styles = StyleSheet.create({
 
 const CardSmall = ({ width, style, onPress, item }) => {
   const imageH = width
+  const { name, img, categoriesName } = item
   return (
     <View style={[styles.marginView]}>
       <TouchableHighlight onPress={() => onPress(item)}>
         <View style={[styles.view, style, { width }]}>
           <View>
-            <FastImage source={require('../../../../../resources/image/image.png')} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
+            <FastImage source={img} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
-            <Text style={styles.title}>Бутик #1090</Text>
-            <Text style={styles.desc} ellipsizeMode="tail" numberOfLines={3}>Сумки и рюкзаки</Text>
+            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.desc} ellipsizeMode="tail" numberOfLines={3}>{categoriesName}</Text>
           </View>
         </View>
       </TouchableHighlight>

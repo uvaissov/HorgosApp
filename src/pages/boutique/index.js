@@ -18,12 +18,17 @@ const styles = StyleSheet.create({
 })
 
 class Boutique extends Component {
-  state = { didFinishInitialAnimation: false, scrollY: new Animated.Value(0), refs: {}, highEl: null, highlightHeader: { price: new Animated.Value(0), product: new Animated.Value(0), map: new Animated.Value(0), response: new Animated.Value(0) } }
+  state = { boutique: null, isLoading: true, didFinishInitialAnimation: false, scrollY: new Animated.Value(0), refs: {}, highEl: null, highlightHeader: { price: new Animated.Value(0), product: new Animated.Value(0), map: new Animated.Value(0), response: new Animated.Value(0) } }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
+    const { navigation } = this.props
+    const boutique = navigation.getParam('boutique')
+    if (boutique) {
+      this.setState({ boutique, isLoading: false })
+    }
   }
 
   pressToText = (target) => {
@@ -70,10 +75,43 @@ class Boutique extends Component {
     }
   }
 
+  getInfo = () => {
+    const { boutique } = this.state
+    const array = []
+    if (boutique.trading_house_name) {
+      array.push({ key: 'Торговый дом', value: boutique.trading_house_name })
+    }
+    if (boutique.categoriesName) {
+      array.push({ key: 'Категория', value: boutique.categoriesName })
+    }
+    // if (boutique.trading_house_name) {
+    //   array.push({ key: 'Бутик #', value: boutique.trading_house_name })
+    // }
+    if (boutique.seller_name) {
+      array.push({ key: 'Имя продавца', value: boutique.seller_name })
+    }
+    if (boutique.wner_name) {
+      array.push({ key: 'Имя владельца', value: boutique.wner_name })
+    }
+    if (boutique.languages) {
+      array.push({ key: 'Знание языков', value: boutique.languages })
+    }
+    if (boutique.phone) {
+      array.push({ key: 'Телефон', value: boutique.phone })
+    }
+    if (boutique.whatsapp) {
+      array.push({ key: 'WhatsApp', value: boutique.whatsapp })
+    }
+    if (boutique.weechat) {
+      array.push({ key: 'WeChat', value: boutique.weechat })
+    }
+    return array
+  }
+
   init = (headerHeight) => {
-    const { didFinishInitialAnimation } = this.state
+    const { didFinishInitialAnimation, isLoading, boutique } = this.state
     const { navigation } = this.props
-    if (didFinishInitialAnimation === false) {
+    if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (
@@ -93,9 +131,9 @@ class Boutique extends Component {
         )}
       >
         <Animated.View style={[styles.scrollViewContent, { transform: [{ translateY: headerHeight }] }]}>
-          <SliderApp data={['1']} />
+          <SliderApp data={boutique.images} />
           <FavoriteCmp />
-          <DetailInfo data={[{ key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }, { key: '1', value: '1' }]} />
+          <DetailInfo data={this.getInfo()} />
           <Description />
           <ProductPrices onLayourRef={this.onLayourRef} data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
           <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products')} data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />

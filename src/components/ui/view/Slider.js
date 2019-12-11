@@ -26,10 +26,10 @@ this._renderSwiper = (data) => (
       {
         data.map((item) => (
           <TouchableWithoutFeedback key={nextId()} onPress={() => {}}>
-            <View key={item.id} style={[styles.child, { width }]}>
+            <View style={[styles.child, { width }]}>
               <FastImage
                 style={{ flex: 1 }}
-                source={require('../../../../resources/image/slider_img.png')}
+                source={item}
                 resizeMode={FastImage.resizeMode.cover}
               />
             </View>
@@ -47,7 +47,7 @@ const SliderApp = ({
     return null
   }
 
-  return this._renderSwiper(['1', '2'])
+  return this._renderSwiper(data)
 }
 
 export { SliderApp }

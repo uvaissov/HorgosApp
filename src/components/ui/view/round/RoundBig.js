@@ -17,16 +17,16 @@ const styles = StyleSheet.create({
 })
 
 const RoundBig = ({ style, item = {}, selected, onPress }) => {
-  console.log(item)
+  const { name, img } = item
   return (
     <TouchableHighlight onPress={onPress}>
       <>
         <View style={[styles.view, style]}>
           <View style={[styles.imageView, styles.shadow, { borderWidth: selected ? 5 : 0 }]}>
-            <FastImage source={require('../../../../../resources/image/round_big.png')} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
+            <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
-            <Text ellipsizeMode="clip" style={styles.title}>Торговый центр Чжун Кэ-1</Text>
+            <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>
           </View>
         </View>
       </>
