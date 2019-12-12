@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import PhotoView from 'react-native-photo-view'
+import Image from 'react-native-remote-svg'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
-import { WHITE, BORDER_COLOR } from '../../constants/global'
+import { WHITE, BORDER_COLOR, w } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 
 const styles = StyleSheet.create({
@@ -26,6 +27,10 @@ const MapShow = ({ navigation }) => {
           androidScaleType="center"
           onLoad={() => console.log('Image loaded!')}
           style={{ height: '100%', flex: 1 }}
+        />
+        <Image
+          source={require('../../../resources/image/svg/vertical_map.svg')}
+          style={{ width: w, flex: 1 }}
         />
       </View>
       <FooterUI navigation={navigation} />
