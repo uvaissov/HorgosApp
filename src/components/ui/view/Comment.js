@@ -15,9 +15,7 @@ const styles = StyleSheet.create({
   title: { color: BLACK, fontSize: normalize(16), fontWeight: 'bold' }
 })
 
-const text = 'Сеть меховых салонов «IMPERIA furs» специализиру- ется на розничной и оптовой торговле меховыми изделиями в международном центре приграничного сотрудничества! Сеть меховых салонов «IMPERIA furs» специализиру- ется на розничной и оптовой торговле меховыми изделиями в международном центре приграничного сотрудничества!'
-
-const Comment = () => {
+const Comment = ({ text }) => {
   const [isView, showView] = useState(false)
 
   this.renderViewMore = (onPress) => {

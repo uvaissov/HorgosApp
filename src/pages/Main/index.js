@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import CustomStatusBar from '../../components/CustomStatusBar'
-import { getRecomended } from './actions'
+import {
+  getRecomended,
+  getSpecialForYou,
+  getCategoryStoks,
+  getCustomerChoices,
+  getPopularBoutiques,
+  getStockToday
+} from './actions'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle } from './view'
 import { WHITE, normalize } from '../../constants/global'
@@ -18,11 +25,15 @@ const styles = StyleSheet.create({
 class Main extends Component {
   async componentDidMount() {
     this.props.getRecomended()
+    this.props.getSpecialForYou()
+    this.props.getCategoryStoks()
+    this.props.getCustomerChoices()
+    this.props.getPopularBoutiques()
+    this.props.getStockToday()
   }
 
   render() {
-    const { navigation, recomended } = this.props
-    console.log('recomended:', recomended, recomended.map(el => el.id))
+    const { navigation, recomended, specialsForYou, categoryStocks, customerChoices, popularBoutiques, stockToday } = this.props
     return (
       <View style={styles.view}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
@@ -31,11 +42,12 @@ class Main extends Component {
             <Header style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
             <SliderApp data={['1']} />
             <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
-            <AdBlockWithTitle title="Специально для вас" />
-            <ScrollBannerWithTitle title="Скидки по категориям" />
+            <AdBlockWithTitle data={specialsForYou} title="Специально для вас" />
+            <ScrollBannerWithTitle data={categoryStocks} title="Скидки по категориям" navigation={navigation} />
             <ScrollRoundWithTitle title="Лучшие товары" />
-            <ScrollCardWithTitle title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
-            <ScrollCardWithTitle title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+            <ScrollCardWithTitle data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+            <ScrollCardWithTitle data={popularBoutiques} title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+            <ScrollCardWithTitle data={stockToday} title="Скидки сегодня" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
           </ScrollView>
         </View>
         <FooterUI selected="main" navigation={navigation} />
@@ -45,6 +57,21 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  recomended: state.main.recomended
+  recomended: state.main.recomended,
+  specialsForYou: state.main.specialsForYou,
+  categoryStocks: state.main.categoryStocks,
+  customerChoices: state.main.customerChoices,
+  popularBoutiques: state.main.popularBoutiques,
+  stockToday: state.main.stockToday
 })
-export default connect(mapStateToProps, { getRecomended })(Main)
+export default connect(
+  mapStateToProps,
+  {
+    getRecomended,
+    getSpecialForYou,
+    getCategoryStoks,
+    getCustomerChoices,
+    getPopularBoutiques,
+    getStockToday
+  }
+)(Main)

@@ -24,6 +24,83 @@ export const getRecomended = async () => {
   }
 }
 
+export const getSpecialForYou = async () => {
+  try {
+    const { data } = await instance.get('/api/special-for-you')
+    const payload = data.map((el) => transform.toBoutiqueShort(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const getCategoryStoks = async () => {
+  try {
+    const { data } = await instance.get('/api/category-stocks')
+    const payload = data.map((el) => transform.toCategoryStock(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const getCustomerChoices = async () => {
+  try {
+    const { data } = await instance.get('/api/customer-choices')
+    const payload = data.map((el) => transform.toCategoryStock(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const getStockToday = async () => {
+  try {
+    const { data } = await instance.get('/api/stock-today')
+    const payload = data.map((el) => transform.toCategoryStock(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+
+export const getPopularBoutiques = async () => {
+  try {
+    const { data } = await instance.get('/api/popular-boutiques')
+    const payload = data.map((el) => transform.toCategoryStock(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+
 export const getCategories = async () => {
   try {
     const { data: allData } = await instance.get('/api/categories')

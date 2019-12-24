@@ -13,12 +13,15 @@ const styles = StyleSheet.create({
   title: { color: BLACK, fontSize: normalize(16), fontWeight: 'bold' }
 })
 
-const Description = () => (
-  <BlockTitleAndButton title="Описание магазина">
-    <View style={styles.view}>
-      <Comment />
-    </View>
-  </BlockTitleAndButton>
-)
+const Description = ({ text }) => {
+  if (!text) { return null }
+  return (
+    <BlockTitleAndButton title="Описание магазина">
+      <View style={styles.view}>
+        <Comment text={text} />
+      </View>
+    </BlockTitleAndButton>
+  )
+}
 
 export { Description }

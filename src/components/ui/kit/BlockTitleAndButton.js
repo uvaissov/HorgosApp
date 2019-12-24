@@ -18,7 +18,6 @@ const BlockTitleAndButton = (props) => {
 
   const _onLayout = async (view) => {
     const { nativeEvent: { layout: { y, height } } } = view
-    //console.log(view.nativeEvent)
     if (name && onLayourRef) {
       onLayourRef({ y, height, name }, name)
     }

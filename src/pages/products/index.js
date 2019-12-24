@@ -31,14 +31,16 @@ class Products extends Component {
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
+    const { navigation } = this.props
+    const items = navigation.getParam('items')
     return (
       <ScrollView>
         {
-          Array(25).fill({ value: 'Наименование' }).map((item, index) => {
-            const { value } = item
+          items.map((item, index) => {
+            const { name } = item
             return (
               <View key={_.uniqueId()} style={[styles.row]}>
-                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{value}</Text></View>
+                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{name}</Text></View>
               </View>
             )
           })

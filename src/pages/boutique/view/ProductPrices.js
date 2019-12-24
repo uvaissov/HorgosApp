@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import _ from 'lodash'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Feather from 'react-native-vector-icons/Feather'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import ModalSelector from 'react-native-modal-selector'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { normalize, GRAY_SECOND, BLACK, BORDER_COLOR, RED, GRAY } from '../../../constants/global'
 
@@ -22,16 +23,58 @@ const styles = StyleSheet.create({
 })
 
 
+const rates = [
+  { index: 0, label: '₸ KZT' },
+  { index: 1, label: '$ USD' },
+  { index: 2, label: '¥ CNY' },
+  { index: 3, label: '₽ RUB' }
+]
+
+const selector = (rate, setRate) => (
+  <ModalSelector
+    data={rates}
+    accessible
+    animationType="fade"
+    cancelText="Отмена"
+    onChange={(option) => { setRate(option.index) }}
+  >
+    <TouchableOpacity>
+      <View style={styles.currencyView}>
+        <Text style={styles.currencyText}>{rates[rate].label}</Text>
+        <Feather name="chevron-down" color={GRAY_SECOND} size={15} />
+      </View>
+    </TouchableOpacity>
+  </ModalSelector>
+)
+
 const ProductPrices = ({ onLayourRef, data }) => {
   if (!data) return null
 
+  const [rate, setRate] = useState(0)
   return (
-    <BlockTitleAndButton name="price" onLayourRef={onLayourRef} onPress={() => {}} element={<TouchableOpacity><View style={styles.currencyView}><Text style={styles.currencyText}>₸ KZT</Text><Feather name="chevron-down" color={GRAY_SECOND} size={15} /></View></TouchableOpacity>} title="Цены на товары">
+    <BlockTitleAndButton name="price" onLayourRef={onLayourRef} element={selector(rate, setRate)} title="Цены на товары">
       <View style={styles.view}>
         <Grid>
           {
             data.map((item) => {
-              const { name, value } = item
+              const { name, price: { T, D, C, R } } = item
+              let value = ''
+              switch (rate) {
+                case 0:
+                  value = `${T.from} - ${T.to}`
+                  break
+                case 1:
+                  value = `${D.from} - ${D.to}`
+                  break
+                case 2:
+                  value = `${C.from} - ${C.to}`
+                  break
+                case 3:
+                  value = `${R.from} - ${R.to}`
+                  break
+                default:
+                  break
+              }
               return (
                 <Row key={_.uniqueId()} style={{ marginVertical: 10 }}>
                   <Col>

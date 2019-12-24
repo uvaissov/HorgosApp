@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, FlatList } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { w, GREEN } from '../../../constants/global'
@@ -12,13 +12,19 @@ const styles = StyleSheet.create({
 })
 
 const AdBlockWithTitle = (props) => {
-  console.log(w - 30)
-  const { onPress, masked, title } = props
+  const { onPress, masked, title, data } = props
+  if (!data || data.length < 1) return null
   return (
     <BlockTitleAndButton onPress={onPress} element={<View style={styles.adButtomView}><Text style={styles.adText}>Реклама</Text></View>} title={title} masked={masked}>
-      <View style={styles.view}>
-        <FastImage source={require('../../../../resources/image/ad.png')} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
-      </View>
+      <FlatList
+        style={styles.scrollView}
+        data={data}
+        pagingEnabled
+        renderItem={(el) => (<View style={styles.view}><FastImage source={el.item.img} style={styles.image} resizeMode={FastImage.resizeMode.cover} /></View>)}
+        horizontal
+        keyExtractor={(el) => el.id}
+        showsHorizontalScrollIndicator={false}
+      />
     </BlockTitleAndButton>
   )
 }

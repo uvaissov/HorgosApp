@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 })
 
 
-const Response = ({ index }) => (
+const Response = ({ index, name, rating, date, text }) => (
   <View style={[styles.view, { marginTop: index === 0 ? 15 : 0 }]}>
     <View style={styles.headerView}>
       <View style={styles.avatarView}>
@@ -29,16 +29,16 @@ const Response = ({ index }) => (
       </View>
       <View style={styles.infoView}>
         <View style={styles.nameAndStartView}>
-          <Text style={styles.nameText}>Александр</Text>
+          <Text style={styles.nameText}>{name}</Text>
           <View style={styles.startsView}>{
-            Array(5).fill().map(() => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={ORANGE} size={11} />)
+            Array(5).fill().map((el, elIdx) => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={elIdx < rating ? GRAY_SECOND : ORANGE} size={11} />)
             }
           </View>
         </View>
-        <View><Text style={styles.telText}>8 914 062 11 91</Text></View>
+        <View><Text style={styles.telText}>{date}</Text></View>
       </View>
     </View>
-    <Comment />
+    <Comment text={text} />
   </View>
 )
 

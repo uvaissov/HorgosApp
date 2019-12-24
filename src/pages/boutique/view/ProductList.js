@@ -22,11 +22,11 @@ const ProductList = ({ data, onPress, onLayourRef }) => {
     <BlockTitleAndButton onLayourRef={onLayourRef} name="product" onPress={() => onPress()} element={<Icon name="arrow-right" size={20} />} title="Ассортимент товаров А-Я">
       <View style={styles.view}>
         {
-          data.map((item, index) => {
-            const { value } = item
+          data.slice(0, 5).map((item, index) => {
+            const { name } = item
             return (
               <View key={_.uniqueId()} style={[styles.row]}>
-                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{value}</Text></View>
+                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{name}</Text></View>
               </View>
             )
           })

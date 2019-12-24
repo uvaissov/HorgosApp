@@ -84,9 +84,12 @@ class Boutique extends Component {
     if (boutique.categoriesName) {
       array.push({ key: 'Категория', value: boutique.categoriesName })
     }
-    // if (boutique.trading_house_name) {
-    //   array.push({ key: 'Бутик #', value: boutique.trading_house_name })
-    // }
+    if (boutique.floor) {
+      array.push({ key: 'Этаж', value: boutique.floor })
+    }
+    if (boutique.boutique_number) {
+      array.push({ key: 'Бутик #', value: boutique.boutique_number })
+    }
     if (boutique.seller_name) {
       array.push({ key: 'Имя продавца', value: boutique.seller_name })
     }
@@ -109,11 +112,12 @@ class Boutique extends Component {
   }
 
   init = (headerHeight) => {
-    const { didFinishInitialAnimation, isLoading, boutique } = this.state
+    const { didFinishInitialAnimation, isLoading, boutique = {} } = this.state
     const { navigation } = this.props
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
+    console.log('boutique', boutique)
     return (
       <Animated.ScrollView
         ref={(ref) => this.scrollView = ref}
@@ -134,11 +138,11 @@ class Boutique extends Component {
           <SliderApp data={boutique.images} />
           <FavoriteCmp />
           <DetailInfo data={this.getInfo()} />
-          <Description />
-          <ProductPrices onLayourRef={this.onLayourRef} data={[{ name: 'Наименование', value: '12000 - 14000 тг.' }, { name: 'Наименование', value: '9000 - 24200 тг.' }, { name: 'Наименование', value: '720000 - 510000 тг.' }]} />
-          <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products')} data={[{ value: 'Наименование' }, { value: 'Наименование' }, { value: 'Наименование' }]} />
+          <Description text={boutique.description} />
+          <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />
+          <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products })} data={boutique.all_products} />
           <MapShow onLayourRef={this.onLayourRef} data={require('../../../resources/image/image.png')} />
-          <ResponseList onLayourRef={this.onLayourRef} data={['1', '2']} />
+          <ResponseList onLayourRef={this.onLayourRef} data={boutique.reviews} />
           <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
           <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
         </Animated.View>

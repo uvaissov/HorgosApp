@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
 
 
 const ResponseList = ({ data, onLayourRef }) => {
-  if (!data) return null
+  if (!data || data.length < 1) return null
 
   return (
     <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
       <View style={styles.view}>
         {
-          data.map((item) => (
-            <Response item={item} />
+          data.map((item, index) => (
+            <Response index={index} item={item} />
           ))
         }
       </View>

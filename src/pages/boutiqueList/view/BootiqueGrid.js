@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
 const BootiqueGrid = ({ navigation, data }) => {
   const onItemPress = (item) => {
-    navigation.push('Boutique', { item })
+    navigation.push('Boutique', { boutique: item })
   }
   const elWidth = (w - 50) / 3
   return (
