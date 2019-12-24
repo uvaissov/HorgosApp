@@ -57,7 +57,7 @@ export const getCategoryStoks = async () => {
 export const getCustomerChoices = async () => {
   try {
     const { data } = await instance.get('/api/customer-choices')
-    const payload = data.map((el) => transform.toCategoryStock(el))
+    const payload = data.map((el) => transform.toBoutiqueShort(el))
     return {
       payload
     }
@@ -72,7 +72,7 @@ export const getCustomerChoices = async () => {
 export const getStockToday = async () => {
   try {
     const { data } = await instance.get('/api/stock-today')
-    const payload = data.map((el) => transform.toCategoryStock(el))
+    const payload = data.map((el) => transform.toBoutiqueShort(el))
     return {
       payload
     }
@@ -88,7 +88,7 @@ export const getStockToday = async () => {
 export const getPopularBoutiques = async () => {
   try {
     const { data } = await instance.get('/api/popular-boutiques')
-    const payload = data.map((el) => transform.toCategoryStock(el))
+    const payload = data.map((el) => transform.toBoutiqueShort(el))
     return {
       payload
     }
