@@ -11,13 +11,19 @@ const styles = StyleSheet.create({
 })
 
 const ScrollRoundWithTitle = (props) => {
-  const { onPress, masked, title } = props
+  const { onPress, masked, title, data, navigation } = props
+  if (!data || data.length < 1) return null
+
+  const onItemPress = (item) => {
+    const { boutique } = item
+    navigation.push('Boutique', { boutique: boutique || item })
+  }
   return (
     <BlockTitleAndButton onPress={onPress} element={<Icon name="arrow-right" size={20} />} title={title} masked={masked}>
       <FlatList
         style={styles.scrollView}
-        data={['1', '2', '1', '2', '2', '1', '2']}
-        renderItem={(item) => (<RoundWithDiscont height={207} width={168} item={item.item} index={item.index} />)}
+        data={data}
+        renderItem={(item) => (<RoundWithDiscont height={207} width={168} item={item.item} index={item.index} onPress={onItemPress} />)}
         horizontal
         keyExtractor={() => nextId()}
         showsHorizontalScrollIndicator={false}

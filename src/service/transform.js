@@ -105,3 +105,8 @@ export function toCategoryStock(data) {
   }
   return { id, name, category_id, background: { uri: genImageUri(background) }, images: imagesArr.map((el) => ({ uri: genImageUri(el) })) }
 }
+
+export function toVideo(data) {
+  const { id, iframe, code } = data
+  return { id, iframe, code }
+}

@@ -100,6 +100,50 @@ export const getPopularBoutiques = async () => {
   }
 }
 
+export const getBestProducts = async () => {
+  try {
+    const { data } = await instance.get('/api/best-products')
+    const payload = data.map((el) => transform.toBoutiqueShort(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const getFreebies = async () => {
+  try {
+    const { data } = await instance.get('/api/freebies')
+    const payload = data.map((el) => transform.toBoutiqueShort(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const getVideoAboutHorgos = async () => {
+  try {
+    const { data } = await instance.get('/api/video-about-horgos')
+    const payload = data.map((el) => transform.toVideo(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
 
 export const getCategories = async () => {
   try {
@@ -122,6 +166,7 @@ export const getCategories = async () => {
   }
 }
 
+
 export const getBoutiqueList = async (params) => {
   try {
     let url = '/api/boutiques?'
@@ -143,7 +188,6 @@ export const getBoutiqueList = async (params) => {
           }
         }
     }
-    console.log(url)
     const { data } = await instance.get(url)
     const trading_houses = []
     data.map(el => {

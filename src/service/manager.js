@@ -25,6 +25,21 @@ export const getPopularBoutiques = async (online = true) => {
   return data
 }
 
+export const getBestProducts = async (online = true) => {
+  const data = online ? await apiManager.getBestProducts() : null
+  return data
+}
+
+export const getFreebies = async (online = true) => {
+  const data = online ? await apiManager.getFreebies() : null
+  return data
+}
+
+export const getVideoAboutHorgos = async (online = true) => {
+  const data = online ? await apiManager.getVideoAboutHorgos() : null
+  return data
+}
+
 export const getCategories = async (online = true, params = {}) => {
   const data = online ?
     await apiManager.getCategories(params) :

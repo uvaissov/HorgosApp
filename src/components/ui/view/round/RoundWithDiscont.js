@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { WHITE, normalize, w, ORANGE, RED, GREEN } from '../../../../constants/global'
 
@@ -12,32 +12,35 @@ const styles = StyleSheet.create({
   image: { flex: 1, height: undefined, width: undefined, borderRadius: 200, zIndex: 1 },
   infoView: { flex: 1, paddingTop: 10 },
   title: { fontSize: normalize(11), textAlign: 'center' },
-  discontView: { position: 'absolute', top: 10, right: 0, zIndex: 20, backgroundColor: WHITE, paddingHorizontal: 4, paddingVertical: 2, borderRadius: 100 },
-  discontText: { fontSize: normalize(10), textAlign: 'center', color: WHITE, fontWeight: '600' }
+  discountView: { position: 'absolute', top: 10, right: 0, zIndex: 20, backgroundColor: WHITE, paddingHorizontal: 4, paddingVertical: 2, borderRadius: 100 },
+  discountText: { fontSize: normalize(10), textAlign: 'center', color: WHITE, fontWeight: '600' }
 })
 
-const RoundWithDiscont = ({ style, index, item = {} }) => {
-  const { discont = Math.floor(Math.random() * 100) } = item
+const RoundWithDiscont = ({ style, index, item = {}, onPress }) => {
+  const { discount, name, img } = item
   let color = GREEN
-  if (discont >= 50) {
+  if (discount >= 50) {
     color = RED
-  } else if (discont >= 25) {
+  } else if (discount >= 25) {
     color = ORANGE
   }
   return (
-    <TouchableHighlight>
+    <TouchableOpacity onPress={() => onPress(item)}>
       <>
-        <View style={[styles.discontView, { backgroundColor: color }]}><Text style={styles.discontText}>{`-${discont}%`}</Text></View>
+        {
+          discount &&
+          <View style={[styles.discountView, { backgroundColor: color }]}><Text style={styles.discountText}>{`-${discount}%`}</Text></View>
+        }
         <View style={[styles.view, style, { marginLeft: index === 0 ? 15 : 5 }]}>
           <View style={[styles.imageView, styles.shadow]}>
-            <FastImage source={require('../../../../../resources/image/round.png')} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
+            <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
-            <Text ellipsizeMode="clip" style={styles.title}>Сумки кожанные</Text>
+            <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>
           </View>
         </View>
       </>
-    </TouchableHighlight>
+    </TouchableOpacity>
   )
 }
 

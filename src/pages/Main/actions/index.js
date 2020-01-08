@@ -6,7 +6,9 @@ import {
   ACTION_GET_CATEGORY_STOKS_SUCCESED,
   ACTION_GET_CUSTEMER_CHOICES_SUCCESED,
   ACTION_GET_STOCK_TODAY_SUCCESED,
-  ACTION_GET_POPULAR_BOUTIQUES_SUCCESED
+  ACTION_GET_POPULAR_BOUTIQUES_SUCCESED,
+  ACTION_GET_BEST_PRODUCTS_SUCCESED,
+  ACTION_GET_FREEBIES_SUCCESED
 } from '../types'
 
 export const getRecomended = () => async dispatch => {
@@ -53,6 +55,22 @@ export const getPopularBoutiques = () => async dispatch => {
   const response = await manager.getPopularBoutiques(true)
   dispatch({
     type: ACTION_GET_POPULAR_BOUTIQUES_SUCCESED,
+    ...response
+  })
+}
+
+export const getBestProducts = () => async dispatch => {
+  const response = await manager.getBestProducts(true)
+  dispatch({
+    type: ACTION_GET_BEST_PRODUCTS_SUCCESED,
+    ...response
+  })
+}
+
+export const getFreebies = () => async dispatch => {
+  const response = await manager.getFreebies(true)
+  dispatch({
+    type: ACTION_GET_FREEBIES_SUCCESED,
     ...response
   })
 }

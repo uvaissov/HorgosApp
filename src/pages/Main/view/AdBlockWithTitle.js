@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, FlatList } from 'react-native'
+import nextId from 'react-id-generator'
 import FastImage from 'react-native-fast-image'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { w, GREEN } from '../../../constants/global'
@@ -22,7 +23,7 @@ const AdBlockWithTitle = (props) => {
         pagingEnabled
         renderItem={(el) => (<View style={styles.view}><FastImage source={el.item.img} style={styles.image} resizeMode={FastImage.resizeMode.cover} /></View>)}
         horizontal
-        keyExtractor={(el) => el.id}
+        keyExtractor={() => nextId()}
         showsHorizontalScrollIndicator={false}
       />
     </BlockTitleAndButton>

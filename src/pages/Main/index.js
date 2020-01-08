@@ -8,7 +8,9 @@ import {
   getCategoryStoks,
   getCustomerChoices,
   getPopularBoutiques,
-  getStockToday
+  getStockToday,
+  getBestProducts,
+  getFreebies
 } from './actions'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle } from './view'
@@ -30,10 +32,12 @@ class Main extends Component {
     this.props.getCustomerChoices()
     this.props.getPopularBoutiques()
     this.props.getStockToday()
+    this.props.getBestProducts()
+    this.props.getFreebies()
   }
 
   render() {
-    const { navigation, recomended, specialsForYou, categoryStocks, customerChoices, popularBoutiques, stockToday } = this.props
+    const { navigation, recomended, specialsForYou, categoryStocks, customerChoices, popularBoutiques, stockToday, bestProducts, freebies } = this.props
     return (
       <View style={styles.view}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
@@ -44,10 +48,11 @@ class Main extends Component {
             <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
             <AdBlockWithTitle data={specialsForYou} title="Специально для вас" />
             <ScrollBannerWithTitle data={categoryStocks} title="Скидки по категориям" navigation={navigation} />
-            <ScrollRoundWithTitle title="Лучшие товары" />
-            <ScrollCardWithTitle data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
-            <ScrollCardWithTitle data={popularBoutiques} title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
-            <ScrollCardWithTitle data={stockToday} title="Скидки сегодня" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+            <ScrollRoundWithTitle data={bestProducts} title="Лучшие товары" navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: bestProducts.map(el => el.id) })} />
+            <ScrollCardWithTitle data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: customerChoices.map(el => el.id) })} />
+            <ScrollCardWithTitle data={popularBoutiques} title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: popularBoutiques.map(el => el.id) })} />
+            <ScrollCardWithTitle data={stockToday} title="Скидки сегодня" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: stockToday.map(el => el.id) })} />
+            <ScrollCardWithTitle data={freebies} title="Халява" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: freebies.map(el => el.id) })} />
           </ScrollView>
         </View>
         <FooterUI selected="main" navigation={navigation} />
@@ -62,7 +67,9 @@ const mapStateToProps = state => ({
   categoryStocks: state.main.categoryStocks,
   customerChoices: state.main.customerChoices,
   popularBoutiques: state.main.popularBoutiques,
-  stockToday: state.main.stockToday
+  stockToday: state.main.stockToday,
+  bestProducts: state.main.bestProducts,
+  freebies: state.main.freebies
 })
 export default connect(
   mapStateToProps,
@@ -72,6 +79,8 @@ export default connect(
     getCategoryStoks,
     getCustomerChoices,
     getPopularBoutiques,
-    getStockToday
+    getStockToday,
+    getBestProducts,
+    getFreebies
   }
 )(Main)

@@ -6,15 +6,12 @@ import AppContainer from './pages/ScreeenManager'
 
 const { store, persistor } = configureStore()
 
-const App = () => {
-  console.log('start')
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppContainer />
-      </PersistGate>
-    </Provider>
-  )
-}
+const App = () => (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <AppContainer />
+    </PersistGate>
+  </Provider>
+)
 
 export default App
