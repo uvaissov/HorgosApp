@@ -9,7 +9,7 @@ const instance = axios.create({
   headers: { 'Accept': 'application/json' }
 })
 
-export const getRecomended = async () => {
+export const getRecommended = async () => {
   try {
     const { data } = await instance.get('/api/recommended')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -39,7 +39,7 @@ export const getSpecialForYou = async () => {
   }
 }
 
-export const getCategoryStoks = async () => {
+export const getCategoryStocks = async () => {
   try {
     const { data } = await instance.get('/api/category-stocks')
     const payload = data.map((el) => transform.toCategoryStock(el))
@@ -183,12 +183,15 @@ export const getBoutiqueList = async (params) => {
         return {
           payload: {
             list: [],
-            populare: [],
+            trading_houses: [],
+            hits: [],
             error: 'No filter to search'
           }
         }
     }
+    console.log('url', url)
     const { data } = await instance.get(url)
+    console.log('url', data)
     const trading_houses = []
     data.map(el => {
       const [house] = el.trading_houses
@@ -197,7 +200,7 @@ export const getBoutiqueList = async (params) => {
       }
       return null
     })
-
+    console.log('trading_houses', trading_houses)
     return {
       payload: {
         trading_houses: trading_houses.map(el => transform.toHouse(el)),
@@ -209,7 +212,8 @@ export const getBoutiqueList = async (params) => {
     return {
       payload: {
         list: [],
-        populare: [],
+        trading_houses: [],
+        hits: [],
         error
       }
     }

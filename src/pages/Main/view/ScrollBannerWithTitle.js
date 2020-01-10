@@ -58,6 +58,7 @@ const ScrollBannerWithTitle = (props) => {
   this._onPress = (category_id) => {
     navigation.push('BoutiqueList', { cat_id: category_id, filter: BY_CATEGORY })
   }
+  if (!data || data.length < 1) return null
   return (
     <BlockTitleAndButton onPress={onPress} element={<Icon name="arrow-right" size={20} />} title={title} masked={masked}>
       <FlatList

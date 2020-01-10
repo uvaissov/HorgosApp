@@ -14,23 +14,20 @@ const styles = StyleSheet.create({
   title: { fontSize: normalize(12), color: GRAY }
 })
 
-const ListItem = ({ style, item = {} }) => {
-  console.log(item)
-  return (
-    <TouchableHighlight>
-      <>
-        <View style={[styles.view, style]}>
-          <View style={[styles.imageView]}>
-            <Entypo name="dot-single" size={23} color={RED} />
-          </View>
-          <View style={styles.infoView}>
-            <Text ellipsizeMode="clip" style={styles.title}>Как найти интересующий бутик?</Text>
-          </View>
+const ListItem = ({ style, item = { text: 'Как найти интересующий бутик?' } }) => (
+  <TouchableHighlight>
+    <>
+      <View style={[styles.view, style]}>
+        <View style={[styles.imageView]}>
+          <Entypo name="dot-single" size={23} color={RED} />
         </View>
-      </>
-    </TouchableHighlight>
-  )
-}
+        <View style={styles.infoView}>
+          <Text ellipsizeMode="clip" style={styles.title}>{item.text}</Text>
+        </View>
+      </View>
+    </>
+  </TouchableHighlight>
+)
 
 
 export { ListItem }

@@ -33,7 +33,6 @@ export function toRelated(data) {
 }
 
 export function toBoutique(data) {
-  console.log('toBoutique', data)
   const {
     id,
     name, seller_name, owner_name, languages,
@@ -69,19 +68,19 @@ export function toBoutique(data) {
     trading_house_name,
     categoriesName,
     img: { uri: genImageUri(firstImage) },
-    images: imagesArr.map((el) => ({ uri: genImageUri(el) })),
-    products: products.map(el => toProduct(el)),
-    all_products: all_products.map(el => toProduct(el)),
+    images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })),
+    products: (products || []).map(el => toProduct(el)),
+    all_products: (all_products || []).map(el => toProduct(el)),
     map,
-    reviews: reviews.map(el => toReview(el)),
-    recommendeds: recommended_relations.map(el => toRecomended(el)),
-    relateds: related_relations.map(el => toRelated(el))
+    reviews: (reviews || []).map(el => toReview(el)),
+    recommendeds: (recommended_relations || []).map(el => toRecomended(el)),
+    relateds: (related_relations || []).map(el => toRelated(el))
   }
 }
 
 export function toBoutiqueShort(data) {
-  const { boutique_id, name, image, boutique } = data
-  return { id: boutique_id, name, boutique: boutique ? toBoutique(boutique) : undefined, img: { uri: genImageUri(image) } }
+  const { boutique_id, name, image, boutique, discount } = data
+  return { id: boutique_id, name, boutique: boutique ? toBoutique(boutique) : undefined, img: { uri: genImageUri(image) }, discount }
 }
 
 export function toHouse(data) {
@@ -89,10 +88,10 @@ export function toHouse(data) {
   let imagesArr = []
   try {
     imagesArr = JSON.parse(images)
-  } catch {
+  } catch (e) {
     imagesArr = []
   }
-  return { id, name, img: { uri: genImageUri(logo) }, images: imagesArr.map((el) => ({ uri: genImageUri(el) })) }
+  return { id, name, img: { uri: genImageUri(logo) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
 }
 
 export function toCategoryStock(data) {
@@ -103,7 +102,7 @@ export function toCategoryStock(data) {
   } catch {
     imagesArr = []
   }
-  return { id, name, category_id, background: { uri: genImageUri(background) }, images: imagesArr.map((el) => ({ uri: genImageUri(el) })) }
+  return { id, name, category_id, background: { uri: genImageUri(background) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
 }
 
 export function toVideo(data) {

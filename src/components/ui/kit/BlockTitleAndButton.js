@@ -16,6 +16,7 @@ const BlockTitleAndButton = (props) => {
   const { onPress, masked, title, element, onLayourRef, name, count } = props
   const ref = useRef(null)
 
+
   const _onLayout = async (view) => {
     const { nativeEvent: { layout: { y, height } } } = view
     if (name && onLayourRef) {
@@ -24,7 +25,7 @@ const BlockTitleAndButton = (props) => {
   }
 
   useEffect(() => {
-    //_onLayout()
+
   })
 
   const showButton = () => {

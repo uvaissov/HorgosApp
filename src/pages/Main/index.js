@@ -3,17 +3,18 @@ import { connect } from 'react-redux'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import {
-  getRecomended,
+  getRecommended,
   getSpecialForYou,
-  getCategoryStoks,
+  getCategoryStocks,
   getCustomerChoices,
   getPopularBoutiques,
   getStockToday,
   getBestProducts,
-  getFreebies
+  getFreebies,
+  getVideoAboutHorgos
 } from './actions'
 import { FooterUI, SliderApp } from '../../components/ui/view'
-import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle } from './view'
+import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle, ScrollVideoWithTitle } from './view'
 import { WHITE, normalize } from '../../constants/global'
 import { BY_BOUTIQUE_IDS } from '../../constants/static'
 
@@ -26,18 +27,19 @@ const styles = StyleSheet.create({
 
 class Main extends Component {
   async componentDidMount() {
-    this.props.getRecomended()
+    this.props.getRecommended()
     this.props.getSpecialForYou()
-    this.props.getCategoryStoks()
+    this.props.getCategoryStocks()
     this.props.getCustomerChoices()
     this.props.getPopularBoutiques()
     this.props.getStockToday()
     this.props.getBestProducts()
     this.props.getFreebies()
+    this.props.getVideoAboutHorgos()
   }
 
   render() {
-    const { navigation, recomended, specialsForYou, categoryStocks, customerChoices, popularBoutiques, stockToday, bestProducts, freebies } = this.props
+    const { navigation, recomended, specialsForYou, categoryStocks, customerChoices, popularBoutiques, stockToday, bestProducts, freebies, videos } = this.props
     return (
       <View style={styles.view}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
@@ -52,6 +54,7 @@ class Main extends Component {
             <ScrollCardWithTitle data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: customerChoices.map(el => el.id) })} />
             <ScrollCardWithTitle data={popularBoutiques} title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: popularBoutiques.map(el => el.id) })} />
             <ScrollCardWithTitle data={stockToday} title="Скидки сегодня" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: stockToday.map(el => el.id) })} />
+            <ScrollVideoWithTitle data={videos} title="Видео" />
             <ScrollCardWithTitle data={freebies} title="Халява" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: freebies.map(el => el.id) })} />
           </ScrollView>
         </View>
@@ -69,18 +72,20 @@ const mapStateToProps = state => ({
   popularBoutiques: state.main.popularBoutiques,
   stockToday: state.main.stockToday,
   bestProducts: state.main.bestProducts,
-  freebies: state.main.freebies
+  freebies: state.main.freebies,
+  videos: state.main.videos
 })
 export default connect(
   mapStateToProps,
   {
-    getRecomended,
+    getRecommended,
     getSpecialForYou,
-    getCategoryStoks,
+    getCategoryStocks,
     getCustomerChoices,
     getPopularBoutiques,
     getStockToday,
     getBestProducts,
-    getFreebies
+    getFreebies,
+    getVideoAboutHorgos
   }
 )(Main)

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
+import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { CardSmall } from '../../../components/ui/view'
 import { w, normalize, BORDER_COLOR, GRAY } from '../../../constants/global'
@@ -30,6 +31,7 @@ const FavoriteGrid = (props) => {
           style={styles.flexView}
           numColumns={3}
           data={expanded ? elements : elements.slice(0, 3)}
+          keyExtractor={() => nextId()}
           renderItem={(el) => (<CardSmall width={elWidth} item={el.item} index={el.index} onPress={onItemPress} />)}
         />
       </View>

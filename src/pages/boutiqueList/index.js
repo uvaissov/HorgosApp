@@ -39,6 +39,7 @@ class BoutiqueList extends Component {
     //....call service
     const { payload: data } = await manager.getBoutiqueList(true, { cat_id, filter, ids })
     //....set all data
+    console.log('fetchData:', data)
     this.setState({ isLoading: false, ...data })
   }
 

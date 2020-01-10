@@ -24,10 +24,10 @@ const styles = StyleSheet.create({
 
 
 const rates = [
-  { index: 0, label: '₸ KZT' },
-  { index: 1, label: '$ USD' },
-  { index: 2, label: '¥ CNY' },
-  { index: 3, label: '₽ RUB' }
+  { key: 0, label: '₸ KZT' },
+  { key: 1, label: '$ USD' },
+  { key: 2, label: '¥ CNY' },
+  { key: 3, label: '₽ RUB' }
 ]
 
 const selector = (rate, setRate) => (
@@ -36,7 +36,7 @@ const selector = (rate, setRate) => (
     accessible
     animationType="fade"
     cancelText="Отмена"
-    onChange={(option) => { setRate(option.index) }}
+    onChange={(option) => { setRate(option.key) }}
   >
     <TouchableOpacity>
       <View style={styles.currencyView}>
@@ -57,7 +57,7 @@ const ProductPrices = ({ onLayourRef, data }) => {
         <Grid>
           {
             data.map((item) => {
-              const { name, price: { T, D, C, R } } = item
+              const { name, price: { T = {}, D = {}, C = {}, R = {} } } = item
               let value = ''
               switch (rate) {
                 case 0:

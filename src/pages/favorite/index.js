@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+import nextId from 'react-id-generator'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -35,6 +36,7 @@ class Favorite extends Component {
     return (
       <FlatList
         data={[9, 15, 45, 24, 8]}
+        keyExtractor={() => nextId()}
         renderItem={(item) => (<FavoriteGrid title="ТЦ Чжун Кэ-1" item={item.item} navigation={navigation} />)}
       />
     )

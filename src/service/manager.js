@@ -1,15 +1,15 @@
 import * as apiManager from './apiManager'
 
-export const getRecomended = async (online = true) => {
-  const data = online ? await apiManager.getRecomended() : null
+export const getRecommended = async (online = true) => {
+  const data = online ? await apiManager.getRecommended() : null
   return data
 }
 export const getSpecialForYou = async (online = true) => {
   const data = online ? await apiManager.getSpecialForYou() : null
   return data
 }
-export const getCategoryStoks = async (online = true) => {
-  const data = online ? await apiManager.getCategoryStoks() : null
+export const getCategoryStocks = async (online = true) => {
+  const data = online ? await apiManager.getCategoryStocks() : null
   return data
 }
 export const getStockToday = async (online = true) => {
@@ -20,6 +20,7 @@ export const getCustomerChoices = async (online = true) => {
   const data = online ? await apiManager.getCustomerChoices() : null
   return data
 }
+
 export const getPopularBoutiques = async (online = true) => {
   const data = online ? await apiManager.getPopularBoutiques() : null
   return data
@@ -30,6 +31,7 @@ export const getBestProducts = async (online = true) => {
   return data
 }
 
+//Халява
 export const getFreebies = async (online = true) => {
   const data = online ? await apiManager.getFreebies() : null
   return data

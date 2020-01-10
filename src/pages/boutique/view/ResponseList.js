@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import nextId from 'react-id-generator'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { Response } from '../../../components/ui/view'
@@ -24,7 +25,7 @@ const ResponseList = ({ data, onLayourRef }) => {
       <View style={styles.view}>
         {
           data.map((item, index) => (
-            <Response index={index} item={item} />
+            <Response key={nextId()} index={index} item={item} />
           ))
         }
       </View>
