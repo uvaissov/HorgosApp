@@ -1,22 +1,34 @@
-import React, { useState } from 'react'
+/* eslint-disable react/no-this-in-sfc */
+import React from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 import nextId from 'react-id-generator'
-import YTPlayer from '../component/YTPlayer'
-
+import { YouTubeStandaloneAndroid } from 'react-native-youtube'
+import FastImage from 'react-native-fast-image'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { w } from '../../../constants/global'
 
+
 const styles = StyleSheet.create({
   container: { margin: 15 },
-  view: { width: w - 30, flex: 1 },
-  image: { height: (0.53 * (w - 30)), width: w - 30 }
+  view: { width: w - 30, flex: 1, borderRadius: 5 },
+  image: { height: (0.53 * (w - 30)), width: w - 30, justifyContent: 'center', alignItems: 'center' },
+  playImage: { height: (0.53 * (w - 30)) / 3, width: w - 30 / 3, opacity: 0.8 }
 })
 
 const ScrollVideoWithTitle = (props) => {
   const { title, data } = props
   if (!data || data.length < 1) return null
-  const [iscontainerMounted, setIsContainerMounted] = useState(false)
-  const [containerWidth, setContainerWidth] = useState(0)
+
+  this.openPlayer = (videoId) => {
+    YouTubeStandaloneAndroid.playVideo({
+      apiKey: 'AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00',
+      videoId,
+      autoplay: true
+    })
+      .then(() => console.log('Player closed'))
+      .catch(e => console.error(e))
+  }
   return (
     <BlockTitleAndButton title={title}>
       <FlatList
@@ -25,20 +37,12 @@ const ScrollVideoWithTitle = (props) => {
         pagingEnabled
         renderItem={(el) => (
           <View style={styles.container}>
-            <View
-              style={styles.view}
-              onLayout={({
-                nativeEvent: { layout: { width } }
-              }) => {
-                if (containerWidth !== width) setContainerWidth(width)
-                if (!iscontainerMounted) setIsContainerMounted(true)
-                console.log('onLayout', width, containerWidth)
-              }}
-            >
-              {
-              iscontainerMounted && containerWidth > 0 &&
-                <YTPlayer key={containerWidth} id={el.item.code} containerWidth={containerWidth} />
-              }
+            <View style={styles.view}>
+              <TouchableOpacity onPress={() => this.openPlayer(el.item.code)}>
+                <FastImage source={{ uri: `https://img.youtube.com/vi/${el.item.code}/hqdefault.jpg` }} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
+                  <FastImage source={require('../../../../resources/icons/element/play.png')} style={styles.playImage} resizeMode={FastImage.resizeMode.center} />
+                </FastImage>
+              </TouchableOpacity>
             </View>
           </View>
         )}
