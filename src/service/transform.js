@@ -24,12 +24,12 @@ export function toReview(data) {
 
 export function toRecomended(data) {
   const { related_boutique_id } = data
-  return { related_boutique_id }
+  return related_boutique_id
 }
 
 export function toRelated(data) {
   const { related_boutique_id } = data
-  return { related_boutique_id }
+  return related_boutique_id
 }
 
 export function toBoutique(data) {
@@ -45,6 +45,12 @@ export function toBoutique(data) {
     imagesArr = JSON.parse(images)
   } catch {
     imagesArr = []
+  }
+  let imagesMapArr = []
+  try {
+    imagesMapArr = JSON.parse(map)
+  } catch {
+    imagesMapArr = []
   }
   return {
     id,
@@ -71,10 +77,10 @@ export function toBoutique(data) {
     images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })),
     products: (products || []).map(el => toProduct(el)),
     all_products: (all_products || []).map(el => toProduct(el)),
-    map,
+    map: (imagesMapArr || []).map((el) => ({ uri: genImageUri(el) })),
     reviews: (reviews || []).map(el => toReview(el)),
-    recommendeds: (recommended_relations || []).map(el => toRecomended(el)),
-    relateds: (related_relations || []).map(el => toRelated(el))
+    recommenders: (recommended_relations || []).map(el => toRecomended(el)),
+    relaters: (related_relations || []).map(el => toRelated(el))
   }
 }
 

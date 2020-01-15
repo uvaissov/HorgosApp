@@ -15,23 +15,25 @@ const styles = StyleSheet.create({
   image: { height: bannerH, width: bannerW }
 })
 
-const images = [
-  {
-    source: require('../../../../resources/image/map.png'),
-    title: 'Paris',
-    width: 1024,
-    height: 720
-  }
-]
+// const images = [
+//   {
+//     source: require('../../../../resources/image/map.png'),
+//     title: 'Paris',
+//     width: 1024,
+//     height: 720
+//   }
+// ]
 
 const MapShow = ({ data, onLayourRef }) => {
-  if (!data) return null
+  if (!data || data.length < 1) return null
+
+  const images = data.map((el) => ({ source: el }))
   const [isImageViewVisible, setImageViewVisible] = useState(false)
   return (
     <BlockTitleAndButton onLayourRef={onLayourRef} name="map" title="Карта торгового центра">
       <TouchableOpacity onPress={() => setImageViewVisible(true)}>
         <View style={styles.view}>
-          <FastImage source={require('../../../../resources/image/map.png')} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
+          <FastImage source={data[0]} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
         </View>
       </TouchableOpacity>
       <ImageView

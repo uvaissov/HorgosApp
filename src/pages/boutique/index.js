@@ -8,6 +8,8 @@ import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, Prod
 import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, TRASPARENT } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import * as manager from '../../service/manager'
+import { BY_BOUTIQUE_IDS } from '../../constants/static'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -28,7 +30,21 @@ class Boutique extends Component {
     const boutique = navigation.getParam('boutique')
     if (boutique) {
       this.setState({ boutique, isLoading: false })
+      this.getRelations(boutique)
     }
+  }
+
+  getRelations = async (boutique) => {
+    const { relaters, recommenders } = boutique
+    const relatersRes = await this.fetchDataList(relaters)
+    const recommendersRes = await this.fetchDataList(recommenders)
+    this.setState({ relaters: relatersRes, recommenders: recommendersRes })
+  }
+
+  fetchDataList = async (ids) => {
+    if (!_.isArray(ids) || ids.length < 1) return []
+    const { payload: data } = await manager.getBoutiqueList(true, { filter: BY_BOUTIQUE_IDS, ids })
+    return (data && data.list) || []
   }
 
   pressToText = (target) => {
@@ -112,7 +128,7 @@ class Boutique extends Component {
   }
 
   init = (headerHeight) => {
-    const { didFinishInitialAnimation, isLoading, boutique = {} } = this.state
+    const { didFinishInitialAnimation, isLoading, boutique = {}, relaters, recommenders } = this.state
     const { navigation } = this.props
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
@@ -140,11 +156,11 @@ class Boutique extends Component {
           <DetailInfo data={this.getInfo()} />
           <Description text={boutique.description} />
           <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />
-          <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products })} data={boutique.all_products} />
-          <MapShow onLayourRef={this.onLayourRef} data={require('../../../resources/image/image.png')} />
+          <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products, title: boutique.name })} data={boutique.all_products} />
+          <MapShow onLayourRef={this.onLayourRef} data={boutique.map} />
           <ResponseList onLayourRef={this.onLayourRef} data={boutique.reviews} />
-          <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
-          <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} />
+          <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} data={relaters} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: relaters.map(el => el.id) })} />
+          <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} data={recommenders} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recommenders.map(el => el.id) })} />
         </Animated.View>
       </Animated.ScrollView>
     )

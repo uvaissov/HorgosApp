@@ -36,8 +36,9 @@ class BoutiqueList extends Component {
     const cat_id = navigation.getParam('cat_id')
     const ids = navigation.getParam('ids')
     const filter = navigation.getParam('filter')
+    const text = navigation.getParam('text')
     //....call service
-    const { payload: data } = await manager.getBoutiqueList(true, { cat_id, filter, ids })
+    const { payload: data } = await manager.getBoutiqueList(true, { cat_id, filter, ids, text })
     //....set all data
     console.log('fetchData:', data)
     this.setState({ isLoading: false, ...data })
@@ -66,10 +67,11 @@ class BoutiqueList extends Component {
 
   render() {
     const { navigation } = this.props
+    const text = navigation.getParam('text')
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={'Товары магазина "Меховой салон Imperia Furs"'} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} />
+        <HeaderUI text={text} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} placeHolder="Введите название бутика" />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

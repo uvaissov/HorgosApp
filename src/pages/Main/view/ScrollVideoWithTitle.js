@@ -1,4 +1,3 @@
-/* eslint-disable react/no-this-in-sfc */
 import React from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 import nextId from 'react-id-generator'
@@ -11,7 +10,7 @@ import { w } from '../../../constants/global'
 
 const styles = StyleSheet.create({
   container: { margin: 15 },
-  view: { width: w - 30, flex: 1, borderRadius: 5 },
+  view: { width: w - 30, flex: 1, borderRadius: 9, overflow: 'hidden' },
   image: { height: (0.53 * (w - 30)), width: w - 30, justifyContent: 'center', alignItems: 'center' },
   playImage: { height: (0.53 * (w - 30)) / 3, width: w - 30 / 3, opacity: 0.8 }
 })
@@ -20,7 +19,7 @@ const ScrollVideoWithTitle = (props) => {
   const { title, data } = props
   if (!data || data.length < 1) return null
 
-  this.openPlayer = (videoId) => {
+  const openPlayer = (videoId) => {
     YouTubeStandaloneAndroid.playVideo({
       apiKey: 'AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00',
       videoId,
@@ -38,7 +37,7 @@ const ScrollVideoWithTitle = (props) => {
         renderItem={(el) => (
           <View style={styles.container}>
             <View style={styles.view}>
-              <TouchableOpacity onPress={() => this.openPlayer(el.item.code)}>
+              <TouchableOpacity onPress={() => openPlayer(el.item.code)}>
                 <FastImage source={{ uri: `https://img.youtube.com/vi/${el.item.code}/hqdefault.jpg` }} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
                   <FastImage source={require('../../../../resources/icons/element/play.png')} style={styles.playImage} resizeMode={FastImage.resizeMode.center} />
                 </FastImage>

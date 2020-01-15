@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { hostName } from '../constants/global'
 import * as transform from './transform'
-import { BY_CATEGORY, BY_BOUTIQUE_IDS } from '../constants/static'
+import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT } from '../constants/static'
 
 const instance = axios.create({
   baseURL: hostName,
@@ -170,13 +170,16 @@ export const getCategories = async () => {
 export const getBoutiqueList = async (params) => {
   try {
     let url = '/api/boutiques?'
-    const { cat_id, filter, ids } = params
+    const { cat_id, filter, ids, text } = params
     switch (filter) {
       case BY_CATEGORY:
         url += `categories=${cat_id}`
         break
       case BY_BOUTIQUE_IDS:
         url += `ids=${ids.join()}`
+        break
+      case BY_SEARCH_TEXT:
+        url += `name=${text}`
         break
 
       default:

@@ -10,15 +10,7 @@ const styles = StyleSheet.create({
 })
 
 const ScrollCardWithTitle = (props) => {
-  const { onPress, masked, title, element, navigation, hit,
-    data = [
-      { id: 1, name: 'Название', img: require('../../../../resources/image/image.png') },
-      { id: 1, name: 'Название', img: require('../../../../resources/image/image.png') },
-      { id: 1, name: 'Название', img: require('../../../../resources/image/image.png') },
-      { id: 1, name: 'Название', img: require('../../../../resources/image/image.png') },
-      { id: 1, name: 'Название', img: require('../../../../resources/image/image.png') }
-    ]
-  } = props
+  const { onPress, masked, title, element, navigation, hit, data = [] } = props
   if (!data || data.length < 1) return null
 
   const onItemPress = (item) => {

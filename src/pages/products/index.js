@@ -1,6 +1,6 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView, Text, TouchableOpacity } from 'react-native'
 import _ from 'lodash'
 import { HeaderUI, FooterUI } from '../../components/ui/view'
 import { WHITE, GRAY, normalize, BORDER_COLOR } from '../../constants/global'
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 })
 
 class Products extends Component {
-  state = { didFinishInitialAnimation: false }
+  state = { didFinishInitialAnimation: false, sortByName: false }
 
   componentDidMount = () => {
     InteractionManager.runAfterInteractions(() => {
@@ -27,12 +27,12 @@ class Products extends Component {
   }
 
   init = () => {
-    const { didFinishInitialAnimation } = this.state
+    const { didFinishInitialAnimation, sortByName } = this.state
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
     const { navigation } = this.props
-    const items = navigation.getParam('items')
+    const items = sortByName === true ? _.sortBy(navigation.getParam('items'), ['name'], ['asc']) : navigation.getParam('items')
     return (
       <ScrollView>
         {
@@ -51,13 +51,16 @@ class Products extends Component {
 
   render() {
     const { navigation } = this.props
+    const title = navigation.getParam('title')
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={'Товары магазина "Меховой салон Imperia Furs"'} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} />
-        <View style={styles.sortView}>
-          <Text style={styles.sortText}>Сортировка товаров по алфавиту</Text>
-        </View>
+        <HeaderUI text={`Товары магазина "${title}"`} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
+        <TouchableOpacity onPress={() => this.setState({ sortByName: true })}>
+          <View style={styles.sortView}>
+            <Text style={styles.sortText}>Сортировка товаров по алфавиту</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.body}>
           {this.init()}
         </View>

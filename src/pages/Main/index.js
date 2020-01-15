@@ -45,7 +45,7 @@ class Main extends Component {
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
-            <Header style={{ margin: 15 }} placeHolder="Введите название" navigation={navigation} />
+            <Header style={{ margin: 15 }} placeHolder="Введите название бутика" navigation={navigation} />
             <SliderApp data={['1']} />
             <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
             <AdBlockWithTitle data={specialsForYou} title="Специально для вас" />

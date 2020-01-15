@@ -32,10 +32,10 @@ const HeaderUI = ({ text, placeHolder, leftIcon, leftOnPress, style, withSearch 
   const [isSearch, setSearch] = useState(false)
   const renderText = () => {
     if (isSearch) {
-      return (<TextInput autoFocus style={styles.text} placeholder={placeHolder} />)
+      return (<TextInput autoFocus style={styles.text} placeholder={placeHolder} returnKeyType="search" onSubmitEditing={() => {}} />)
     }
     return (
-      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text}</Text>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || 'Каталог бутиков'}</Text>
     )
   }
 
