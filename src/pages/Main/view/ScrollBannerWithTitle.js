@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, FlatList, View, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import Icon from 'react-native-vector-icons/Feather'
+//import Icon from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { w, WHITE } from '../../../constants/global'
@@ -22,48 +22,44 @@ const styles = StyleSheet.create({
   text: { fontSize: 18, color: WHITE, fontWeight: 'bold' }
 })
 
-const renderItem = (el) => {
-  const { index, item: { background, name, images, category_id } } = el
-  const [first, second, third] = images
-  return (
-    // eslint-disable-next-line react/no-this-in-sfc
-    <TouchableOpacity onPress={() => this._onPress(category_id)}>
-      <View style={[styles.view, { marginLeft: index === 0 ? 15 : 5 }]}>
-        <FastImage source={background} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
-          <View style={{ flex: 1, padding: 20 }}>
-            <View style={{ flex: 1 }}><Text style={styles.text}>{name}</Text></View>
-            <View style={{ flex: 2, flexDirection: 'row' }}>
-              <View>
-                <FastImage source={first} style={styles.firstImage} resizeMode={FastImage.resizeMode.cover} />
-              </View>
-              <View>
-                <View style={{ marginLeft: 15 }}>
-                  <FastImage source={second} style={styles.secondImage} resizeMode={FastImage.resizeMode.cover} />
-                </View>
-                <View style={{ marginLeft: 15, marginTop: 15 }}>
-                  <FastImage source={third} style={styles.secondImage} resizeMode={FastImage.resizeMode.cover} />
-                </View>
-              </View>
-            </View>
-          </View>
-        </FastImage>
-      </View>
-    </TouchableOpacity>
-  )
-}
-
 const ScrollBannerWithTitle = (props) => {
   const { onPress, masked, title, data, navigation } = props
-  // eslint-disable-next-line react/no-this-in-sfc
-  this._onPress = (category_id) => {
+  const _onPress = (category_id) => {
     navigation.push('BoutiqueList', { cat_id: category_id, filter: BY_CATEGORY })
   }
   if (!data || data.length < 1) return null
   return (
-    <BlockTitleAndButton onPress={onPress} element={<Icon name="arrow-right" size={20} />} title={title} masked={masked}>
+    <BlockTitleAndButton onPress={onPress} title={title} masked={masked}>
       <FlatList
         data={data}
-        renderItem={renderItem}
+        renderItem={(el) => {
+          const { index, item: { background, name, images, category_id } } = el
+          const [first, second, third] = images
+          return (
+            <TouchableOpacity onPress={() => _onPress(category_id)}>
+              <View style={[styles.view, { marginLeft: index === 0 ? 15 : 5 }]}>
+                <FastImage source={background} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
+                  <View style={{ flex: 1, padding: 20 }}>
+                    <View style={{ flex: 1 }}><Text style={styles.text}>{name}</Text></View>
+                    <View style={{ flex: 2, flexDirection: 'row' }}>
+                      <View>
+                        <FastImage source={first} style={styles.firstImage} resizeMode={FastImage.resizeMode.cover} />
+                      </View>
+                      <View>
+                        <View style={{ marginLeft: 15 }}>
+                          <FastImage source={second} style={styles.secondImage} resizeMode={FastImage.resizeMode.cover} />
+                        </View>
+                        <View style={{ marginLeft: 15, marginTop: 15 }}>
+                          <FastImage source={third} style={styles.secondImage} resizeMode={FastImage.resizeMode.cover} />
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </FastImage>
+              </View>
+            </TouchableOpacity>
+          )
+        }}
         horizontal
         keyExtractor={() => nextId()}
         showsHorizontalScrollIndicator={false}

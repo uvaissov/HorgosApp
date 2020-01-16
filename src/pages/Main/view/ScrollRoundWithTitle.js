@@ -16,7 +16,9 @@ const ScrollRoundWithTitle = (props) => {
 
   const onItemPress = (item) => {
     const { boutique } = item
-    navigation.push('Boutique', { boutique: boutique || item })
+    if (boutique && boutique.id) {
+      navigation.push('Boutique', { boutique })
+    }
   }
   return (
     <BlockTitleAndButton onPress={onPress} element={<Icon name="arrow-right" size={20} />} title={title} masked={masked}>

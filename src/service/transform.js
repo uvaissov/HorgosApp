@@ -22,6 +22,16 @@ export function toReview(data) {
   return { id, name, text: review, rating, date }
 }
 
+export function toSlider(data) {
+  const { id, title, description, image, color, trading_house_id, category_id, boutique_id } = data
+  return { id, title, description, img: { uri: genImageUri(image) }, color, trading_house_id, category_id, boutique_id }
+}
+
+export function toPost(data) {
+  const { id, image, title, description, content } = data
+  return { id, title, description, content, img: { uri: genImageUri(image) } }
+}
+
 export function toRecomended(data) {
   const { related_boutique_id } = data
   return related_boutique_id

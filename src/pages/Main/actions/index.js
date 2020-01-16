@@ -9,7 +9,8 @@ import {
   ACTION_GET_POPULAR_BOUTIQUES_SUCCESED,
   ACTION_GET_BEST_PRODUCTS_SUCCESED,
   ACTION_GET_FREEBIES_SUCCESED,
-  ACTION_GET_VIDEOS_SUCCESED
+  ACTION_GET_VIDEOS_SUCCESED,
+  ACTION_GET_SLIDERS_SUCCESED
 } from '../types'
 
 export const getRecommended = () => async dispatch => {
@@ -80,6 +81,14 @@ export const getVideoAboutHorgos = () => async dispatch => {
   const response = await manager.getVideoAboutHorgos(true)
   dispatch({
     type: ACTION_GET_VIDEOS_SUCCESED,
+    ...response
+  })
+}
+
+export const getSliders = () => async dispatch => {
+  const response = await manager.getSliders(true)
+  dispatch({
+    type: ACTION_GET_SLIDERS_SUCCESED,
     ...response
   })
 }

@@ -11,7 +11,8 @@ import {
   getStockToday,
   getBestProducts,
   getFreebies,
-  getVideoAboutHorgos
+  getVideoAboutHorgos,
+  getSliders
 } from './actions'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle, ScrollVideoWithTitle } from './view'
@@ -36,17 +37,18 @@ class Main extends Component {
     this.props.getBestProducts()
     this.props.getFreebies()
     this.props.getVideoAboutHorgos()
+    this.props.getSliders()
   }
 
   render() {
-    const { navigation, recomended, specialsForYou, categoryStocks, customerChoices, popularBoutiques, stockToday, bestProducts, freebies, videos } = this.props
+    const { navigation, recomended, specialsForYou, categoryStocks, customerChoices, popularBoutiques, stockToday, bestProducts, freebies, videos, sliders } = this.props
     return (
       <View style={styles.view}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
         <View style={styles.body}>
           <ScrollView style={styles.scrollView}>
             <Header style={{ margin: 15 }} placeHolder="Введите название бутика" navigation={navigation} />
-            <SliderApp data={['1']} />
+            <SliderApp data={sliders} navigation={navigation} />
             <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
             <AdBlockWithTitle data={specialsForYou} title="Специально для вас" />
             <ScrollBannerWithTitle data={categoryStocks} title="Скидки по категориям" navigation={navigation} />
@@ -73,7 +75,8 @@ const mapStateToProps = state => ({
   stockToday: state.main.stockToday,
   bestProducts: state.main.bestProducts,
   freebies: state.main.freebies,
-  videos: state.main.videos
+  videos: state.main.videos,
+  sliders: state.main.sliders
 })
 export default connect(
   mapStateToProps,
@@ -86,6 +89,7 @@ export default connect(
     getStockToday,
     getBestProducts,
     getFreebies,
-    getVideoAboutHorgos
+    getVideoAboutHorgos,
+    getSliders
   }
 )(Main)

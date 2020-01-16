@@ -13,9 +13,11 @@ const ScrollCardWithTitle = (props) => {
   const { onPress, masked, title, element, navigation, hit, data = [] } = props
   if (!data || data.length < 1) return null
 
-  const onItemPress = (item) => {
-    const { boutique } = item
-    navigation.push('Boutique', { boutique: boutique || item })
+  const onItemPress = (boutique) => {
+    //const { boutique } = item
+    if (boutique && boutique.id) {
+      navigation.push('Boutique', { boutique })
+    }
   }
   return (
     <BlockTitleAndButton onPress={onPress} element={element} title={title} masked={masked}>

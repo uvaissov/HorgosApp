@@ -28,9 +28,16 @@ class Boutique extends Component {
     })
     const { navigation } = this.props
     const boutique = navigation.getParam('boutique')
-    if (boutique) {
+    const boutique_id = navigation.getParam('boutique_id')
+    if (boutique && boutique.id) {
       this.setState({ boutique, isLoading: false })
       this.getRelations(boutique)
+    } else if (boutique_id) {
+      const [data] = await this.fetchDataList([boutique_id])
+      if (data && data.id) {
+        this.setState({ boutique: data, isLoading: false })
+        this.getRelations(data)
+      }
     }
   }
 
@@ -152,7 +159,7 @@ class Boutique extends Component {
       >
         <Animated.View style={[styles.scrollViewContent, { transform: [{ translateY: headerHeight }] }]}>
           <SliderApp data={boutique.images} />
-          <FavoriteCmp />
+          <FavoriteCmp boutique={boutique} />
           <DetailInfo data={this.getInfo()} />
           <Description text={boutique.description} />
           <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />

@@ -37,10 +37,10 @@ class BoutiqueList extends Component {
     const ids = navigation.getParam('ids')
     const filter = navigation.getParam('filter')
     const text = navigation.getParam('text')
+    const trading_house_id = navigation.getParam('trading_house_id')
     //....call service
-    const { payload: data } = await manager.getBoutiqueList(true, { cat_id, filter, ids, text })
+    const { payload: data } = await manager.getBoutiqueList(true, { cat_id, filter, ids, text, trading_house_id })
     //....set all data
-    console.log('fetchData:', data)
     this.setState({ isLoading: false, ...data })
   }
 

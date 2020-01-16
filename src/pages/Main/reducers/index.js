@@ -7,7 +7,8 @@ import {
   ACTION_GET_STOCK_TODAY_SUCCESED,
   ACTION_GET_BEST_PRODUCTS_SUCCESED,
   ACTION_GET_FREEBIES_SUCCESED,
-  ACTION_GET_VIDEOS_SUCCESED
+  ACTION_GET_VIDEOS_SUCCESED,
+  ACTION_GET_SLIDERS_SUCCESED
 } from '../types'
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   bestProducts: [],
   freebies: [],
   videos: [],
+  sliders: [],
   token: null
 }
 
@@ -77,6 +79,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         videos: action.payload
+      }
+    }
+    case ACTION_GET_SLIDERS_SUCCESED: {
+      return {
+        ...state,
+        sliders: action.payload
       }
     }
     default: {

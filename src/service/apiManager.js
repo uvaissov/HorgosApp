@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { hostName } from '../constants/global'
 import * as transform from './transform'
-import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT } from '../constants/static'
+import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT, BY_TRADING_HOUSE } from '../constants/static'
 
 const instance = axios.create({
   baseURL: hostName,
@@ -28,6 +28,36 @@ export const getSpecialForYou = async () => {
   try {
     const { data } = await instance.get('/api/special-for-you')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const getReviewsAbout = async () => {
+  try {
+    const { data } = await instance.get('/api/reviews-about')
+    const payload = data.map((el) => transform.toReview(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const getPosts = async () => {
+  try {
+    const { data } = await instance.get('/api/advices/posts')
+    const payload = data.map((el) => transform.toPost(el))
     return {
       payload
     }
@@ -145,6 +175,21 @@ export const getVideoAboutHorgos = async () => {
   }
 }
 
+export const getSliders = async () => {
+  try {
+    const { data } = await instance.get('/api/sliders/1')
+    const payload = data.slides.map((el) => transform.toSlider(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
 export const getCategories = async () => {
   try {
     const { data: allData } = await instance.get('/api/categories')
@@ -170,7 +215,7 @@ export const getCategories = async () => {
 export const getBoutiqueList = async (params) => {
   try {
     let url = '/api/boutiques?'
-    const { cat_id, filter, ids, text } = params
+    const { cat_id, filter, ids, text, trading_house_id } = params
     switch (filter) {
       case BY_CATEGORY:
         url += `categories=${cat_id}`
@@ -180,6 +225,9 @@ export const getBoutiqueList = async (params) => {
         break
       case BY_SEARCH_TEXT:
         url += `name=${text}`
+        break
+      case BY_TRADING_HOUSE:
+        url += `trading_house=${trading_house_id}`
         break
 
       default:
@@ -203,7 +251,6 @@ export const getBoutiqueList = async (params) => {
       }
       return null
     })
-    console.log('trading_houses', trading_houses)
     return {
       payload: {
         trading_houses: trading_houses.map(el => transform.toHouse(el)),

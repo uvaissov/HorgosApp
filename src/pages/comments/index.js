@@ -1,12 +1,14 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-//import _ from 'lodash'
+import { connect } from 'react-redux'
 import { StyleSheet, View, InteractionManager } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+import nextId from 'react-id-generator'
 import { FooterUI, HeaderUI, Response } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import { getReviewsAbout } from './actions'
 
 
 const styles = StyleSheet.create({
@@ -22,6 +24,7 @@ class Comments extends Component {
   }
 
   componentDidMount = () => {
+    this.props.getReviewsAbout()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
@@ -29,14 +32,16 @@ class Comments extends Component {
 
   init = () => {
     const { didFinishInitialAnimation } = this.state
-    if (didFinishInitialAnimation === false) {
+    const { list, isLoading } = this.props
+    if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (
       <FlatList
         style={styles.flatListStyle}
-        data={Array(20).fill().map(() => ({ title: 'Как установить WeChat?', date: '12 августа 2019', description: 'Для того чтобы использовать популярный китайский мессенджер, необходимо установить его на свое Для того чтобы использовать популярный китайский мессенджер, необходимо установить его на свое', img: require('../../../resources/image/image.png') }))}
-        renderItem={(item) => <Response index={item.index} />}
+        data={list}
+        keyExtractor={() => nextId()}
+        renderItem={({ item }) => <Response index={item.index} name={item.name} rating={item.rating} text={item.text} date={item.date} />}
       />
     )
   }
@@ -47,7 +52,7 @@ class Comments extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Отзывы о Хоргос" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
+        <HeaderUI text="Отзывы о Хоргос" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}
@@ -58,4 +63,8 @@ class Comments extends Component {
   }
 }
 
-export default Comments
+const mapStateToProps = state => ({
+  list: state.reviews.list,
+  isLoading: state.reviews.isLoading
+})
+export default connect(mapStateToProps, { getReviewsAbout })(Comments)

@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
 })
 
 
-const FavoriteCmp = () => {
+const FavoriteCmp = ({ boutique }) => {
+  const { rating } = boutique
   const [selected, setSelected] = useState(false)
   const color = selected ? WHITE : RED
   const backgroundColor = !selected ? WHITE : RED
@@ -33,11 +34,12 @@ const FavoriteCmp = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.raitingView}>
-        <View style={styles.startsView}>{
-          Array(5).fill().map(() => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={ORANGE} size={10} />)
+        <View style={styles.startsView}>
+          {
+            Array(5).fill().map((el, elIdx) => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={elIdx >= rating ? GRAY_SECOND : ORANGE} size={10} />)
           }
         </View>
-        <View><Text style={styles.raitingText}>5/5 (148 отзывов)</Text></View>
+        <View><Text style={styles.raitingText}>{rating || 0 }/5 ( {boutique.reviews.length} отзыва )</Text></View>
       </View>
     </View>
   )

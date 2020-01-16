@@ -25,7 +25,7 @@ const ResponseList = ({ data, onLayourRef }) => {
       <View style={styles.view}>
         {
           data.map((item, index) => (
-            <Response key={nextId()} index={index} item={item} />
+            <Response key={nextId()} index={index} name={item.name} rating={item.rating} text={item.text} date={item.date} />
           ))
         }
       </View>

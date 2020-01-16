@@ -1,3 +1,4 @@
-export const BY_CATEGORY = 'byCategory'
-export const BY_BOUTIQUE_IDS = 'byBoutiqueIds'
-export const BY_SEARCH_TEXT = 'bySearchText'
+export const BY_CATEGORY = 'BY_CATEGORY'
+export const BY_BOUTIQUE_IDS = 'BY_BOUTIQUE_IDS'
+export const BY_SEARCH_TEXT = 'BY_SEARCH_TEXT'
+export const BY_TRADING_HOUSE = 'BY_TRADING_HOUSE'

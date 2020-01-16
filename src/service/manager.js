@@ -37,22 +37,37 @@ export const getFreebies = async (online = true) => {
   return data
 }
 
+//Видео о хоргос
 export const getVideoAboutHorgos = async (online = true) => {
   const data = online ? await apiManager.getVideoAboutHorgos() : null
   return data
 }
 
-export const getCategories = async (online = true, params = {}) => {
-  const data = online ?
-    await apiManager.getCategories(params) :
-    null
+//Категории
+export const getCategories = async (online = true) => {
+  const data = online ? await apiManager.getCategories() : null
+  return data
+}
 
+//Отзывы о хоргос
+export const getReviewsAbout = async (online = true) => {
+  const data = online ? await apiManager.getReviewsAbout() : null
+  return data
+}
+
+//Советы- статьи
+export const getPosts = async (online = true) => {
+  const data = online ? await apiManager.getPosts() : null
+  return data
+}
+
+//Главный слайдер
+export const getSliders = async (online = true) => {
+  const data = online ? await apiManager.getSliders() : null
   return data
 }
 
 export const getBoutiqueList = async (online = true, params = {}) => {
-  const data = online ?
-    await apiManager.getBoutiqueList(params) :
-    null
+  const data = online ? await apiManager.getBoutiqueList(params) : null
   return data
 }
