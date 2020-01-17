@@ -1,17 +1,19 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
-import { ScrollView, StyleSheet, Platform, ImageBackground, View, Text } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, StyleSheet, Platform, ImageBackground, View, Text, Modal, TouchableOpacity } from 'react-native'
 import { createAppContainer, SafeAreaView } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FastImage from 'react-native-fast-image'
+import { useSelector } from 'react-redux'
 import Main from './main'
 import Boutique from './boutique'
 import BoutiqueList from './boutiqueList'
 import CouncilsList from './сouncils'
 import CouncilItemView from './сouncils/item'
+import HelpItemView from './help/item'
 import Products from './products'
 import MapShow from './map'
 import Comments from './comments'
@@ -53,36 +55,47 @@ const styles = StyleSheet.create({
   }
 })
 
-const CustomDrawerContentComponent = props => (
-  <ScrollView>
-    <SafeAreaView
-      style={styles.container}
-      forceInset={{ top: 'always', horizontal: 'never' }}
-    >
-      <ImageBackground source={require('../../resources/image/header_background.png')} style={{ width: '100%', height: 200 }}>
-        <View style={styles.headerView}>
-          <View style={styles.mainView}>
+const CustomDrawerContentComponent = props => {
+  const [visible, setVisible] = useState(false)
+  const todo = useSelector(state => state.main.videos)
+  return (
+    <ScrollView>
+      <SafeAreaView
+        style={styles.container}
+        forceInset={{ top: 'always', horizontal: 'never' }}
+      >
+        <ImageBackground source={require('../../resources/image/header_background.png')} style={{ width: '100%', height: 200 }}>
+          <View style={styles.headerView}>
+            <View style={styles.mainView}>
+              <View>
+                <FastImage
+                  style={styles.avatar}
+                  resizeMode={FastImage.resizeMode.contain}
+                  source={require('../../resources/image/profile.png')}
+                />
+              </View>
+              <View style={styles.textView}>
+                <Text style={styles.loginText}>Константин Ивлев</Text>
+                <Text style={styles.numberText}>+77753559997</Text>
+              </View>
+            </View>
             <View>
-              <FastImage
-                style={styles.avatar}
-                resizeMode={FastImage.resizeMode.contain}
-                source={require('../../resources/image/profile.png')}
-              />
-            </View>
-            <View style={styles.textView}>
-              <Text style={styles.loginText}>Константин Ивлев</Text>
-              <Text style={styles.numberText}>+77753559997</Text>
+              <TouchableOpacity onPress={() => setVisible(true)}>
+                <MaterialCommunityIcons style={styles.btnStyle} name="dots-vertical" size={normalize(23)} color={WHITE} />
+              </TouchableOpacity>
             </View>
           </View>
+        </ImageBackground>
+        <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent>
           <View>
-            <MaterialCommunityIcons style={styles.btnStyle} name="dots-vertical" size={normalize(23)} color={WHITE} />
+            <Text>{todo.length}</Text>
           </View>
-        </View>
-      </ImageBackground>
-      <DrawerNavigatorItems {...props} />
-    </SafeAreaView>
-  </ScrollView>
-)
+        </Modal>
+        <DrawerNavigatorItems {...props} />
+      </SafeAreaView>
+    </ScrollView>
+  )
+}
 
 const MainStack = createStackNavigator(
   {
@@ -114,7 +127,8 @@ const CouncilsStack = createStackNavigator(
 
 const HelpStack = createStackNavigator(
   {
-    Help
+    Help,
+    HelpItemView
   },
   {
     initialRouteName: 'Help',

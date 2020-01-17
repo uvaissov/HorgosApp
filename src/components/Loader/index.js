@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   }
 })
 
+
 const Loader = ({ animating, color = MAIN_COLOR }) => (
   <View style={styles.container}>
     <ActivityIndicator style={styles.activityIndicator} size="large" color={color} animating={animating} />

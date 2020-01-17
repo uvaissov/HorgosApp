@@ -1,6 +1,6 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-//import _ from 'lodash'
+import _ from 'lodash'
 import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
@@ -55,6 +55,9 @@ class BoutiqueList extends Component {
       return <Loader />
     }
     const trading_house = trading_houses[selected] || {}
+    if (_.isEmpty(trading_house)) {
+      return <Loader />
+    }
     return (
       <ScrollView>
         <ScrollRoundWithTitle selected={selected} setSelected={this.setSelected} title="Торговые дома" data={trading_houses} />

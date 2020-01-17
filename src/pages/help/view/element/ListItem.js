@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { WHITE, normalize, w, BORDER_COLOR, RED, GRAY } from '../../../../constants/global'
 
@@ -14,19 +14,19 @@ const styles = StyleSheet.create({
   title: { fontSize: normalize(12), color: GRAY }
 })
 
-const ListItem = ({ style, item = { text: 'Как найти интересующий бутик?' } }) => (
-  <TouchableHighlight>
+const ListItem = ({ style, item = {}, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
     <>
       <View style={[styles.view, style]}>
         <View style={[styles.imageView]}>
           <Entypo name="dot-single" size={23} color={RED} />
         </View>
         <View style={styles.infoView}>
-          <Text ellipsizeMode="clip" style={styles.title}>{item.text}</Text>
+          <Text ellipsizeMode="clip" style={styles.title}>{item.title}</Text>
         </View>
       </View>
     </>
-  </TouchableHighlight>
+  </TouchableOpacity>
 )
 
 

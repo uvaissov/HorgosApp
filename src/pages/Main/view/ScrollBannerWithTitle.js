@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   image: { height: bannerH, width: bannerW },
   firstImage: { height: firstW, width: firstW, borderRadius: 5 },
   secondImage: { height: secondW, width: secondW, borderRadius: 5 },
-  text: { fontSize: 18, color: WHITE, fontWeight: 'bold' }
+  text: { fontSize: 18, color: WHITE, fontWeight: 'bold' },
+  textShadow: { textShadowColor: 'rgba(0, 0, 0, 0.75)', textShadowOffset: { width: -1, height: 1 }, textShadowRadius: 10 }
 })
 
 const ScrollBannerWithTitle = (props) => {
@@ -40,7 +41,7 @@ const ScrollBannerWithTitle = (props) => {
               <View style={[styles.view, { marginLeft: index === 0 ? 15 : 5 }]}>
                 <FastImage source={background} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
                   <View style={{ flex: 1, padding: 20 }}>
-                    <View style={{ flex: 1 }}><Text style={styles.text}>{name}</Text></View>
+                    <View style={{ flex: 1 }}><Text style={[styles.text, styles.textShadow]}>{name}</Text></View>
                     <View style={{ flex: 2, flexDirection: 'row' }}>
                       <View>
                         <FastImage source={first} style={styles.firstImage} resizeMode={FastImage.resizeMode.cover} />

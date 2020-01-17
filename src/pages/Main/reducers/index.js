@@ -21,8 +21,7 @@ const initialState = {
   bestProducts: [],
   freebies: [],
   videos: [],
-  sliders: [],
-  token: null
+  sliders: []
 }
 
 export default (state = initialState, action) => {

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 })
 
 const ScrollListWithTitle = (props) => {
-  const { onPress, title, data = ['1', '2', '1', '2', '2', '1', '2'] } = props
+  const { onPress, title, data = [], navigation } = props
   const [limit, setLimit] = useState(staticLimit)
   const size = data.length
   return (
@@ -25,7 +25,7 @@ const ScrollListWithTitle = (props) => {
       <FlatList
         style={styles.scrollView}
         data={data.slice(0, limit)}
-        renderItem={(item) => (<ListItem item={item.item} />)}
+        renderItem={(item) => (<ListItem item={item.item} onPress={() => navigation.push('HelpItemView', { item: item.item })} />)}
         keyExtractor={() => nextId()}
       />
       {

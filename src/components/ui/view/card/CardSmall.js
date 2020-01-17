@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { WHITE, normalize, GRAY, GRAY_SECOND } from '../../../../constants/global'
 
@@ -17,7 +17,7 @@ const CardSmall = ({ width, style, onPress, item }) => {
   const { name, img, categoriesName } = item
   return (
     <View style={[styles.marginView]}>
-      <TouchableHighlight onPress={() => onPress(item)}>
+      <TouchableOpacity onPress={() => onPress(item)}>
         <View style={[styles.view, style, { width }]}>
           <View>
             <FastImage source={img} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
@@ -27,7 +27,7 @@ const CardSmall = ({ width, style, onPress, item }) => {
             <Text style={styles.desc} ellipsizeMode="tail" numberOfLines={3}>{categoriesName}</Text>
           </View>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   )
 }

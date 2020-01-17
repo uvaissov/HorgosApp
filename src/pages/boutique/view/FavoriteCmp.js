@@ -4,11 +4,13 @@ import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import _ from 'lodash'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { WHITE, RED, GRAY_SECOND, ORANGE, normalize } from '../../../constants/global'
+import { WHITE, RED, GRAY_SECOND, ORANGE, normalize, BLACK } from '../../../constants/global'
 
 
 const styles = StyleSheet.create({
-  view: { margin: 15, flexDirection: 'row', alignItems: 'center' },
+  view: { margin: 15, flexDirection: 'row', alignItems: 'center', marginTop: 0 },
+  titleView: { margin: 15 },
+  titleText: { color: BLACK, fontSize: normalize(16), fontWeight: '700' },
   adButtomView: { borderRadius: 6, borderWidth: 1, borderColor: RED, paddingVertical: 5, paddingHorizontal: 10, flexDirection: 'row', alignItems: 'center' },
   adText: { marginHorizontal: 10, color: RED },
   raitingView: { marginLeft: 15 },
@@ -19,27 +21,32 @@ const styles = StyleSheet.create({
 
 
 const FavoriteCmp = ({ boutique }) => {
-  const { rating } = boutique
+  const { rating, name = '' } = boutique
   const [selected, setSelected] = useState(false)
   const color = selected ? WHITE : RED
   const backgroundColor = !selected ? WHITE : RED
   return (
-    <View style={styles.view}>
-      <View>
-        <TouchableOpacity onPress={() => setSelected(!selected)}>
-          <View style={[styles.adButtomView, { backgroundColor }]}>
-            <Feather name="heart" size={20} color={color} />
-            <Text style={[styles.adText, { color }]}>В избранное</Text>
-          </View>
-        </TouchableOpacity>
+    <View>
+      <View style={styles.titleView}>
+        <Text style={styles.titleText}>{name}</Text>
       </View>
-      <View style={styles.raitingView}>
-        <View style={styles.startsView}>
-          {
-            Array(5).fill().map((el, elIdx) => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={elIdx >= rating ? GRAY_SECOND : ORANGE} size={10} />)
-          }
+      <View style={styles.view}>
+        <View>
+          <TouchableOpacity onPress={() => setSelected(!selected)}>
+            <View style={[styles.adButtomView, { backgroundColor }]}>
+              <Feather name="heart" size={20} color={color} />
+              <Text style={[styles.adText, { color }]}>В избранное</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-        <View><Text style={styles.raitingText}>{rating || 0 }/5 ( {boutique.reviews.length} отзыва )</Text></View>
+        <View style={styles.raitingView}>
+          <View style={styles.startsView}>
+            {
+              Array(5).fill().map((el, elIdx) => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={elIdx >= rating ? GRAY_SECOND : ORANGE} size={10} />)
+            }
+          </View>
+          <View><Text style={styles.raitingText}>{rating || 0 }/5 ( {boutique.reviews.length} отзыва )</Text></View>
+        </View>
       </View>
     </View>
   )

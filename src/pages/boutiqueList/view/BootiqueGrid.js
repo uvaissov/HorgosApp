@@ -18,6 +18,7 @@ const BootiqueGrid = ({ navigation, data }) => {
   return (
     <View style={styles.view}>
       <FlatList
+        key={nextId()}
         style={styles.flexView}
         numColumns={3}
         data={data}

@@ -1,11 +1,13 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ScrollListWithTitle, RequestView } from './view'
+import { getHelp } from './actions'
 
 
 const styles = StyleSheet.create({
@@ -21,6 +23,7 @@ class Help extends Component {
   }
 
   componentDidMount = () => {
+    this.props.getHelp()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
@@ -28,12 +31,13 @@ class Help extends Component {
 
   init = () => {
     const { didFinishInitialAnimation } = this.state
-    if (didFinishInitialAnimation === false) {
+    const { list, isLoading, navigation } = this.props
+    if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (
       <ScrollView>
-        <ScrollListWithTitle title="Частые вопросы" />
+        <ScrollListWithTitle data={list} title="Частые вопросы" navigation={navigation} />
         <RequestView title="Остались вопросы?" />
       </ScrollView>
     )
@@ -45,7 +49,7 @@ class Help extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Помощь" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
+        <HeaderUI text="Помощь" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}
@@ -56,4 +60,8 @@ class Help extends Component {
   }
 }
 
-export default Help
+const mapStateToProps = state => ({
+  list: state.help.list,
+  isLoading: state.help.isLoading
+})
+export default connect(mapStateToProps, { getHelp })(Help)

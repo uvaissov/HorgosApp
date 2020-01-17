@@ -2,9 +2,8 @@
 import React, { Component } from 'react'
 //import _ from 'lodash'
 import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
-import FastImage from 'react-native-fast-image'
 import { FooterUI, HeaderUI } from '../../../components/ui/view'
-import { WHITE, BORDER_COLOR, GRAY_SECOND, BLACK, w, normalize } from '../../../constants/global'
+import { WHITE, BORDER_COLOR, GRAY_SECOND, BLACK, normalize } from '../../../constants/global'
 import CustomStatusBar from '../../../components/CustomStatusBar'
 import Loader from '../../../components/Loader'
 
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   scrollView: { paddingHorizontal: 15, paddingBottom: 15 }
 })
 
-class CouncilItemView extends Component {
+class HelpItemView extends Component {
   state = {
     didFinishInitialAnimation: false
   }
@@ -35,16 +34,11 @@ class CouncilItemView extends Component {
     const { navigation } = this.props
     const item = navigation.getParam('item')
     const { didFinishInitialAnimation } = this.state
-    const imageW = w - 30
-    const imageH = imageW * 0.45
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
     return (
       <ScrollView style={styles.scrollView}>
-        <View style={styles.imgView}>
-          <FastImage style={{ height: imageH, width: imageW, borderRadius: 6 }} resizeMode={FastImage.resizeMode.cover} source={item.img} />
-        </View>
         <Text style={styles.textTitle}>{item.title}</Text>
         <Text style={styles.textDate}>{item.date}</Text>
         <Text style={styles.textDesc}>{item.content}</Text>
@@ -72,4 +66,4 @@ class CouncilItemView extends Component {
   }
 }
 
-export default CouncilItemView
+export default HelpItemView

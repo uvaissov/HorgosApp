@@ -1,6 +1,7 @@
 export * from './HeaderUI'
 export * from './FooterUI'
 export * from './Slider'
+export * from './SliderImages'
 export * from './card/CardBig'
 export * from './card/CardSmall'
 export * from './round/RoundWithDiscont'

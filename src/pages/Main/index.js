@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
+import NetInfo from '@react-native-community/netinfo'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import {
   getRecommended,
@@ -28,6 +30,15 @@ const styles = StyleSheet.create({
 
 class Main extends Component {
   async componentDidMount() {
+    this.unsubscribe = NetInfo.addEventListener(state => {
+      console.log('Connection type', state.type)
+      console.log('isConnected:', state.isConnected)
+    })
+    this.fetch()
+  }
+
+  fetch = async () => {
+    console.log('fetch')
     this.props.getRecommended()
     this.props.getSpecialForYou()
     this.props.getCategoryStocks()
@@ -38,6 +49,13 @@ class Main extends Component {
     this.props.getFreebies()
     this.props.getVideoAboutHorgos()
     this.props.getSliders()
+  }
+
+  async componentWillUnmount() {
+    if (_.isFunction(this.unsubscribe)) {
+      this.unsubscribe()
+      console.log('unsubscribe function')
+    }
   }
 
   render() {

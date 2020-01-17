@@ -61,6 +61,18 @@ export const getPosts = async (online = true) => {
   return data
 }
 
+//Советы- статьи
+export const getHelp = async (online = true) => {
+  const data = online ? await apiManager.getHelp() : null
+  return data
+}
+
+//Советы- статьи
+export const addHelp = async (online = true, text) => {
+  const data = online ? await apiManager.addHelp(text) : null
+  return data
+}
+
 //Главный слайдер
 export const getSliders = async (online = true) => {
   const data = online ? await apiManager.getSliders() : null

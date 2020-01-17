@@ -190,6 +190,40 @@ export const getSliders = async () => {
   }
 }
 
+export const getHelp = async () => {
+  try {
+    const { data } = await instance.get('/api/help')
+    const payload = data.map((el) => transform.toHelp(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: [],
+      error
+    }
+  }
+}
+
+export const addHelp = async (text) => {
+  try {
+    const { data } = await instance.post(`/api/help?title=${text}`)
+    console.log('data,', data)
+    const payload = transform.toHelp(data)
+    console.log('payload,', {
+      payload
+    })
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: {},
+      error
+    }
+  }
+}
+
 export const getCategories = async () => {
   try {
     const { data: allData } = await instance.get('/api/categories')

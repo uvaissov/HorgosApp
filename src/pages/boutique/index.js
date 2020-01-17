@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import { StyleSheet, View, Text, InteractionManager, Animated } from 'react-native'
 import { ScrollCardWithTitle } from '../main/view'
-import { FooterUI, SliderApp } from '../../components/ui/view'
+import { FooterUI, SliderImages } from '../../components/ui/view'
 import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, ProductList, MapShow, ResponseList } from './view'
 import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, TRASPARENT } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -158,7 +158,7 @@ class Boutique extends Component {
         )}
       >
         <Animated.View style={[styles.scrollViewContent, { transform: [{ translateY: headerHeight }] }]}>
-          <SliderApp data={boutique.images} />
+          <SliderImages data={boutique.images} />
           <FavoriteCmp boutique={boutique} />
           <DetailInfo data={this.getInfo()} />
           <Description text={boutique.description} />

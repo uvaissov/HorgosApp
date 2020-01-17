@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
 
 const ScrollRoundWithTitle = (props) => {
   const { onPress, masked, title, data, selected, setSelected } = props
+  if (!data || data.length < 1) return null
   return (
     <BlockTitleAndButton onPress={onPress} title={title} masked={masked}>
       <FlatList

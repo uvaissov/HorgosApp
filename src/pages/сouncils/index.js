@@ -3,11 +3,13 @@ import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import nextId from 'react-id-generator'
+import { connect } from 'react-redux'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ConcilItem } from './element/ConcilItem'
+import { getPosts } from './actions'
 
 
 const styles = StyleSheet.create({
@@ -23,6 +25,7 @@ class CouncilsList extends Component {
   }
 
   componentDidMount = () => {
+    this.props.getPosts()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
@@ -31,14 +34,15 @@ class CouncilsList extends Component {
   init = () => {
     const { navigation } = this.props
     const { didFinishInitialAnimation } = this.state
-    if (didFinishInitialAnimation === false) {
+    const { list, isLoading } = this.props
+    if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (
       <FlatList
         style={styles.flatListStyle}
         keyExtractor={() => nextId()}
-        data={Array(20).fill().map(() => ({ title: 'Как установить WeChat?', date: '12 августа 2019', description: 'Для того чтобы использовать популярный китайский мессенджер, необходимо установить его на свое Для того чтобы использовать популярный китайский мессенджер, необходимо установить его на свое', img: require('../../../resources/image/image.png') }))}
+        data={list}
         renderItem={(item) => <ConcilItem item={item.item} onPress={() => navigation.push('CouncilItemView', { item: item.item })} />}
       />
     )
@@ -61,4 +65,9 @@ class CouncilsList extends Component {
   }
 }
 
-export default CouncilsList
+
+const mapStateToProps = state => ({
+  list: state.posts.list,
+  isLoading: state.posts.isLoading
+})
+export default connect(mapStateToProps, { getPosts })(CouncilsList)
