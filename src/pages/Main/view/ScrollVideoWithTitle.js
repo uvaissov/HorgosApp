@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, Platform } from 'react-native'
 import nextId from 'react-id-generator'
-import { YouTubeStandaloneAndroid } from 'react-native-youtube'
+import { YouTubeStandaloneAndroid, YouTubeStandaloneIOS } from 'react-native-youtube'
 import FastImage from 'react-native-fast-image'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
@@ -20,13 +20,19 @@ const ScrollVideoWithTitle = (props) => {
   if (!data || data.length < 1) return null
 
   const openPlayer = (videoId) => {
-    YouTubeStandaloneAndroid.playVideo({
-      apiKey: 'AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00',
-      videoId,
-      autoplay: true
-    })
-      .then(() => console.log('Player closed'))
-      .catch(e => console.error(e))
+    if (Platform.OS === 'ios') {
+      YouTubeStandaloneIOS.playVideo(videoId)
+        .then(message => console.log(message))
+        .catch(errorMessage => console.error(errorMessage))
+    } else {
+      YouTubeStandaloneAndroid.playVideo({
+        apiKey: 'AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00',
+        videoId,
+        autoplay: true
+      })
+        .then(() => console.log('Player closed'))
+        .catch(e => console.error(e))
+    }
   }
   return (
     <BlockTitleAndButton title={title}>
