@@ -19,5 +19,4 @@ const ButtonGradient = ({ onPress, title }) => (
   </TouchableOpacity>
 )
 
-
 export { ButtonGradient }

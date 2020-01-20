@@ -303,3 +303,17 @@ export const getBoutiqueList = async (params) => {
     }
   }
 }
+
+export const doLogin = async (mail, password) => {
+  try {
+    console.log(`/api/token?email=${mail}&password=${password}`)
+    const { data = {} } = await instance.get(`/api/token?email=${mail}&password=${password}`)
+    const { access_token, message } = data
+    return {
+      access_token, message
+    }
+  } catch (error) {
+    const { response: { data } } = error
+    return data
+  }
+}

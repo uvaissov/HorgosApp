@@ -1,4 +1,4 @@
-import { Dimensions, Platform, PixelRatio, StatusBar } from 'react-native'
+import { Dimensions, Platform, PixelRatio, StatusBar, Alert } from 'react-native'
 import { isIphoneX } from 'react-native-iphone-x-helper'
 
 export const hostName = 'http://dai5.kz'
@@ -55,4 +55,21 @@ export function normalize(size) {
     result = Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
   }
   return result
+}
+
+export function alertApp(titleTxt, msg) {
+  return new Promise((action) => {
+    Alert.alert(
+      titleTxt,
+      msg,
+      [
+        { text: 'OK', onPress: () => action() }
+      ],
+      { cancelable: false }
+    )
+  })
+}
+
+export function isEmptyString(str) {
+  return (!str || str.trim().length === 0)
 }

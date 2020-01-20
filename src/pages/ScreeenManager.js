@@ -5,9 +5,10 @@ import { ScrollView, StyleSheet, Platform, ImageBackground, View, Text, Modal, T
 import { createAppContainer, SafeAreaView } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+//import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FastImage from 'react-native-fast-image'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import Feather from 'react-native-vector-icons/Feather'
 import Main from './main'
 import Boutique from './boutique'
 import BoutiqueList from './boutiqueList'
@@ -20,7 +21,10 @@ import Comments from './comments'
 import Help from './help'
 import Favorite from './favorite'
 import Categories from './categories'
-import { w, WHITE, normalize, statusBarHeight } from '../constants/global'
+import { w, WHITE, normalize, statusBarHeight, isEmptyString } from '../constants/global'
+import { ACTION_LOGOUT_SUCCESS } from './auth/types'
+
+import LoginView from './auth/login'
 
 const styles = StyleSheet.create({
   headerView: {
@@ -57,7 +61,8 @@ const styles = StyleSheet.create({
 
 const CustomDrawerContentComponent = props => {
   const [visible, setVisible] = useState(false)
-  const todo = useSelector(state => state.main.videos)
+  const token = useSelector(state => state.auth.token)
+  const dispatch = useDispatch()
   return (
     <ScrollView>
       <SafeAreaView
@@ -68,28 +73,43 @@ const CustomDrawerContentComponent = props => {
           <View style={styles.headerView}>
             <View style={styles.mainView}>
               <View>
-                <FastImage
-                  style={styles.avatar}
-                  resizeMode={FastImage.resizeMode.contain}
-                  source={require('../../resources/image/profile.png')}
-                />
+                {
+                    !isEmptyString(token) &&
+                    <FastImage
+                      style={styles.avatar}
+                      resizeMode={FastImage.resizeMode.contain}
+                      source={require('../../resources/image/profile.png')}
+                    />
+                }
               </View>
               <View style={styles.textView}>
-                <Text style={styles.loginText}>Константин Ивлев</Text>
-                <Text style={styles.numberText}>+77753559997</Text>
+                {
+                  !isEmptyString(token) &&
+                  <>
+                    <Text style={styles.loginText}>Константин Ивлев</Text>
+                    <Text style={styles.numberText}>+77753559997</Text>
+                  </>
+                }
               </View>
             </View>
             <View>
-              <TouchableOpacity onPress={() => setVisible(true)}>
-                <MaterialCommunityIcons style={styles.btnStyle} name="dots-vertical" size={normalize(23)} color={WHITE} />
-              </TouchableOpacity>
+              {
+               !isEmptyString(token) &&
+               <TouchableOpacity onPress={() => dispatch({ type: ACTION_LOGOUT_SUCCESS })}>
+                 <Feather name="log-out" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
+               </TouchableOpacity>
+              }
+              {
+                isEmptyString(token) &&
+                <TouchableOpacity onPress={() => setVisible(true)}>
+                  <Feather name="log-in" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
+                </TouchableOpacity>
+              }
             </View>
           </View>
         </ImageBackground>
-        <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent>
-          <View>
-            <Text>{todo.length}</Text>
-          </View>
+        <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent animationType="fade">
+          <LoginView close={() => setVisible(false)} />
         </Modal>
         <DrawerNavigatorItems {...props} />
       </SafeAreaView>

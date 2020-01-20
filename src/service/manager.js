@@ -83,3 +83,8 @@ export const getBoutiqueList = async (online = true, params = {}) => {
   const data = online ? await apiManager.getBoutiqueList(params) : null
   return data
 }
+
+export const doLogin = async (online = true, login, password = {}) => {
+  const data = online ? await apiManager.doLogin(login, password) : null
+  return data
+}
