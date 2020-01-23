@@ -16,16 +16,16 @@ const FavoriteGrid = (props) => {
   const { item, navigation } = props
   const [expanded, setExpand] = useState(false)
   const onItemPress = (i) => {
-    navigation.push('Boutique', { item: i })
+    navigation.push('Boutique', { boutique: i })
   }
   const onPress = () => {
     setExpand(!expanded)
   }
   const title = 'ТЦ Чжун Кэ-1'
-  const count = item
-  const elements = Array(count).fill().map(() => ({ title: 'Как установить WeChat?' }))
+  const count = item.items.length || 0
+  const elements = item.items
   return (
-    <BlockTitleAndButton onPress={onPress} title={title} count={count} element={<Feather name={!expanded ? 'chevron-down' : 'chevron-up'} color={GRAY} size={23} />}>
+    <BlockTitleAndButton onPress={onPress} title={title} count={count} element={count > 3 ? <Feather name={!expanded ? 'chevron-down' : 'chevron-up'} color={GRAY} size={23} /> : null}>
       <View style={styles.view}>
         <FlatList
           style={styles.flexView}

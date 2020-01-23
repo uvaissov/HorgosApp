@@ -1,6 +1,7 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager } from 'react-native'
+import { connect } from 'react-redux'
 import { FlatList } from 'react-native-gesture-handler'
 import nextId from 'react-id-generator'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
@@ -8,6 +9,7 @@ import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { FavoriteGrid } from './view'
+import { getFavorite } from './actions'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -22,6 +24,10 @@ class Favorite extends Component {
   }
 
   componentDidMount = () => {
+    const { isLoading } = this.props
+    if (isLoading === false) { //Избранное езе не загружено
+      this.props.getFavorite()
+    }
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
@@ -30,12 +36,13 @@ class Favorite extends Component {
   init = () => {
     const { didFinishInitialAnimation } = this.state
     const { navigation } = this.props
-    if (didFinishInitialAnimation === false) {
+    const { list, isLoading } = this.props
+    if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (
       <FlatList
-        data={[9, 15, 45, 24, 8]}
+        data={list}
         keyExtractor={() => nextId()}
         renderItem={(item) => (<FavoriteGrid title="ТЦ Чжун Кэ-1" item={item.item} navigation={navigation} />)}
       />
@@ -48,7 +55,7 @@ class Favorite extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Избранные товары" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
+        <HeaderUI text="Избранные товары" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}
@@ -59,4 +66,8 @@ class Favorite extends Component {
   }
 }
 
-export default Favorite
+const mapStateToProps = state => ({
+  list: state.favorites.list,
+  isLoading: state.favorites.isLoading
+})
+export default connect(mapStateToProps, { getFavorite })(Favorite)

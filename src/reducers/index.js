@@ -5,6 +5,7 @@ import reviewsReducer from '../pages/comments/reducers'
 import postsReducer from '../pages/сouncils/reducers'
 import helpReducer from '../pages/help/reducers'
 import authReducer from '../pages/auth/reducers'
+import favReducer from '../pages/favorite/reducers'
 
 const reducers = combineReducers({
   main: mainReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   reviews: reviewsReducer,
   posts: postsReducer,
   help: helpReducer,
-  auth: authReducer
+  auth: authReducer,
+  favorites: favReducer
 })
 
 export default reducers

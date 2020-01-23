@@ -88,3 +88,8 @@ export const doLogin = async (online = true, login, password = {}) => {
   const data = online ? await apiManager.doLogin(login, password) : null
   return data
 }
+
+export const getFavorite = async (online = true, token) => {
+  const data = online ? await apiManager.getFavorite(token) : null
+  return data
+}

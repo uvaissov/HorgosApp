@@ -68,7 +68,7 @@ class Main extends Component {
             <Header style={{ margin: 15 }} placeHolder="Введите название бутика" navigation={navigation} />
             <SliderApp data={sliders} navigation={navigation} />
             <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
-            <AdBlockWithTitle data={specialsForYou} title="Специально для вас" />
+            <AdBlockWithTitle data={specialsForYou} title="Специально для вас" navigation={navigation} />
             <ScrollBannerWithTitle data={categoryStocks} title="Скидки по категориям" navigation={navigation} />
             <ScrollRoundWithTitle data={bestProducts} title="Лучшие товары" navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: bestProducts.map(el => el.id) })} />
             <ScrollCardWithTitle data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: customerChoices.map(el => el.id) })} />

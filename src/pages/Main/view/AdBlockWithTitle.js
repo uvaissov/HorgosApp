@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, FlatList } from 'react-native'
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native'
 import nextId from 'react-id-generator'
 import FastImage from 'react-native-fast-image'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
@@ -13,15 +13,26 @@ const styles = StyleSheet.create({
 })
 
 const AdBlockWithTitle = (props) => {
-  const { onPress, masked, title, data } = props
+  const { onPress, masked, title, data, navigation } = props
   if (!data || data.length < 1) return null
+
+  const onItemPress = (boutique) => {
+    navigation.push('Boutique', { boutique })
+  }
+
   return (
     <BlockTitleAndButton onPress={onPress} element={<View style={styles.adButtomView}><Text style={styles.adText}>Реклама</Text></View>} title={title} masked={masked}>
       <FlatList
         style={styles.scrollView}
         data={data}
         pagingEnabled
-        renderItem={(el) => (<View style={styles.view}><FastImage source={el.item.img} style={styles.image} resizeMode={FastImage.resizeMode.cover} /></View>)}
+        renderItem={(el) => (
+          <TouchableOpacity onPress={() => onItemPress(el.item.boutique)}>
+            <View style={styles.view}>
+              <FastImage source={el.item.img} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
+            </View>
+          </TouchableOpacity>
+        )}
         horizontal
         keyExtractor={() => nextId()}
         showsHorizontalScrollIndicator={false}

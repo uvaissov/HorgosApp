@@ -3,7 +3,7 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { format } from 'date-fns'
+import Moment from 'moment'
 import _ from 'lodash'
 import { Comment } from './Comment'
 import { ORANGE, normalize, BLACK, GRAY_SECOND, w } from '../../../constants/global'
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 
 const Response = ({ index, name = '', rating = 0, date = '', text = '' }) => {
-  const formateDate = format(new Date(date), 'dd.MM.yyyy HH:mm')
+  const formateDate = Moment(date).format('DD.MM.YYYY HH:mm')
   return (
 
     <View style={[styles.view, { marginTop: index === 0 ? 15 : 0 }]}>

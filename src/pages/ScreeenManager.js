@@ -160,7 +160,10 @@ const HelpStack = createStackNavigator(
 
 const FavotiteStack = createStackNavigator(
   {
-    Favorite
+    Favorite,
+    Boutique,
+    BoutiqueList,
+    Products
   },
   {
     initialRouteName: 'Favorite',
@@ -172,7 +175,10 @@ const FavotiteStack = createStackNavigator(
 
 const CategoriesStack = createStackNavigator(
   {
-    Categories
+    Categories,
+    Boutique,
+    BoutiqueList,
+    Products
   },
   {
     initialRouteName: 'Categories',

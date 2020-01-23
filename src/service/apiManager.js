@@ -317,3 +317,22 @@ export const doLogin = async (mail, password) => {
     return data
   }
 }
+
+export const getFavorite = async (token) => {
+  try {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    const { data } = await instance.get('api/favorite', config)
+    const payload = data.map(el => transform.toBoutique(el))
+    return {
+      payload
+    }
+  } catch (error) {
+    const { response: { data } } = error
+    return {
+      data,
+      error
+    }
+  }
+}
