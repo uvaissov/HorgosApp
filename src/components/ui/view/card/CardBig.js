@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { WHITE, normalize, GRAY, GRAY_SECOND } from '../../../../constants/global'
 
 const styles = StyleSheet.create({
-  view: { borderRadius: 6, backgroundColor: WHITE, borderWidth: 1, borderColor: '#E2E8F0' },
+  view: { borderRadius: 6, backgroundColor: WHITE, borderWidth: 1, borderColor: '#E2E8F0', flex: 1 },
   shadow: { shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 1.22, elevation: 2 },
   image: { flex: 1, height: undefined, width: undefined, borderTopLeftRadius: 6, borderTopRightRadius: 6, left: -2 },
   infoView: { flex: 1, paddingHorizontal: 10, paddingVertical: 10 },
@@ -24,7 +24,7 @@ const CardBig = ({ width, style, index, onPress, item, hit }) => {
   const hitH = hitW * 0.5
   return (
     <View style={[styles.marginView, { marginLeft: index === 0 ? 15 : 5 }]}>
-      <TouchableOpacity onPress={() => onPress(boutique)}>
+      <TouchableOpacity onPress={() => onPress(boutique)} style={{ flex: 1 }}>
         <View style={[styles.view, styles.shadow, style, { width }]}>
           {
             hit &&

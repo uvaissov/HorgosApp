@@ -6,7 +6,7 @@ import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndBut
 import { CardBig } from '../../../components/ui/view/index'
 
 const styles = StyleSheet.create({
-  scrollView: { }
+  scrollView: { flex: 1 }
 })
 
 const ScrollCardWithTitle = (props) => {
