@@ -48,7 +48,7 @@ class Main extends Component {
     this.props.getStockToday()
     this.props.getBestProducts()
     await this.props.getFreebies()
-    await this.props.getVideoAboutHorgos()    
+    await this.props.getVideoAboutHorgos()
     SplashScreen.hide()
   }
 
