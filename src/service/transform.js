@@ -47,14 +47,26 @@ export function toRelated(data) {
   return related_boutique_id
 }
 
+export function toHouse(data) {
+  const { id, name, images, logo } = data
+  let imagesArr = []
+  try {
+    imagesArr = JSON.parse(images)
+  } catch (e) {
+    imagesArr = []
+  }
+  return { id, name, img: { uri: genImageUri(logo) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
+}
+
 export function toBoutique(data) {
   const {
     id,
     name, seller_name, owner_name, languages,
     phone, whatsapp, weechat, categoriesName, description_mobile,
-    popular, top, stock, new: news, is_hit, averageRating: { rating }, trading_houses: [{ id: trading_house_id, name: trading_house_name }],
+    popular, top, stock, new: news, is_hit, averageRating: { rating }, trading_houses: [house = {}],
     firstImage, images, products, all_products, map, boutique_number, floor,
-    reviews, recommended_relations, related_relations } = data
+    reviews, recommended_relations, related_relations, categories } = data
+  const { id: trading_house_id, name: trading_house_name } = house
   let imagesArr = []
   try {
     imagesArr = JSON.parse(images)
@@ -88,6 +100,8 @@ export function toBoutique(data) {
     trading_house_id,
     trading_house_name,
     categoriesName,
+    trading_house: toHouse(house),
+    categoryId: (categories || []).map(el => `(${el.id})`).join(),
     img: { uri: genImageUri(firstImage) },
     images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })),
     products: (products || []).map(el => toProduct(el)),
@@ -104,16 +118,6 @@ export function toBoutiqueShort(data) {
   return { id: boutique_id, name, boutique: boutique ? toBoutique(boutique) : undefined, img: { uri: genImageUri(image) }, discount }
 }
 
-export function toHouse(data) {
-  const { id, name, images, logo } = data
-  let imagesArr = []
-  try {
-    imagesArr = JSON.parse(images)
-  } catch (e) {
-    imagesArr = []
-  }
-  return { id, name, img: { uri: genImageUri(logo) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
-}
 
 export function toCategoryStock(data) {
   const { id, name, images, background, category_id } = data

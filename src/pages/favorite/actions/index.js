@@ -6,8 +6,9 @@ import {
 } from './types'
 
 export const getFavorite = () => async (dispatch, getState) => {
+  const { network: { isConnected }, favorites: { list }, auth: { token } } = getState()
   dispatch({ type: ACTION_GET_FAVORITE_START })
-  const { payload } = await manager.getFavorite(true, getState().auth.token)
+  const { payload } = await manager.getFavorite(isConnected, token, list)
   const trading_houses = []
   payload.map(el => {
     const { trading_house_id, trading_house_name } = el

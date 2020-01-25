@@ -5,6 +5,8 @@ import {
 
 const initialState = {
   list: [],
+  remove: [],
+  add: [],
   isLoading: false
 }
 

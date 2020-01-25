@@ -1,6 +1,7 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 import _ from 'lodash'
+import { connect } from 'react-redux'
 import { StyleSheet, View, Text, InteractionManager, Animated } from 'react-native'
 import { ScrollCardWithTitle } from '../main/view'
 import { FooterUI, SliderImages } from '../../components/ui/view'
@@ -50,7 +51,8 @@ class Boutique extends Component {
 
   fetchDataList = async (ids) => {
     if (!_.isArray(ids) || ids.length < 1) return []
-    const { payload: data } = await manager.getBoutiqueList(true, { filter: BY_BOUTIQUE_IDS, ids })
+    const { isConnected } = this.props
+    const { payload: data } = await manager.getBoutiqueList(isConnected, { filter: BY_BOUTIQUE_IDS, ids })
     return (data && data.list) || []
   }
 
@@ -199,4 +201,8 @@ class Boutique extends Component {
   }
 }
 
-export default Boutique
+const mapStateToProps = state => ({
+  isConnected: state.network.isConnected
+})
+
+export default connect(mapStateToProps, { })(Boutique)

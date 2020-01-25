@@ -15,6 +15,7 @@ const ScrollCardWithTitle = (props) => {
 
   const onItemPress = (boutique) => {
     //const { boutique } = item
+    console.log('onItemPress:', boutique)
     if (boutique && boutique.id) {
       navigation.push('Boutique', { boutique })
     }

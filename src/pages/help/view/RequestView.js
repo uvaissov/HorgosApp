@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
+import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { ButtonGradient } from '../../../components/ui/kit/ButtonGradient'
@@ -15,8 +16,11 @@ const styles = StyleSheet.create({
 const RequestView = (props) => {
   const [text, setText] = useState(null)
   const { onPress, title } = props
-
+  const isConnected = useSelector(state => state.network.isConnected)
   const sendHelp = async () => {
+    if (!isConnected) {
+      return alertApp('Внимание', 'Отсутсвует соединение с сетью')
+    }
     if (_.isEmpty(text)) {
       return alertApp('Внимание', 'Перед отправкой сообщения необходимо заполнить тектовое поле')
     }
@@ -36,7 +40,7 @@ const RequestView = (props) => {
     <BlockTitleAndButton onPress={onPress} title={title}>
       <View style={styles.view}>
         <View style={styles.textView}>
-          <TextInput style={{ textAlignVertical: 'top' }} value={text} onChangeText={(el) => setText(el)} numberOfLines={6} multiline placeholder="Оставляйте свои заявки на сайте http://mcps-khorgos.info" placeholderTextColor={GRAY_SECOND} />
+          <TextInput style={{ textAlignVertical: 'top', marginVertical: 15, marginHorizontal: 10 }} value={text} onChangeText={(el) => setText(el)} numberOfLines={6} multiline placeholder="Оставляйте свои заявки на сайте http://mcps-khorgos.info" placeholderTextColor={GRAY_SECOND} />
         </View>
         <ButtonGradient title="Оставить заявку" onPress={() => sendHelp()} />
       </View>

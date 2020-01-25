@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { reducer as network } from 'react-native-offline'
 import mainReducer from '../pages/main/reducers'
 import categoryReducer from '../pages/categories/reducers'
 import reviewsReducer from '../pages/comments/reducers'
@@ -14,7 +15,8 @@ const reducers = combineReducers({
   posts: postsReducer,
   help: helpReducer,
   auth: authReducer,
-  favorites: favReducer
+  favorites: favReducer,
+  network
 })
 
 export default reducers

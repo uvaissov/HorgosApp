@@ -4,7 +4,8 @@ import {
 } from '../types'
 
 const initialState = {
-  token: null
+  token: null,
+  online: false
 }
 
 export default (state = initialState, action) => {

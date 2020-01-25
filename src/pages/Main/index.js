@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+//import _ from 'lodash'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import NetInfo from '@react-native-community/netinfo'
 import SplashScreen from 'react-native-splash-screen'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import {
@@ -21,6 +20,7 @@ import { FooterUI, SliderApp } from '../../components/ui/view'
 import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle, ScrollVideoWithTitle } from './view'
 import { WHITE, normalize } from '../../constants/global'
 import { BY_BOUTIQUE_IDS } from '../../constants/static'
+import * as manager from '../../service/manager'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -31,10 +31,6 @@ const styles = StyleSheet.create({
 
 class Main extends Component {
   async componentDidMount() {
-    this.unsubscribe = NetInfo.addEventListener(state => {
-      console.log('Connection type', state.type)
-      console.log('isConnected:', state.isConnected)
-    })
     await this.fetch()
   }
 
@@ -49,13 +45,16 @@ class Main extends Component {
     this.props.getBestProducts()
     await this.props.getFreebies()
     await this.props.getVideoAboutHorgos()
+    manager.loadFromServer(this.props.isConnected)
     SplashScreen.hide()
   }
 
-  async componentWillUnmount() {
-    if (_.isFunction(this.unsubscribe)) {
-      this.unsubscribe()
-      console.log('unsubscribe function')
+  componentDidUpdate(prevProps) {
+    const { isConnected: prevIsConnected } = prevProps
+    const { isConnected } = this.props
+    if (prevIsConnected === false && isConnected === true) {
+      //if connection restore need load again data
+      this.fetch()
     }
   }
 
@@ -95,7 +94,8 @@ const mapStateToProps = state => ({
   bestProducts: state.main.bestProducts,
   freebies: state.main.freebies,
   videos: state.main.videos,
-  sliders: state.main.sliders
+  sliders: state.main.sliders,
+  isConnected: state.network.isConnected
 })
 export default connect(
   mapStateToProps,

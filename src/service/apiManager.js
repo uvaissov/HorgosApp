@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { hostName } from '../constants/global'
 import * as transform from './transform'
-import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT, BY_TRADING_HOUSE } from '../constants/static'
+import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT, BY_TRADING_HOUSE, BY_ALL_DATA } from '../constants/static'
 
 const instance = axios.create({
   baseURL: hostName,
@@ -9,7 +9,7 @@ const instance = axios.create({
   headers: { 'Accept': 'application/json' }
 })
 
-export const getRecommended = async () => {
+export const getRecommended = async (persistData) => {
   try {
     const { data } = await instance.get('/api/recommended')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -18,13 +18,13 @@ export const getRecommended = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getSpecialForYou = async () => {
+export const getSpecialForYou = async (persistData) => {
   try {
     const { data } = await instance.get('/api/special-for-you')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -33,13 +33,13 @@ export const getSpecialForYou = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getReviewsAbout = async () => {
+export const getReviewsAbout = async (persistData) => {
   try {
     const { data } = await instance.get('/api/reviews-about')
     const payload = data.map((el) => transform.toReview(el))
@@ -48,13 +48,13 @@ export const getReviewsAbout = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getPosts = async () => {
+export const getPosts = async (persistData) => {
   try {
     const { data } = await instance.get('/api/advices/posts')
     const payload = data.map((el) => transform.toPost(el))
@@ -63,13 +63,13 @@ export const getPosts = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getCategoryStocks = async () => {
+export const getCategoryStocks = async (persistData) => {
   try {
     const { data } = await instance.get('/api/category-stocks')
     const payload = data.map((el) => transform.toCategoryStock(el))
@@ -78,13 +78,13 @@ export const getCategoryStocks = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getCustomerChoices = async () => {
+export const getCustomerChoices = async (persistData) => {
   try {
     const { data } = await instance.get('/api/customer-choices')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -93,13 +93,13 @@ export const getCustomerChoices = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getStockToday = async () => {
+export const getStockToday = async (persistData) => {
   try {
     const { data } = await instance.get('/api/stock-today')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -108,14 +108,14 @@ export const getStockToday = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
 
-export const getPopularBoutiques = async () => {
+export const getPopularBoutiques = async (persistData) => {
   try {
     const { data } = await instance.get('/api/popular-boutiques')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -124,13 +124,13 @@ export const getPopularBoutiques = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getBestProducts = async () => {
+export const getBestProducts = async (persistData) => {
   try {
     const { data } = await instance.get('/api/best-products')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -139,13 +139,13 @@ export const getBestProducts = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getFreebies = async () => {
+export const getFreebies = async (persistData) => {
   try {
     const { data } = await instance.get('/api/freebies')
     const payload = data.map((el) => transform.toBoutiqueShort(el))
@@ -154,13 +154,13 @@ export const getFreebies = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getVideoAboutHorgos = async () => {
+export const getVideoAboutHorgos = async (persistData) => {
   try {
     const { data } = await instance.get('/api/video-about-horgos')
     const payload = data.map((el) => transform.toVideo(el))
@@ -169,13 +169,13 @@ export const getVideoAboutHorgos = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
 }
 
-export const getSliders = async () => {
+export const getSliders = async (persistData) => {
   try {
     const { data } = await instance.get('/api/sliders/1')
     const payload = data.slides.map((el) => transform.toSlider(el))
@@ -184,7 +184,7 @@ export const getSliders = async () => {
     }
   } catch (error) {
     return {
-      payload: [],
+      payload: persistData,
       error
     }
   }
@@ -224,7 +224,22 @@ export const addHelp = async (text) => {
   }
 }
 
-export const getCategories = async () => {
+export const addReview = async (id, text, raiting) => {
+  try {
+    const { data } = await instance.get(`/api/boutique/${id}/reviews/create?name=${text}&review=${raiting}`)
+    const { access_token, message } = data
+    return {
+      access_token, message
+    }
+  } catch (error) {
+    const { response: { data } } = error
+    return data
+  }
+}
+
+//api/boutique/{id}/reviews/create
+
+export const getCategories = async (persistData) => {
   try {
     const { data: allData } = await instance.get('/api/categories')
     const payload = {
@@ -237,8 +252,7 @@ export const getCategories = async () => {
   } catch (error) {
     return {
       payload: {
-        list: [],
-        populare: [],
+        ...persistData,
         error
       }
     }
@@ -262,6 +276,9 @@ export const getBoutiqueList = async (params) => {
         break
       case BY_TRADING_HOUSE:
         url += `trading_house=${trading_house_id}`
+        break
+      case BY_ALL_DATA:
+        url = '/api/boutiques'
         break
 
       default:
@@ -318,7 +335,7 @@ export const doLogin = async (mail, password) => {
   }
 }
 
-export const getFavorite = async (token) => {
+export const getFavorite = async (token, persistData) => {
   try {
     const config = {
       headers: { Authorization: `Bearer ${token}` }
@@ -332,6 +349,7 @@ export const getFavorite = async (token) => {
     const { response: { data } } = error
     return {
       data,
+      payload: persistData,
       error
     }
   }

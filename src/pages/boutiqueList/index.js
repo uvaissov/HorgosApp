@@ -1,6 +1,7 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 import _ from 'lodash'
+import { connect } from 'react-redux'
 import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
@@ -31,7 +32,7 @@ class BoutiqueList extends Component {
   }
 
   fetchData = async () => {
-    const { navigation } = this.props
+    const { navigation, isConnected } = this.props
     //....all params here
     const cat_id = navigation.getParam('cat_id')
     const ids = navigation.getParam('ids')
@@ -39,7 +40,7 @@ class BoutiqueList extends Component {
     const text = navigation.getParam('text')
     const trading_house_id = navigation.getParam('trading_house_id')
     //....call service
-    const { payload: data } = await manager.getBoutiqueList(true, { cat_id, filter, ids, text, trading_house_id })
+    const { payload: data } = await manager.getBoutiqueList(isConnected, { cat_id, filter, ids, text, trading_house_id })
     //....set all data
     this.setState({ isLoading: false, ...data })
   }
@@ -61,7 +62,7 @@ class BoutiqueList extends Component {
     return (
       <ScrollView>
         <ScrollRoundWithTitle selected={selected} setSelected={this.setSelected} title="Торговые дома" data={trading_houses} />
-        <ScrollCardWithTitle data={hits.filter(el => el.trading_house_id === trading_house.id)} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+        <ScrollCardWithTitle data={hits.filter(el => el.trading_house_id === trading_house.id).map(el => ({ ...el, boutique: el }))} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
         <BootiqueGrid data={list.filter(el => el.trading_house_id === trading_house.id)} navigation={navigation} />
       </ScrollView>
     )
@@ -85,4 +86,8 @@ class BoutiqueList extends Component {
   }
 }
 
-export default BoutiqueList
+const mapStateToProps = state => ({
+  isConnected: state.network.isConnected
+})
+
+export default connect(mapStateToProps, { })(BoutiqueList)

@@ -1,10 +1,11 @@
-import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, Text, Modal } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { Response } from '../../../components/ui/view'
+import { AddResponse } from '.'
 import { normalize, GRAY, BORDER_COLOR } from '../../../constants/global'
 
 const styles = StyleSheet.create({
@@ -18,8 +19,7 @@ const styles = StyleSheet.create({
 
 
 const ResponseList = ({ data, onLayourRef }) => {
-  if (!data || data.length < 1) return null
-
+  const [visible, setVisible] = useState(false)
   return (
     <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
       <View style={styles.view}>
@@ -29,11 +29,14 @@ const ResponseList = ({ data, onLayourRef }) => {
           ))
         }
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setVisible(true)}>
         <View style={styles.btnView}>
           <Text style={styles.btnText}>Добавить отзыв</Text>
         </View>
       </TouchableOpacity>
+      <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent>
+        <AddResponse close={() => setVisible(false)} />
+      </Modal>
     </BlockTitleAndButton>
   )
 }
