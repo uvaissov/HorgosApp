@@ -19,7 +19,7 @@ const RequestView = (props) => {
   const isConnected = useSelector(state => state.network.isConnected)
   const sendHelp = async () => {
     if (!isConnected) {
-      return alertApp('Внимание', 'Отсутсвует соединение с сетью')
+      return alertApp('Внимание', 'Отсутствует соединение с сетью')
     }
     if (_.isEmpty(text)) {
       return alertApp('Внимание', 'Перед отправкой сообщения необходимо заполнить тектовое поле')

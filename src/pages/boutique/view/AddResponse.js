@@ -26,7 +26,7 @@ const AddResponse = ({ close }) => {
   const isConnected = useSelector(state => state.network.isConnected)
   const onPress = async () => {
     if (isConnected === false) {
-      alertApp('Внимание', 'Отсутсвует соединение с сетью')
+      alertApp('Внимание', 'Отсутствует соединение с сетью')
     } else if (isEmptyString(text)) {
       alertApp('Внимание', 'Необходимо заполнить текстовое поле')
     } else {
@@ -74,7 +74,7 @@ const AddResponse = ({ close }) => {
             />
           </View>
           <View style={styles.textView}>
-            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder="E-mail" placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => onPress()} />
+            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder="Ваш отзыв" placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => onPress()} />
           </View>
           <ButtonGradient title="Отправить" onPress={() => onPress()} />
         </View>
