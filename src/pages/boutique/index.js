@@ -11,6 +11,7 @@ import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import * as manager from '../../service/manager'
 import { BY_BOUTIQUE_IDS } from '../../constants/static'
+import { getFavorite } from '../favorite/actions'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -138,7 +139,7 @@ class Boutique extends Component {
 
   init = (headerHeight) => {
     const { didFinishInitialAnimation, isLoading, boutique = {}, relaters, recommenders } = this.state
-    const { navigation } = this.props
+    const { navigation, token } = this.props
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
@@ -161,7 +162,7 @@ class Boutique extends Component {
       >
         <Animated.View style={[styles.scrollViewContent, { transform: [{ translateY: headerHeight }] }]}>
           <SliderImages data={boutique.images} />
-          <FavoriteCmp boutique={boutique} />
+          <FavoriteCmp boutique={boutique} token={token} getFavorite={this.props.getFavorite} />
           <DetailInfo data={this.getInfo()} />
           <Description text={boutique.description} />
           <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />
@@ -177,7 +178,7 @@ class Boutique extends Component {
 
   render() {
     const { navigation } = this.props
-    const { highlightHeader } = this.state
+    const { highlightHeader, boutique } = this.state
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [0, -HEADER_MIN_HEIGHT],
@@ -193,7 +194,7 @@ class Boutique extends Component {
         <CustomStatusBar backgroundColor={TRASPARENT} barStyle="light-content" blank />
         <Animated.View style={[styles.body]}>
           {this.init(headerHeight)}
-          <HeaderScroll headerHeight={headerHeight} navigation={navigation} inputOpacity={inputOpacity} pressToText={this.pressToText} highlightHeader={highlightHeader} />
+          <HeaderScroll boutique={boutique} headerHeight={headerHeight} navigation={navigation} inputOpacity={inputOpacity} pressToText={this.pressToText} highlightHeader={highlightHeader} />
         </Animated.View>
         <FooterUI navigation={navigation} />
       </View>
@@ -202,7 +203,8 @@ class Boutique extends Component {
 }
 
 const mapStateToProps = state => ({
-  isConnected: state.network.isConnected
+  isConnected: state.network.isConnected,
+  token: state.auth.token
 })
 
-export default connect(mapStateToProps, { })(Boutique)
+export default connect(mapStateToProps, { getFavorite })(Boutique)

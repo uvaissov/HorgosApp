@@ -47,6 +47,11 @@ export function toRelated(data) {
   return related_boutique_id
 }
 
+export function toFavAnswer(data) {
+  const { id, boutique_id } = data
+  return { id, boutique_id }
+}
+
 export function toHouse(data) {
   const { id, name, images, logo } = data
   let imagesArr = []

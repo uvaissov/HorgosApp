@@ -24,10 +24,8 @@ class Favorite extends Component {
   }
 
   componentDidMount = () => {
-    const { isLoading } = this.props
-    if (isLoading === false) { //Избранное езе не загружено
-      this.props.getFavorite()
-    }
+    //const { isLoading } = this.props
+    this.props.getFavorite()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
@@ -36,15 +34,15 @@ class Favorite extends Component {
   init = () => {
     const { didFinishInitialAnimation } = this.state
     const { navigation } = this.props
-    const { list, isLoading } = this.props
+    const { trading_houses, isLoading } = this.props
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (
       <FlatList
-        data={list}
+        data={trading_houses}
         keyExtractor={() => nextId()}
-        renderItem={(item) => (<FavoriteGrid title="ТЦ Чжун Кэ-1" item={item.item} navigation={navigation} />)}
+        renderItem={(item) => (<FavoriteGrid title={item.item.trading_house_name} item={item.item} navigation={navigation} />)}
       />
     )
   }
@@ -67,7 +65,7 @@ class Favorite extends Component {
 }
 
 const mapStateToProps = state => ({
-  list: state.favorites.list,
+  trading_houses: state.favorites.trading_houses || [],
   isLoading: state.favorites.isLoading
 })
 export default connect(mapStateToProps, { getFavorite })(Favorite)

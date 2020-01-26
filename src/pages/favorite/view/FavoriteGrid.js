@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 })
 const elWidth = (w - 50) / 3
 const FavoriteGrid = (props) => {
-  const { item, navigation } = props
+  const { item, navigation, title } = props
   const [expanded, setExpand] = useState(false)
   const onItemPress = (i) => {
     navigation.push('Boutique', { boutique: i })
@@ -21,7 +21,7 @@ const FavoriteGrid = (props) => {
   const onPress = () => {
     setExpand(!expanded)
   }
-  const title = 'ТЦ Чжун Кэ-1'
+  //const title = 'ТЦ Чжун Кэ-1'
   const count = item.items.length || 0
   const elements = item.items
   return (

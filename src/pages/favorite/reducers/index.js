@@ -7,6 +7,8 @@ const initialState = {
   list: [],
   remove: [],
   add: [],
+  trading_houses: [],
+  ids: [],
   isLoading: false
 }
 
@@ -15,7 +17,11 @@ export default (state = initialState, action) => {
     case ACTION_GET_FAVORITE_FINISH: {
       return {
         ...state,
-        list: action.payload,
+        list: action.payload.list,
+        add: action.payload.add,
+        remove: action.payload.remove,
+        trading_houses: action.payload.trading_houses,
+        ids: action.payload.ids,
         isLoading: false
       }
     }

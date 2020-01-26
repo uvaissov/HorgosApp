@@ -104,18 +104,40 @@ export const getFavorite = async (online = true, token, persistData) => {
   return data
 }
 
+export const addFav = async (online = true, token, id) => {
+  const data = online ? await apiManager.addFav(token, id) : null
+  return data
+}
+
+export const delFav = async (online = true, token, id) => {
+  const data = online ? await apiManager.delFav(token, id) : null
+  return data
+}
+
 export const loadFromServer = async (online = true) => {
   if (!online) return null
 
   db.checkData()
     .then(row => {
-      console.log(row)
       if (!row) {
-        console.log('start api')
         apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
           .then(({ payload: { list } }) => {
             db.addBoutique(list.map(el => ({ id: el.id, name: el.name, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })))
           })
+      } else {
+        const { date } = row
+        const now = Date.now()
+        const createdAt = new Date(date)
+        const oneDay = 24 * 60 * 60 * 1000
+        const isMoreThanADay = (now - createdAt) > oneDay
+        if (isMoreThanADay === true) {
+          db.deleteAllBoutique().then(() => {
+            apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
+              .then(({ payload: { list } }) => {
+                db.addBoutique(list.map(el => ({ id: el.id, name: el.name, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })))
+              })
+          })
+        }
       }
     })
 }

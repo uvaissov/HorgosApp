@@ -45,6 +45,7 @@
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.29",
+    "react-native-share": "^3.0.0",
     "react-native-splash-screen": "^3.2.0",
     "react-native-sqlite-storage": "^4.1.0",
     "react-native-svg": "^11.0.1",

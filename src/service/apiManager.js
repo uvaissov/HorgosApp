@@ -208,11 +208,43 @@ export const getHelp = async () => {
 export const addHelp = async (text) => {
   try {
     const { data } = await instance.post(`/api/help?title=${text}`)
-    console.log('data,', data)
     const payload = transform.toHelp(data)
-    console.log('payload,', {
+    return {
       payload
-    })
+    }
+  } catch (error) {
+    return {
+      payload: {},
+      error
+    }
+  }
+}
+
+export const addFav = async (token, id) => {
+  try {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    const { data } = await instance.post(`/api/favorite/${id}`, {}, config)
+    const payload = transform.toFavAnswer(data)
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: {},
+      error
+    }
+  }
+}
+
+export const delFav = async (token, id) => {
+  try {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    const { data } = await instance.delete(`/api/favorite/${id}`, config)
+    const payload = transform.toFavAnswer(data)
     return {
       payload
     }
@@ -232,12 +264,9 @@ export const addReview = async (id, text, name, raiting) => {
     }
   } catch (error) {
     const { response: { data } } = error
-    console.log(data)
     return data
   }
 }
-
-//api/boutique/{id}/reviews/create
 
 export const getCategories = async (persistData) => {
   try {

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text, Animated, TouchableOpacity, TextInput } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import Share from 'react-native-share'
 import Feather from 'react-native-vector-icons/Feather'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
-import { HEADER_MAX_HEIGHT, normalize, BG_COLOR_HEADER, RED } from '../../../constants/global'
+import { HEADER_MAX_HEIGHT, normalize, BG_COLOR_HEADER, RED, hostName } from '../../../constants/global'
 
 const styles = StyleSheet.create({
   header: {
@@ -63,11 +64,20 @@ const styles = StyleSheet.create({
 })
 
 
-const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, highlightHeader }) => {
+const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, highlightHeader, boutique }) => {
   const [text, setText] = useState(null)
 
   const pressToSearch = () => {
     navigation.push('BoutiqueList', { filter: BY_SEARCH_TEXT, text })
+  }
+  const share = () => {
+    Share.open({
+      title: 'Dai5.kz',
+      message: 'Советую Dai5.kz',
+      url: `${hostName}/boutique/${boutique.id}`
+    })
+      .then((res) => { console.log(res) })
+      .catch((err) => { err && console.log(err) })
   }
   return (
     <Animated.View style={[styles.header, { transform: [{ translateY: headerHeight }] }]}>
@@ -77,7 +87,7 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, hig
           <TextInput style={{ flex: 1, fontSize: normalize(14) }} placeholder="Введите название бутика" value={text} onChangeText={(el) => setText(el)} returnKeyType="search" onSubmitEditing={() => pressToSearch()} />
           <View style={styles.rightView}>
             <TouchableOpacity style={styles.search} onPress={() => pressToSearch()}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>
-            <TouchableOpacity style={styles.share}><MaskGradient element={<Feather name="share-2" size={20} />} /></TouchableOpacity>
+            <TouchableOpacity style={styles.share} onPress={() => share()}><MaskGradient element={<Feather name="share-2" size={20} />} /></TouchableOpacity>
           </View>
         </Animated.View>
         <View style={styles.bar}>
