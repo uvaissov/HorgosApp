@@ -167,7 +167,7 @@ class Boutique extends Component {
           <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />
           <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products, title: boutique.name })} data={boutique.all_products} />
           <MapShow onLayourRef={this.onLayourRef} data={boutique.map} />
-          <ResponseList onLayourRef={this.onLayourRef} data={boutique.reviews} />
+          <ResponseList onLayourRef={this.onLayourRef} data={boutique.reviews} boutique={boutique} />
           <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} data={relaters} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: relaters.map(el => el.id) })} />
           <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} data={recommenders} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recommenders.map(el => el.id) })} />
         </Animated.View>

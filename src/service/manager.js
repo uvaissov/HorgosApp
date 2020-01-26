@@ -83,6 +83,11 @@ export const addHelp = async (online = true, text) => {
   return data
 }
 
+//Добавить отзыв
+export const addReview = async (online = true, id, text, name, raiting) => {
+  const data = online ? await apiManager.addReview(id, text, name, raiting) : null
+  return data
+}
 
 export const getBoutiqueList = async (online = true, params = {}) => {
   const data = online ? await apiManager.getBoutiqueList(params) : db.getBoutiqueList(params)

@@ -224,15 +224,15 @@ export const addHelp = async (text) => {
   }
 }
 
-export const addReview = async (id, text, raiting) => {
+export const addReview = async (id, text, name, raiting) => {
   try {
-    const { data } = await instance.get(`/api/boutique/${id}/reviews/create?name=${text}&review=${raiting}`)
-    const { access_token, message } = data
+    const { data } = await instance.get(`/api/boutique/${id}/reviews/create?name=${name}&review=${text}&rating=${raiting}`)
     return {
-      access_token, message
+      data
     }
   } catch (error) {
     const { response: { data } } = error
+    console.log(data)
     return data
   }
 }

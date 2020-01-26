@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   textResponse: { fontSize: normalize(12), marginVertical: 15, marginHorizontal: 10 }
 })
 
-const AddResponse = ({ close }) => {
+const AddResponse = ({ close, id }) => {
+  const [name, setName] = useState(null)
   const [text, setText] = useState(null)
   const [raiting, setRaiting] = useState(3)
   const isConnected = useSelector(state => state.network.isConnected)
@@ -29,14 +30,16 @@ const AddResponse = ({ close }) => {
       alertApp('Внимание', 'Отсутствует соединение с сетью')
     } else if (isEmptyString(text)) {
       alertApp('Внимание', 'Необходимо заполнить текстовое поле')
+    } else if (isEmptyString(name)) {
+      alertApp('Внимание', 'Необходимо указать имя')
     } else {
-      const { errors, access_token, message } = await manager.doLogin(true, text)
+      const { errors, data, message } = await manager.addReview(true, id, text, name, raiting)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let messageText = ''
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
         alertApp('Внимание', messageText)
-      } else if (!isEmptyString(access_token)) {
+      } else if (!isEmptyString(data) && data === 'Отзыв оставлен') {
         alertApp('Спасибо', 'Ваш отзыв добавлен').then(() => {
           setRaiting(3)
           setText(null)
@@ -74,7 +77,10 @@ const AddResponse = ({ close }) => {
             />
           </View>
           <View style={styles.textView}>
-            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder="Ваш отзыв" placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => onPress()} />
+            <TextInput style={styles.textResponse} value={name} onChangeText={(el) => setName(el)} placeholder="Ваше имя" placeholderTextColor={GRAY_SECOND} />
+          </View>
+          <View style={styles.textView}>
+            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder="Ваш отзыв" placeholderTextColor={GRAY_SECOND} returnKeyType="done" blurOnSubmit={false} onSubmitEditing={() => onPress()} />
           </View>
           <ButtonGradient title="Отправить" onPress={() => onPress()} />
         </View>
