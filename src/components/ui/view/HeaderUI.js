@@ -25,27 +25,29 @@ const styles = StyleSheet.create({
   search: {
     flex: 1
   },
-  text: { flex: 1, fontSize: normalize(13), color: BLACK, paddingVertical: 0 }
+  text: { flex: 1, fontSize: normalize(13), color: BLACK, padding: 0 }
 })
 
-const HeaderUI = ({ text, placeHolder, leftIcon, leftOnPress, style, withSearch = true }) => {
-  const [isSearch, setSearch] = useState(false)
+const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style, withSearch = true, fetchData }) => {
+  //const [isSearch, setSearch] = useState(false)
+  const [text, setText] = useState(fromExport)
+  const clickToIcon = () => {
+    //setSearch(!isSearch)
+    fetchData(text)
+  }
+
   const renderText = () => {
-    if (isSearch) {
-      return (<TextInput autoFocus style={styles.text} placeholder={placeHolder} returnKeyType="search" onSubmitEditing={() => {}} />)
+    if (true) {
+      return (<TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
     }
     return (
       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || 'Каталог бутиков'}</Text>
     )
   }
 
-  const clickToIcon = () => {
-    setSearch(!isSearch)
-  }
-
   return (
     <View style={[styles.view, style]}>
-      <TouchableOpacity style={styles.menu} onPress={() => leftOnPress()}><MaskGradient element={<Feather name={leftIcon} size={23} />} /></TouchableOpacity>
+      <TouchableOpacity hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }} style={styles.menu} onPress={() => leftOnPress()}><MaskGradient element={<Feather name={leftIcon} size={23} />} /></TouchableOpacity>
       {renderText()}
       {
         withSearch &&

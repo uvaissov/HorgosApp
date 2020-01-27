@@ -35,6 +35,7 @@ class Main extends Component {
   }
 
   fetch = async () => {
+    manager.loadFromServer(this.props.isConnected)
     await this.props.getSliders()
     await this.props.getRecommended()
     this.props.getSpecialForYou()
@@ -45,7 +46,6 @@ class Main extends Component {
     this.props.getBestProducts()
     await this.props.getFreebies()
     await this.props.getVideoAboutHorgos()
-    manager.loadFromServer(this.props.isConnected)
     SplashScreen.hide()
   }
 

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 })
 
 
-const ResponseList = ({ data, onLayourRef, boutique }) => {
+const ResponseList = ({ data, onLayourRef, boutique, afterAdd }) => {
   const [visible, setVisible] = useState(false)
   return (
     <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
@@ -35,7 +35,7 @@ const ResponseList = ({ data, onLayourRef, boutique }) => {
         </View>
       </TouchableOpacity>
       <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent>
-        <AddResponse id={boutique.id} close={() => setVisible(false)} />
+        <AddResponse id={boutique.id} close={() => setVisible(false)} afterAdd={afterAdd} />
       </Modal>
     </BlockTitleAndButton>
   )

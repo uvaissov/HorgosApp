@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   textResponse: { fontSize: normalize(12), marginVertical: 15, marginHorizontal: 10 }
 })
 
-const AddResponse = ({ close, id }) => {
+const AddResponse = ({ close, id, afterAdd }) => {
   const [name, setName] = useState(null)
   const [text, setText] = useState(null)
   const [raiting, setRaiting] = useState(3)
@@ -40,10 +40,11 @@ const AddResponse = ({ close, id }) => {
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
         alertApp('Внимание', messageText)
       } else if (!isEmptyString(data) && data === 'Отзыв оставлен') {
+        afterAdd()
+        close()
         alertApp('Спасибо', 'Ваш отзыв добавлен').then(() => {
           setRaiting(3)
           setText(null)
-          close()
         })
       } else if (!isEmptyString(message)) {
         alertApp('Внимание', message)

@@ -114,6 +114,12 @@ export const delFav = async (online = true, token, id) => {
   return data
 }
 
+export const getBoutiqueByIdOffline = async (id) => db.getBoutiqueById(id)
+
+export const addBoutiqueOffline = async (el) => db.addBoutique([{ id: el.id, name: el.name, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el }])
+
+export const updateBoutiqueOffline = async (id, el) => db.updateBoutique(id, el)
+
 export const loadFromServer = async (online = true) => {
   if (!online) return null
 

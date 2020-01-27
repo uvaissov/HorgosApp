@@ -206,6 +206,31 @@ export default class Database {
     })
   }
 
+  getBoutiqueById(id) {
+    return new Promise((resolve) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('SELECT * FROM Boutique WHERE id = ?', [id]).then(([tx, results]) => {
+            console.log('Query completed')
+            const len = results.rows.length
+            if (len > 0) {
+              const row = results.rows.item(0)
+              resolve(row)
+            } else {
+              resolve(undefined)
+            }
+          })
+        }).then((result) => {
+          this.closeDatabase(db)
+        }).catch((err) => {
+          console.log(err)
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+    })
+  }
+
   deleteBoutique(id) {
     return new Promise((resolve) => {
       this.initDB().then((db) => {

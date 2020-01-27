@@ -21,7 +21,7 @@ import Comments from './comments'
 import Help from './help'
 import Favorite from './favorite'
 import Categories from './categories'
-import { w, WHITE, normalize, statusBarHeight, isEmptyString } from '../constants/global'
+import { w, WHITE, normalize, statusBarHeight, isEmptyString, BLACK, BORDER_COLOR } from '../constants/global'
 import { ACTION_LOGOUT_SUCCESS } from './auth/types'
 
 import LoginView from './auth/login'
@@ -56,7 +56,9 @@ const styles = StyleSheet.create({
   },
   textView: {
     marginHorizontal: 20
-  }
+  },
+  footerBtnView: { flexDirection: 'row', paddingVertical: 5, backgroundColor: WHITE, alignItems: 'center', borderTopColor: BORDER_COLOR, borderTopWidth: 1 },
+  footerBtnText: { color: BLACK, fontSize: normalize(13), marginLeft: 10 }
 })
 
 const CustomDrawerContentComponent = props => {
@@ -64,56 +66,71 @@ const CustomDrawerContentComponent = props => {
   const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
   return (
-    <ScrollView>
-      <SafeAreaView
-        style={styles.container}
-        forceInset={{ top: 'always', horizontal: 'never' }}
-      >
-        <ImageBackground source={require('../../resources/image/header_background.png')} style={{ width: '100%', height: 200 }}>
-          <View style={styles.headerView}>
-            <View style={styles.mainView}>
-              <View>
-                {
-                    !isEmptyString(token) &&
-                    <FastImage
-                      style={styles.avatar}
-                      resizeMode={FastImage.resizeMode.contain}
-                      source={require('../../resources/image/profile.png')}
-                    />
-                }
-              </View>
-              <View style={styles.textView}>
-                {
-                  !isEmptyString(token) &&
-                  <>
-                    <Text style={styles.loginText}>Константин Ивлев</Text>
-                    <Text style={styles.numberText}>+77753559997</Text>
-                  </>
-                }
-              </View>
-            </View>
+    <SafeAreaView
+      style={styles.mainView}
+      forceInset={{ top: 'always', horizontal: 'never' }}
+    >
+      <ImageBackground source={require('../../resources/image/header_background.png')} style={{ width: '100%', height: 200 }}>
+        <View style={styles.headerView}>
+          <View style={styles.mainView}>
             <View>
               {
-               !isEmptyString(token) &&
-               <TouchableOpacity onPress={() => dispatch({ type: ACTION_LOGOUT_SUCCESS })}>
-                 <Feather name="log-out" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
-               </TouchableOpacity>
+                  !isEmptyString(token) &&
+                  <FastImage
+                    style={styles.avatar}
+                    resizeMode={FastImage.resizeMode.contain}
+                    source={require('../../resources/image/profile.png')}
+                  />
               }
+            </View>
+            <View style={styles.textView}>
               {
-                isEmptyString(token) &&
-                <TouchableOpacity onPress={() => setVisible(true)}>
-                  <Feather name="log-in" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
-                </TouchableOpacity>
+                !isEmptyString(token) &&
+                <>
+                  <Text style={styles.loginText}>Константин Ивлев</Text>
+                  <Text style={styles.numberText}>+77753559997</Text>
+                </>
               }
             </View>
           </View>
-        </ImageBackground>
-        <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent animationType="fade">
-          <LoginView close={() => setVisible(false)} />
-        </Modal>
+          <View>
+            {
+              !isEmptyString(token) &&
+              <TouchableOpacity onPress={() => dispatch({ type: ACTION_LOGOUT_SUCCESS })}>
+                <Feather name="log-out" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
+              </TouchableOpacity>
+            }
+            {
+              isEmptyString(token) &&
+              <TouchableOpacity onPress={() => setVisible(true)}>
+                <Feather name="log-in" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
+              </TouchableOpacity>
+            }
+          </View>
+        </View>
+      </ImageBackground>
+      <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent animationType="fade">
+        <LoginView close={() => setVisible(false)} />
+      </Modal>
+      <ScrollView>
         <DrawerNavigatorItems {...props} />
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+      <View style={{ flex: 1 }} />
+      <View style={{ justifyContent: 'flex-end' }}>
+        <TouchableOpacity>
+          <View style={styles.footerBtnView}>
+            <Feather name="user" style={[styles.btnStyle]} size={21} color={BLACK} />
+            <Text style={styles.footerBtnText}>Личный кабинет</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Help')}>
+          <View style={styles.footerBtnView}>
+            <Feather name="phone-call" style={[styles.btnStyle]} size={21} color={BLACK} />
+            <Text style={styles.footerBtnText}>Помощь</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   )
 }
 
@@ -126,6 +143,20 @@ const MainStack = createStackNavigator(
   },
   {
     initialRouteName: 'Main',
+    headerMode: 'none',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card'
+    //transitionConfig: TransitionConfiguration
+  }
+)
+
+const BoutiqueListStack = createStackNavigator(
+  {
+    Boutique,
+    BoutiqueList,
+    Products
+  },
+  {
+    initialRouteName: 'BoutiqueList',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
     //transitionConfig: TransitionConfiguration
@@ -210,8 +241,8 @@ const Screens = createDrawerNavigator(
         }
       }
     },
-    Main: {
-      screen: MainStack,
+    BoutiqueList: {
+      screen: BoutiqueListStack,
       navigationOptions: {
         drawerLabel: 'Каталог бутиков',
         drawerIcon: ({ focused }) => {
@@ -227,6 +258,12 @@ const Screens = createDrawerNavigator(
             />
           )
         }
+      }
+    },
+    Main: {
+      screen: MainStack,
+      navigationOptions: {
+        drawerLabel: () => null
       }
     },
     Map: {
@@ -251,7 +288,7 @@ const Screens = createDrawerNavigator(
     Comments: {
       screen: Comments,
       navigationOptions: {
-        drawerLabel: 'Отзывы о Хоргос',
+        drawerLabel: 'Отзывы о Хоргосе',
         drawerIcon: ({ focused }) => {
           let literal = require('../../resources/icons/menu/standart/favorites.png')
           if (focused) {
@@ -306,7 +343,7 @@ const Screens = createDrawerNavigator(
       activeTintColor: '#9071EA',
       inactiveTintColor: '#272833',
       activeBackgroundColor: 'rgba(157, 71, 209, 0.08)',
-      cityName: this.props,
+      //cityName: this.props,
       itemsContainerStyle: {
         backgroundColor: '#FFFFFF'
       },

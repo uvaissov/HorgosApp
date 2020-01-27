@@ -50,7 +50,7 @@ const Header = (props) => {
 
   return (
     <View style={[styles.view, props.style]}>
-      <TouchableOpacity style={styles.menu} onPress={() => navigation.openDrawer()}><MaskGradient element={<Feather name="menu" size={23} />} /></TouchableOpacity>
+      <TouchableOpacity style={styles.menu} onPress={() => navigation.openDrawer()} hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}><MaskGradient element={<Feather name="menu" size={23} />} /></TouchableOpacity>
       <TextInput returnKeyType="search" onSubmitEditing={() => pressToSearch()} style={{ flex: 1, fontSize: normalize(14) }} placeholder={placeHolder} value={text} onChangeText={(el) => setText(el)} />
       <View style={styles.rightView}>
         <TouchableOpacity style={styles.search} onPress={() => pressToSearch()}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>

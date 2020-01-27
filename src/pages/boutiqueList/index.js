@@ -2,14 +2,15 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import { connect } from 'react-redux'
-import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
-import { WHITE, BORDER_COLOR } from '../../constants/global'
+import { WHITE, BORDER_COLOR, RED } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ScrollRoundWithTitle, BootiqueGrid } from './view'
 import { ScrollCardWithTitle } from '../main/view'
 import * as manager from '../../service/manager'
+import { BY_SEARCH_TEXT } from '../../constants/static'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -31,16 +32,17 @@ class BoutiqueList extends Component {
     this.fetchData()
   }
 
-  fetchData = async () => {
+  fetchData = async (searchText) => {
+    this.setState({ isLoading: true })
     const { navigation, isConnected } = this.props
     //....all params here
     const cat_id = navigation.getParam('cat_id')
     const ids = navigation.getParam('ids')
     const filter = navigation.getParam('filter')
-    const text = navigation.getParam('text')
+    const text = searchText || navigation.getParam('text') || ''
     const trading_house_id = navigation.getParam('trading_house_id')
     //....call service
-    const { payload: data } = await manager.getBoutiqueList(isConnected, { cat_id, filter, ids, text, trading_house_id })
+    const { payload: data } = await manager.getBoutiqueList(isConnected, { cat_id, filter: (filter || BY_SEARCH_TEXT), ids, text, trading_house_id })
     //....set all data
     this.setState({ isLoading: false, ...data })
   }
@@ -57,7 +59,10 @@ class BoutiqueList extends Component {
     }
     const trading_house = trading_houses[selected] || {}
     if (_.isEmpty(trading_house)) {
-      return <Loader />
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }}>
+          <Text style={{ textAlign: 'center', color: RED, fontWeight: 'bold' }}>Поиск не дал результатов, попробуйте другие параметры для поиска</Text>
+        </View>)
     }
     return (
       <ScrollView>
@@ -75,7 +80,7 @@ class BoutiqueList extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={text} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} placeHolder="Введите название бутика" />
+        <HeaderUI text={text} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} placeHolder="Каталог бутиков" fetchData={this.fetchData} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

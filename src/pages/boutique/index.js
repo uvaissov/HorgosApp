@@ -28,12 +28,19 @@ class Boutique extends Component {
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
-    const { navigation } = this.props
+    const { navigation, isConnected } = this.props
     const boutique = navigation.getParam('boutique')
     const boutique_id = navigation.getParam('boutique_id')
     if (boutique && boutique.id) {
-      this.setState({ boutique, isLoading: false })
-      this.getRelations(boutique)
+      let [data] = await this.fetchDataList([boutique.id])
+      if (!data && !isConnected) {
+        data = boutique
+        await this.addBoutiqueIfNotExistOffline(data)
+      }
+      if (data && data.id) {
+        this.setState({ boutique: data, isLoading: false })
+        this.getRelations(data)
+      }
     } else if (boutique_id) {
       const [data] = await this.fetchDataList([boutique_id])
       if (data && data.id) {
@@ -42,6 +49,33 @@ class Boutique extends Component {
       }
     }
   }
+
+  addBoutiqueIfNotExistOffline = async (boutique) => {
+    const row = await manager.getBoutiqueByIdOffline(boutique.id)
+    if (!row) {
+      await manager.addBoutiqueOffline(boutique)
+    }
+  }
+
+  updateBoutique = async (boutique) => {
+    this.setState({ isLoading: true })
+    try {
+      const row = await manager.getBoutiqueByIdOffline(boutique.id)
+      if (row) {
+        await manager.updateBoutiqueOffline(boutique.id, boutique)
+      } else {
+        await manager.addBoutiqueOffline(boutique)
+      }
+      const [data] = await this.fetchDataList([boutique.id])
+      if (data && data.id) {
+        this.setState({ boutique: data })
+        this.getRelations(data)
+      }
+    } finally {
+      this.setState({ isLoading: false })
+    }
+  }
+
 
   getRelations = async (boutique) => {
     const { relaters, recommenders } = boutique
@@ -168,7 +202,7 @@ class Boutique extends Component {
           <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />
           <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products, title: boutique.name })} data={boutique.all_products} />
           <MapShow onLayourRef={this.onLayourRef} data={boutique.map} />
-          <ResponseList onLayourRef={this.onLayourRef} data={boutique.reviews} boutique={boutique} />
+          <ResponseList onLayourRef={this.onLayourRef} data={boutique.reviews} boutique={boutique} afterAdd={() => this.updateBoutique(boutique)} />
           <ScrollCardWithTitle title="Похожие бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} data={relaters} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: relaters.map(el => el.id) })} />
           <ScrollCardWithTitle title="Рекомендуем" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} data={recommenders} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recommenders.map(el => el.id) })} />
         </Animated.View>
