@@ -25,6 +25,8 @@ import { w, WHITE, normalize, statusBarHeight, isEmptyString, BLACK, BORDER_COLO
 import { ACTION_LOGOUT_SUCCESS } from './auth/types'
 
 import LoginView from './auth/login'
+import RegistrationView from './auth/registration'
+import ForgotView from './auth/forgot'
 
 const styles = StyleSheet.create({
   headerView: {
@@ -62,7 +64,10 @@ const styles = StyleSheet.create({
 })
 
 const CustomDrawerContentComponent = props => {
-  const [visible, setVisible] = useState(false)
+  const [loginVisible, setLoginVisible] = useState(false)
+  const [loginParam, setLoginParam] = useState(undefined)
+  const [registrationVisible, setRegistationVisible] = useState(false)
+  const [forgetVisible, setForgetVisible] = useState(false)
   const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
   return (
@@ -102,15 +107,27 @@ const CustomDrawerContentComponent = props => {
             }
             {
               isEmptyString(token) &&
-              <TouchableOpacity onPress={() => setVisible(true)}>
+              <TouchableOpacity onPress={() => setLoginVisible(true)}>
                 <Feather name="log-in" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
               </TouchableOpacity>
             }
           </View>
         </View>
       </ImageBackground>
-      <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent animationType="fade">
-        <LoginView close={() => setVisible(false)} />
+      <Modal visible={loginVisible} onRequestClose={() => setLoginVisible(false)} transparent animationType="fade">
+        <LoginView param={loginParam} close={() => setLoginVisible(false)} regShow={() => setRegistationVisible(true)} forgetShow={() => setForgetVisible(true)} />
+      </Modal>
+      <Modal visible={registrationVisible} onRequestClose={() => setRegistationVisible(false)} transparent animationType="fade">
+        <RegistrationView
+          close={() => setRegistationVisible(false)}
+          loginShow={(result) => {
+            setLoginParam(result)
+            setLoginVisible(true)
+          }}
+        />
+      </Modal>
+      <Modal visible={forgetVisible} onRequestClose={() => setForgetVisible(false)} transparent animationType="fade">
+        <ForgotView close={() => setRegistationVisible(false)} loginShow={() => setLoginVisible(true)} />
       </Modal>
       <ScrollView>
         <DrawerNavigatorItems {...props} />

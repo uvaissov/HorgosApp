@@ -94,8 +94,13 @@ export const getBoutiqueList = async (online = true, params = {}) => {
   return data
 }
 
-export const doLogin = async (online = true, login, password = {}) => {
+export const doLogin = async (online = true, login, password) => {
   const data = online ? await apiManager.doLogin(login, password) : null
+  return data
+}
+
+export const doRegistration = async (online = true, name, email, password, password_confirmation) => {
+  const data = online ? await apiManager.doRegistration(name, email, password, password_confirmation) : null
   return data
 }
 

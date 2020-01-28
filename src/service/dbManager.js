@@ -72,6 +72,10 @@ export default class Database {
     }
   }
 
+  errorCB(error) {
+    console.log(error)
+  }
+
   checkData() {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
@@ -108,7 +112,7 @@ export default class Database {
               param += `categories like '(${cat_id})'`
               break
             case BY_BOUTIQUE_IDS:
-              param += `id in (${ids.map.join()}_`
+              param += `id in (${ids.join()})`
               break
             case BY_SEARCH_TEXT:
               param += `name like '%${text}%'`
@@ -189,10 +193,12 @@ export default class Database {
   }
 
   updateBoutique(id, row) {
+    console.log('updateBoutique', id, row)
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('UPDATE Boutique SET name = ?, categories = ?, trading_house = ?, boutique = ? WHERE id = ?', [row.name, row.categories, row.trading_house, row.boutique, id]).then(([tx, results]) => {
+          tx.executeSql('UPDATE Boutique SET name = ?, categories = ?, trading_house = ?, boutique = ? WHERE id = ?', [row.name, row.categoryId, row.trading_house_id, JSON.stringify(row), id]).then(([tx, results]) => {
+            console.log('res')
             resolve(results)
           })
         }).then((result) => {
@@ -205,6 +211,7 @@ export default class Database {
       })
     })
   }
+
 
   getBoutiqueById(id) {
     return new Promise((resolve) => {

@@ -34,8 +34,6 @@ target 'HorgosApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'XCDYouTubeKit', '~> 2.8'
-
   target 'HorgosAppTests' do
     inherit! :search_paths
     # Pods for testing
@@ -43,6 +41,8 @@ target 'HorgosApp' do
 
   use_native_modules!
 end
+
+pod 'XCDYouTubeKit', '~> 2.8'
 
 target 'HorgosApp-tvOS' do
   # Pods for HorgosApp-tvOS

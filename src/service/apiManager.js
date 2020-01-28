@@ -364,6 +364,20 @@ export const doLogin = async (mail, password) => {
   }
 }
 
+export const doRegistration = async (name, email, password, password_confirmation) => {
+  try {
+    const { data = {} } = await instance.post('api/register', { name, email, password, password_confirmation })
+    console.log(data)
+    const { id, message } = data
+    return {
+      id, message
+    }
+  } catch (error) {
+    const { response: { data } } = error
+    return data
+  }
+}
+
 export const getFavorite = async (token, persistData) => {
   try {
     const config = {

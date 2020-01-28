@@ -51,26 +51,30 @@ class Boutique extends Component {
   }
 
   addBoutiqueIfNotExistOffline = async (boutique) => {
-    const row = await manager.getBoutiqueByIdOffline(boutique.id)
-    if (!row) {
-      await manager.addBoutiqueOffline(boutique)
-    }
+    await manager.getBoutiqueByIdOffline(boutique.id).then((row) => {
+      if (!row) {
+        manager.addBoutiqueOffline(boutique)
+      }
+    })
   }
 
   updateBoutique = async (boutique) => {
     this.setState({ isLoading: true })
     try {
-      const row = await manager.getBoutiqueByIdOffline(boutique.id)
-      if (row) {
-        await manager.updateBoutiqueOffline(boutique.id, boutique)
-      } else {
-        await manager.addBoutiqueOffline(boutique)
-      }
       const [data] = await this.fetchDataList([boutique.id])
       if (data && data.id) {
         this.setState({ boutique: data })
         this.getRelations(data)
+        await manager.getBoutiqueByIdOffline(data.id).then((row) => {
+          if (row) {
+            manager.updateBoutiqueOffline(data.id, data)
+          } else {
+            manager.addBoutiqueOffline(data)
+          }
+        })
       }
+    } catch (err) {
+      console.log(err)
     } finally {
       this.setState({ isLoading: false })
     }

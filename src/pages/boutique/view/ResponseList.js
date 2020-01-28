@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text, Modal } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import _ from 'lodash'
 import nextId from 'react-id-generator'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
@@ -24,7 +25,7 @@ const ResponseList = ({ data, onLayourRef, boutique, afterAdd }) => {
     <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
       <View style={styles.view}>
         {
-          data.map((item, index) => (
+          _.orderBy(data, ['date'], ['desc']).slice(0, 3).map((item, index) => (
             <Response key={nextId()} index={index} name={item.name} rating={item.rating} text={item.text} date={item.date} />
           ))
         }

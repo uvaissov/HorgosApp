@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 }
 })
 
-const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordParam] = [] }) => {
+const ForgotView = ({ close, regShow, forgetShow, param: [emailParam, passwordParam] }) => {
   const [login, setLogin] = useState(emailParam)
   const [password, setPassword] = useState(passwordParam)
   const passwordInput = useRef(null)
@@ -90,4 +90,4 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
 }
 
 
-export default LoginView
+export default ForgotView

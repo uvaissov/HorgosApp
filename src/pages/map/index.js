@@ -33,18 +33,6 @@ const MapShow = ({ navigation }) => {
       <HeaderUI text="Карта Хоргос" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
       <View style={styles.sortView} />
       <View style={styles.body}>
-        {/* <PhotoView
-          source={require('../../../resources/image/map.png')}
-          minimumZoomScale={1}
-          maximumZoomScale={3}
-          androidScaleType="center"
-          onLoad={() => console.log('Image loaded!')}
-          style={{ height: '100%', flex: 1 }}
-        />
-        <Image
-          source={require('../../../resources/image/svg/vertical_map.svg')}
-          style={{ width: w, flex: 1 }}
-        /> */}
         <TouchableOpacity style={{ flex: 1 }} onPress={() => setVisible(true)}>
           <FastImage source={images[0].source} style={styles.body} resizeMode={FastImage.resizeMode.center} />
         </TouchableOpacity>

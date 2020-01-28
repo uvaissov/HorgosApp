@@ -21,7 +21,7 @@ const ListItem = ({ style, item = {}, onPress }) => {
       <>
         <View style={[styles.view, style]}>
           <View style={[styles.imageView]}>
-            <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.contain} />
+            <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.center} />
           </View>
           <View style={styles.infoView}>
             <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>

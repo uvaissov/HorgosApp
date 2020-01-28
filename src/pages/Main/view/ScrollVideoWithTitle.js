@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, FlatList, Platform } from 'react-native'
+import { StyleSheet, View, FlatList, PixelRatio, Platform } from 'react-native'
 import nextId from 'react-id-generator'
-import { YouTubeStandaloneAndroid, YouTubeStandaloneIOS } from 'react-native-youtube'
+import YouTube, { YouTubeStandaloneAndroid } from 'react-native-youtube'
 import FastImage from 'react-native-fast-image'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
@@ -20,19 +20,13 @@ const ScrollVideoWithTitle = (props) => {
   if (!data || data.length < 1) return null
 
   const openPlayer = (videoId) => {
-    if (Platform.OS === 'ios') {
-      YouTubeStandaloneIOS.playVideo(videoId)
-        .then(message => console.log(message))
-        .catch(errorMessage => console.error(errorMessage))
-    } else {
-      YouTubeStandaloneAndroid.playVideo({
-        apiKey: 'AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00',
-        videoId,
-        autoplay: true
-      })
-        .then(() => console.log('Player closed'))
-        .catch(e => console.error(e))
-    }
+    YouTubeStandaloneAndroid.playVideo({
+      apiKey: 'AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00',
+      videoId,
+      autoplay: true
+    })
+      .then(() => console.log('Player closed'))
+      .catch(e => console.error(e))
   }
   return (
     <BlockTitleAndButton title={title}>
@@ -43,11 +37,22 @@ const ScrollVideoWithTitle = (props) => {
         renderItem={(el) => (
           <View style={styles.container}>
             <View style={styles.view}>
-              <TouchableOpacity onPress={() => openPlayer(el.item.code)}>
-                <FastImage source={{ uri: `https://img.youtube.com/vi/${el.item.code}/hqdefault.jpg` }} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
-                  <FastImage source={require('../../../../resources/icons/element/play.png')} style={styles.playImage} resizeMode={FastImage.resizeMode.center} />
-                </FastImage>
-              </TouchableOpacity>
+              {Platform.OS === 'android' && YouTubeStandaloneAndroid &&
+              (
+                <TouchableOpacity onPress={() => openPlayer(el.item.code)}>
+                  <FastImage source={{ uri: `https://img.youtube.com/vi/${el.item.code}/hqdefault.jpg` }} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
+                    <FastImage source={require('../../../../resources/icons/element/play.png')} style={styles.playImage} resizeMode={FastImage.resizeMode.center} />
+                  </FastImage>
+                </TouchableOpacity>
+              )}
+              {Platform.OS === 'ios' && YouTube &&
+              (
+              <YouTube
+                videoId={el.item.code}// The YouTube video ID
+                apiKey="AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00"
+                style={{ alignSelf: 'stretch', height: PixelRatio.roundToNearestPixel((w - 30) / (16 / 9)), marginVertical: 0 }}
+              />
+              )}
             </View>
           </View>
         )}
