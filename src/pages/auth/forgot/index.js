@@ -1,12 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native'
 import _ from 'lodash'
-import { useDispatch } from 'react-redux'
 import Feather from 'react-native-vector-icons/Feather'
 import { ButtonGradient } from '../../../components/ui/kit/ButtonGradient'
-import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, BLACK, isEmptyString, alertApp, MAIN_COLOR, GRAY } from '../../../constants/global'
+import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, BLACK, isEmptyString, alertApp, GRAY } from '../../../constants/global'
 import * as manager from '../../../service/manager'
-import { ACTION_LOGIN_SUCCESS } from '../types'
 
 const styles = StyleSheet.create({
   view: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
@@ -18,29 +16,22 @@ const styles = StyleSheet.create({
   textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 }
 })
 
-const ForgotView = ({ close, regShow, forgetShow, param: [emailParam, passwordParam] }) => {
-  const [login, setLogin] = useState(emailParam)
-  const [password, setPassword] = useState(passwordParam)
-  const passwordInput = useRef(null)
-  const dispatch = useDispatch()
+const ForgotView = ({ close, loginShow }) => {
+  const [mail, setMail] = useState(null)
   const loginPress = async () => {
-    if (isEmptyString(login)) {
-      alertApp('Alert', '1')
-    } else if (isEmptyString(password)) {
+    if (isEmptyString(mail)) {
       alertApp('Alert', '1')
     } else {
-      const { errors, access_token, message } = await manager.doLogin(true, login, password)
+      const { errors, data, message } = await manager.doForget(true, mail)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let messageText = ''
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
         alertApp('Внимание', messageText)
-      } else if (!isEmptyString(access_token)) {
-        dispatch({
-          type: ACTION_LOGIN_SUCCESS,
-          payload: access_token
+      } else if (!isEmptyString(data) && data === 'Link created') {
+        alertApp('Внимание', 'Заявка на восстановление пароля успешно отправлена').then(() => {
+          close()
         })
-        close()
       } else if (!isEmptyString(message)) {
         alertApp('Внимание', message)
       }
@@ -52,7 +43,7 @@ const ForgotView = ({ close, regShow, forgetShow, param: [emailParam, passwordPa
         <View style={styles.content}>
           <View style={styles.header}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.headerText}>Авторизация</Text>
+              <Text style={styles.headerText}>Забыли пароль?</Text>
             </View>
             <View style={{ marginHorizontal: 10 }}>
               <TouchableOpacity onPress={() => close()}>
@@ -61,26 +52,16 @@ const ForgotView = ({ close, regShow, forgetShow, param: [emailParam, passwordPa
             </View>
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={login} onChangeText={(el) => setLogin(el)} keyboardType="email-address" textContentType="emailAddress" placeholder="E-mail" placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => passwordInput.current.focus()} />
+            <TextInput style={styles.text} value={mail} onChangeText={(el) => setMail(el)} keyboardType="email-address" textContentType="emailAddress" placeholder="E-mail" placeholderTextColor={GRAY_SECOND} returnKeyType="done" blurOnSubmit={false} onSubmitEditing={() => loginPress()} />
           </View>
-          <View style={styles.textView}>
-            <TextInput style={styles.text} ref={passwordInput} value={password} secureTextEntry textContentType="password" onChangeText={(el) => setPassword(el)} placeholder="Пароль" placeholderTextColor={GRAY_SECOND} returnKeyType="done" onSubmitEditing={() => loginPress()} />
-          </View>
-          <ButtonGradient title="Войти" onPress={() => loginPress()} />
+          <ButtonGradient title="Отправить запрос" onPress={() => loginPress()} />
           <View style={{ alignItems: 'center', marginTop: 25 }}>
             <TouchableOpacity onPress={() => {
               close()
-              regShow()
+              loginShow()
             }}
             >
-              <Text style={{ marginBottom: 40, color: MAIN_COLOR }}>Зарегистрироваться</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              close()
-              forgetShow()
-            }}
-            >
-              <Text style={{ marginBottom: 10, color: GRAY }}>Забыли пароль?</Text>
+              <Text style={{ marginBottom: 10, color: GRAY }}>Отмена</Text>
             </TouchableOpacity>
           </View>
         </View>

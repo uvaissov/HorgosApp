@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import { MaskGradient } from '../kit/MaskGradient'
-import { WHITE, normalize, BLACK } from '../../../constants/global'
+import { WHITE, normalize, BLACK, isEmptyString, alertApp } from '../../../constants/global'
 
 const styles = StyleSheet.create({
   view: {
@@ -32,7 +32,9 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
   //const [isSearch, setSearch] = useState(false)
   const [text, setText] = useState(fromExport)
   const clickToIcon = () => {
-    //setSearch(!isSearch)
+    if (isEmptyString(text)) {
+      return alertApp('Внимание', 'Необходимо указать фразу для поиска')
+    }
     fetchData(text)
   }
 

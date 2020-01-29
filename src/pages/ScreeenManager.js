@@ -127,19 +127,21 @@ const CustomDrawerContentComponent = props => {
         />
       </Modal>
       <Modal visible={forgetVisible} onRequestClose={() => setForgetVisible(false)} transparent animationType="fade">
-        <ForgotView close={() => setRegistationVisible(false)} loginShow={() => setLoginVisible(true)} />
+        <ForgotView close={() => setForgetVisible(false)} loginShow={() => setLoginVisible(true)} />
       </Modal>
       <ScrollView>
         <DrawerNavigatorItems {...props} />
       </ScrollView>
       <View style={{ flex: 1 }} />
       <View style={{ justifyContent: 'flex-end' }}>
+        { token && (
         <TouchableOpacity>
           <View style={styles.footerBtnView}>
             <Feather name="user" style={[styles.btnStyle]} size={21} color={BLACK} />
             <Text style={styles.footerBtnText}>Личный кабинет</Text>
           </View>
         </TouchableOpacity>
+        )}
         <TouchableOpacity onPress={() => props.navigation.navigate('Help')}>
           <View style={styles.footerBtnView}>
             <Feather name="phone-call" style={[styles.btnStyle]} size={21} color={BLACK} />

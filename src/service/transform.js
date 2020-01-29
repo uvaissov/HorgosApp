@@ -135,6 +135,17 @@ export function toCategoryStock(data) {
   return { id, name, category_id, background: { uri: genImageUri(background) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
 }
 
+export function toMaps(data) {
+  const { id, maps } = data
+  let imagesArr = []
+  try {
+    imagesArr = JSON.parse(maps)
+  } catch {
+    imagesArr = []
+  }
+  return { id, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
+}
+
 export function toVideo(data) {
   const { id, iframe, code } = data
   return { id, iframe, code }

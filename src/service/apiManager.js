@@ -84,6 +84,21 @@ export const getCategoryStocks = async (persistData) => {
   }
 }
 
+export const getMaps = async (persistData) => {
+  try {
+    const { data } = await instance.get('/api/maps')
+    const payload = transform.toMaps(data)
+    return {
+      payload
+    }
+  } catch (error) {
+    return {
+      payload: { images: persistData },
+      error
+    }
+  }
+}
+
 export const getCustomerChoices = async (persistData) => {
   try {
     const { data } = await instance.get('/api/customer-choices')
@@ -320,9 +335,7 @@ export const getBoutiqueList = async (params) => {
           }
         }
     }
-    console.log('url', url)
     const { data } = await instance.get(url)
-    console.log('url', data)
     const trading_houses = []
     data.map(el => {
       const [house] = el.trading_houses
@@ -352,7 +365,6 @@ export const getBoutiqueList = async (params) => {
 
 export const doLogin = async (mail, password) => {
   try {
-    console.log(`/api/token?email=${mail}&password=${password}`)
     const { data = {} } = await instance.get(`/api/token?email=${mail}&password=${password}`)
     const { access_token, message } = data
     return {
@@ -367,10 +379,21 @@ export const doLogin = async (mail, password) => {
 export const doRegistration = async (name, email, password, password_confirmation) => {
   try {
     const { data = {} } = await instance.post('api/register', { name, email, password, password_confirmation })
-    console.log(data)
     const { id, message } = data
     return {
       id, message
+    }
+  } catch (error) {
+    const { response: { data } } = error
+    return data
+  }
+}
+
+export const doForget = async (email) => {
+  try {
+    const { data = {} } = await instance.post('api/forgot-password', { email })
+    return {
+      data
     }
   } catch (error) {
     const { response: { data } } = error

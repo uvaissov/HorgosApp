@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import Share from 'react-native-share'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
-import { BG_COLOR_HEADER, normalize, hostName } from '../../../constants/global'
+import { BG_COLOR_HEADER, normalize, hostName, isEmptyString, alertApp } from '../../../constants/global'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
 
 const styles = StyleSheet.create({
@@ -45,6 +45,9 @@ const Header = (props) => {
       .catch((err) => { err && console.log(err) })
   }
   const pressToSearch = () => {
+    if (isEmptyString(text)) {
+      return alertApp('Внимание', 'Необходимо указать фразу для поиска')
+    }
     navigation.push('BoutiqueList', { filter: BY_SEARCH_TEXT, text })
   }
 

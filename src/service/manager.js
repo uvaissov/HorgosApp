@@ -24,6 +24,10 @@ export const getCustomerChoices = async (online = true, persistData) => {
   const data = online ? await apiManager.getCustomerChoices(persistData) : { payload: persistData }
   return data
 }
+export const getMaps = async (online = true, persistData) => {
+  const data = online ? await apiManager.getMaps(persistData) : { payload: persistData }
+  return data
+}
 
 export const getPopularBoutiques = async (online = true, persistData) => {
   const data = online ? await apiManager.getPopularBoutiques(persistData) : { payload: persistData }
@@ -103,6 +107,12 @@ export const doRegistration = async (online = true, name, email, password, passw
   const data = online ? await apiManager.doRegistration(name, email, password, password_confirmation) : null
   return data
 }
+
+export const doForget = async (online = true, email) => {
+  const data = online ? await apiManager.doForget(email) : null
+  return data
+}
+
 
 export const getFavorite = async (online = true, token, persistData) => {
   const data = online ? await apiManager.getFavorite(token, persistData) : { payload: persistData }

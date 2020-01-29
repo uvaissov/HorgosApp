@@ -5,7 +5,7 @@ import Share from 'react-native-share'
 import Feather from 'react-native-vector-icons/Feather'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
-import { HEADER_MAX_HEIGHT, normalize, BG_COLOR_HEADER, RED, hostName } from '../../../constants/global'
+import { HEADER_MAX_HEIGHT, normalize, BG_COLOR_HEADER, RED, hostName, isEmptyString, alertApp } from '../../../constants/global'
 
 const styles = StyleSheet.create({
   header: {
@@ -68,6 +68,9 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, hig
   const [text, setText] = useState(null)
 
   const pressToSearch = () => {
+    if (isEmptyString(text)) {
+      return alertApp('Внимание', 'Необходимо указать фразу для поиска')
+    }
     navigation.push('BoutiqueList', { filter: BY_SEARCH_TEXT, text })
   }
   const share = () => {

@@ -38,3 +38,11 @@ to
 2: {id: 2, iframe: "https://youtu.be/rRLogQ7EsLY", order: null, created_at: "2019-12-05 12:23:21",…}
 3: {id: 1, iframe: "https://youtu.be/9JIuXAoZ6S4", order: null, created_at: "2019-11-19 04:05:13",…}
 [18:57, 27.01.2020] +7 747 936 9153: вот в таком виде
+
+
+[13:21, 29.01.2020] +7 747 936 9153: Роут для сброса пароля:
+/api/forgot-password
+Параметры:
+email
+Ответ: Link created
+[13:21, 29.01.2020] +7 747 936 9153: Метод Post

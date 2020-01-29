@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
 const RegistrationView = ({ close, loginShow }) => {
   const [name, setName] = useState(null)
   const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState('schizoid13M@')
-  const [confPassword, setConfPassword] = useState('schizoid13M@')
+  const [password, setPassword] = useState(null)
+  const [confPassword, setConfPassword] = useState(null)
   const mailInput = useRef(null)
   const passwordInput = useRef(null)
   const ConfPasswordInput = useRef(null)
