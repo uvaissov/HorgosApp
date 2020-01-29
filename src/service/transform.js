@@ -17,6 +17,12 @@ export function toProduct(data) {
   return { id, name, price }
 }
 
+
+export function toUser(data) {
+  const { name, email, avatar } = data
+  return { name, avatar: { uri: genImageUri(avatar) }, email }
+}
+
 export function toReview(data) {
   const { id, name, review, rating, date } = data
   return { id, name, text: review, rating, date }

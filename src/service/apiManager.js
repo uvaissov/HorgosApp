@@ -1,7 +1,9 @@
+import { Platform } from 'react-native'
 import axios from 'axios'
 import { hostName } from '../constants/global'
 import * as transform from './transform'
 import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT, BY_TRADING_HOUSE, BY_ALL_DATA } from '../constants/static'
+
 
 const instance = axios.create({
   baseURL: hostName,
@@ -378,7 +380,7 @@ export const doLogin = async (mail, password) => {
 
 export const doRegistration = async (name, email, password, password_confirmation) => {
   try {
-    const { data = {} } = await instance.post('api/register', { name, email, password, password_confirmation })
+    const { data = {} } = await instance.post('/api/register', { name, email, password, password_confirmation })
     const { id, message } = data
     return {
       id, message
@@ -391,7 +393,7 @@ export const doRegistration = async (name, email, password, password_confirmatio
 
 export const doForget = async (email) => {
   try {
-    const { data = {} } = await instance.post('api/forgot-password', { email })
+    const { data = {} } = await instance.post('/api/forgot-password', { email })
     return {
       data
     }
@@ -400,6 +402,60 @@ export const doForget = async (email) => {
     return data
   }
 }
+
+export const getUser = async (token, persistData) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const { data = {} } = await instance.get('/api/user', config)
+    const result = transform.toUser(data)
+    return result
+  } catch (error) {
+    const { response: { data } } = error
+    return { data, ...persistData }
+  }
+}
+
+export const doUpdateProfile = async (token, name, email, password, passwordConfirm, avatar) => {
+  try {
+    console.log('sad')
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'multipart/form-data'
+      }
+    }
+    const formData = new FormData()
+    if (avatar.uri) {
+      formData.append('photo', {
+        name: avatar.fileName,
+        type: avatar.type,
+        uri:
+          Platform.OS === 'android' ? avatar.uri : avatar.uri.replace('file://', '')
+      })
+    }
+    const body = { name, email, password, password_confirmation: passwordConfirm }
+    Object.keys(body).forEach(key => {
+      if (body[key]) {
+        formData.append(key, body[key])
+      }
+    })
+    console.log(formData)
+    const { data = {} } = await instance.put('/api/user/update', formData, config)
+    console.log(data)
+    return {
+      data
+    }
+  } catch (error) {
+    const { response: { data } } = error
+    console.log(error, data)
+    return data
+  }
+}
+
 
 export const getFavorite = async (token, persistData) => {
   try {

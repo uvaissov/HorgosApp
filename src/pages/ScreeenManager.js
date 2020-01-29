@@ -21,6 +21,7 @@ import Comments from './comments'
 import Help from './help'
 import Favorite from './favorite'
 import Categories from './categories'
+import Profile from './profile'
 import { w, WHITE, normalize, statusBarHeight, isEmptyString, BLACK, BORDER_COLOR } from '../constants/global'
 import { ACTION_LOGOUT_SUCCESS } from './auth/types'
 
@@ -39,7 +40,8 @@ const styles = StyleSheet.create({
   avatar: {
     height: 60,
     width: 60,
-    margin: 20
+    margin: 20,
+    borderRadius: 30
   },
   loginText: {
     color: WHITE,
@@ -69,6 +71,9 @@ const CustomDrawerContentComponent = props => {
   const [registrationVisible, setRegistationVisible] = useState(false)
   const [forgetVisible, setForgetVisible] = useState(false)
   const token = useSelector(state => state.auth.token)
+  const name = useSelector(state => state.profile.name)
+  const email = useSelector(state => state.profile.email)
+  const avatar = useSelector(state => state.profile.avatar)
   const dispatch = useDispatch()
   return (
     <SafeAreaView
@@ -84,7 +89,7 @@ const CustomDrawerContentComponent = props => {
                   <FastImage
                     style={styles.avatar}
                     resizeMode={FastImage.resizeMode.contain}
-                    source={require('../../resources/image/profile.png')}
+                    source={avatar}
                   />
               }
             </View>
@@ -92,8 +97,8 @@ const CustomDrawerContentComponent = props => {
               {
                 !isEmptyString(token) &&
                 <>
-                  <Text style={styles.loginText}>Константин Ивлев</Text>
-                  <Text style={styles.numberText}>+77753559997</Text>
+                  <Text style={styles.loginText}>{name}</Text>
+                  <Text style={styles.numberText}>{email}</Text>
                 </>
               }
             </View>
@@ -135,7 +140,7 @@ const CustomDrawerContentComponent = props => {
       <View style={{ flex: 1 }} />
       <View style={{ justifyContent: 'flex-end' }}>
         { token && (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Profile')}>
           <View style={styles.footerBtnView}>
             <Feather name="user" style={[styles.btnStyle]} size={21} color={BLACK} />
             <Text style={styles.footerBtnText}>Личный кабинет</Text>
@@ -344,6 +349,12 @@ const Screens = createDrawerNavigator(
     },
     Help: {
       screen: HelpStack,
+      navigationOptions: {
+        drawerLabel: () => null
+      }
+    },
+    Profile: {
+      screen: Profile,
       navigationOptions: {
         drawerLabel: () => null
       }

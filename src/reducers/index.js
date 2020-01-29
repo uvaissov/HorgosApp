@@ -8,6 +8,7 @@ import helpReducer from '../pages/help/reducers'
 import authReducer from '../pages/auth/reducers'
 import favReducer from '../pages/favorite/reducers'
 import mapsReducer from '../pages/map/reducers'
+import profileReducer from '../pages/profile/reducers'
 
 const reducers = combineReducers({
   main: mainReducer,
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   auth: authReducer,
   favorites: favReducer,
   maps: mapsReducer,
+  profile: profileReducer,
   network
 })
 

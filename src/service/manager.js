@@ -113,6 +113,18 @@ export const doForget = async (online = true, email) => {
   return data
 }
 
+export const getUser = async (online = true, token, persistData) => {
+  const data = online ? await apiManager.getUser(token, persistData) : persistData
+  return data
+}
+
+getUser
+
+export const doUpdateProfile = async (online = true, token, name, email, password, passwordConfirm, avatar) => {
+  const data = online ? await apiManager.doUpdateProfile(token, name, email, password, passwordConfirm, avatar) : null
+  return data
+}
+
 
 export const getFavorite = async (online = true, token, persistData) => {
   const data = online ? await apiManager.getFavorite(token, persistData) : { payload: persistData }

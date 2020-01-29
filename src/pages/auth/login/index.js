@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react'
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native'
 import _ from 'lodash'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Feather from 'react-native-vector-icons/Feather'
 import { ButtonGradient } from '../../../components/ui/kit/ButtonGradient'
 import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, BLACK, isEmptyString, alertApp, MAIN_COLOR, GRAY } from '../../../constants/global'
 import * as manager from '../../../service/manager'
 import { ACTION_LOGIN_SUCCESS } from '../types'
+import { ACTION_GET_PROFILE_FINISH } from '../../profile/actions/types'
 
 const styles = StyleSheet.create({
   view: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
@@ -22,6 +23,7 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
   const [login, setLogin] = useState(emailParam)
   const [password, setPassword] = useState(passwordParam)
   const passwordInput = useRef(null)
+  const isConnected = useSelector(state => state.network.isConnected)
   const dispatch = useDispatch()
   const loginPress = async () => {
     if (isEmptyString(login)) {
@@ -36,9 +38,14 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
         alertApp('Внимание', messageText)
       } else if (!isEmptyString(access_token)) {
+        const data = await manager.getUser(isConnected, access_token)
         dispatch({
           type: ACTION_LOGIN_SUCCESS,
           payload: access_token
+        })
+        dispatch({
+          type: ACTION_GET_PROFILE_FINISH,
+          payload: data
         })
         close()
       } else if (!isEmptyString(message)) {
