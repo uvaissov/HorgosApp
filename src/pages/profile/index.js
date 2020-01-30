@@ -9,6 +9,7 @@ import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, MAIN_COLOR, isEmptyString,
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ButtonGradient } from '../../components/ui/kit/ButtonGradient'
+import { getUser } from './actions'
 import * as manager from '../../service/manager'
 
 
@@ -71,9 +72,9 @@ class Profile extends Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton)
       } else {
-        const source = { uri: response.uri }
+        //const source = { uri: response.uri }
         this.setState({
-          avatar: source
+          avatar: response
         })
       }
     })
@@ -87,17 +88,19 @@ class Profile extends Component {
     } else if (isEmptyString(email)) {
       alertApp('Внимание', 'Необходимо указать почту')
     } else if ((!isEmptyString(password) || isEmptyString(passwordConfirm)) && password !== passwordConfirm) {
-      alertApp('Внимание', 'Пароль и подтверждение пароля должны совподать')
+      alertApp('Внимание', 'Пароль и подтверждение пароля должны совпадать')
     } else {
       console.log('asd')
-      const { errors, id, message } = await manager.doUpdateProfile(true, token, name, email, password, passwordConfirm, avatar)
+      const { errors, data, message } = await manager.doUpdateProfile(true, token, name, email, password, passwordConfirm, avatar)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let messageText = ''
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
         alertApp('Внимание', messageText)
-      } else if (_.isNumber(id)) {
-        alertApp('Спасибо', 'Регистрация прошла успешно')
+      } else if (!isEmptyString(data) && data === 'Updated') {
+        this.setState({ password: null, passwordConfirm: null })
+        this.props.getUser()
+        alertApp('Спасибо', 'Данные успешно изменены')
       } else if (!isEmptyString(message)) {
         alertApp('Внимание', message)
       }
@@ -116,7 +119,7 @@ class Profile extends Component {
           <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => this.selectPhoto()}>
             <FastImage
               style={styles.avatar}
-              resizeMode={FastImage.resizeMode.contain}
+              resizeMode={FastImage.resizeMode.cover}
               source={avatar}
             />
             <Text style={{ marginVertical: 20, color: MAIN_COLOR }}>Изменить</Text>
@@ -161,4 +164,4 @@ const mapStateToProps = state => ({
   isLoading: state.profile.isLoading,
   token: state.auth.token
 })
-export default connect(mapStateToProps, { })(Profile)
+export default connect(mapStateToProps, { getUser })(Profile)

@@ -5,12 +5,12 @@ import {
   ACTION_GET_PROFILE_START
 } from './types'
 
-export const getMaps = () => async (dispatch, getState) => {
-  const { network: { isConnected }, maps: { list } } = getState()
+export const getUser = () => async (dispatch, getState) => {
+  const { network: { isConnected }, auth: { token } } = getState()
   dispatch({ type: ACTION_GET_PROFILE_START })
-  const response = await manager.getMaps(isConnected, list)
+  const data = await manager.getUser(isConnected, token)
   dispatch({
     type: ACTION_GET_PROFILE_FINISH,
-    ...response
+    payload: data
   })
 }

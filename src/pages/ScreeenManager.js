@@ -303,7 +303,7 @@ const Screens = createDrawerNavigator(
     Map: {
       screen: MapShow,
       navigationOptions: {
-        drawerLabel: 'Карта хоргос',
+        drawerLabel: 'Карта Хоргоса',
         drawerIcon: ({ focused }) => {
           let literal = require('../../resources/icons/menu/standart/address.png')
           if (focused) {

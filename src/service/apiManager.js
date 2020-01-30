@@ -414,6 +414,7 @@ export const getUser = async (token, persistData) => {
     const result = transform.toUser(data)
     return result
   } catch (error) {
+    console.log(error)
     const { response: { data } } = error
     return { data, ...persistData }
   }
@@ -425,11 +426,11 @@ export const doUpdateProfile = async (token, name, email, password, passwordConf
     const config = {
       headers: {
         Authorization: `Bearer ${token}`
-        //,Accept: 'multipart/form-data'
       }
     }
-    const formData = new FormData()
-    if (avatar.uri) {
+    let formData = {}
+    if (avatar.uri && avatar.fileName && avatar.type) {
+      formData = new FormData()
       formData.append('photo', {
         name: avatar.fileName,
         type: avatar.type,
@@ -438,20 +439,23 @@ export const doUpdateProfile = async (token, name, email, password, passwordConf
       })
     }
     const body = { name, email, password, password_confirmation: passwordConfirm }
+    let params = ''
     Object.keys(body).forEach(key => {
       if (body[key]) {
-        formData.append(key, body[key])
+        params += params === '' ? `?${key}=${body[key]}` : `&${key}=${body[key]}`
       }
     })
     console.log(formData)
-    const { data = {} } = await axios.put(`${hostName}/api/user/update`, formData, config)
-    console.log(data)
+    console.log(`/api/user/update${params}`)
+    const { data = {} } = await instance.put(`/api/user/update${params}`, formData, config)
+    const { message } = data
     return {
-      data
+      data: message
     }
   } catch (error) {
+    console.log('error', error)
     const { response: { data } } = error
-    console.log(error, data)
+    console.log('data', data)
     return data
   }
 }
