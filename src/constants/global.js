@@ -70,6 +70,20 @@ export function alertApp(titleTxt, msg) {
   })
 }
 
+export function confirmApp(titleTxt, msg) {
+  return new Promise((action) => {
+    Alert.alert(
+      titleTxt,
+      msg,
+      [
+        { text: 'Да', onPress: () => action() },
+        { text: 'Нет', onPress: () => {} }
+      ],
+      { cancelable: false }
+    )
+  })
+}
+
 export function isEmptyString(str) {
   return (!str || str.trim().length === 0)
 }

@@ -424,8 +424,8 @@ export const doUpdateProfile = async (token, name, email, password, passwordConf
     console.log('sad')
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'multipart/form-data'
+        Authorization: `Bearer ${token}`
+        //,Accept: 'multipart/form-data'
       }
     }
     const formData = new FormData()
@@ -444,7 +444,7 @@ export const doUpdateProfile = async (token, name, email, password, passwordConf
       }
     })
     console.log(formData)
-    const { data = {} } = await instance.put('/api/user/update', formData, config)
+    const { data = {} } = await axios.put(`${hostName}/api/user/update`, formData, config)
     console.log(data)
     return {
       data

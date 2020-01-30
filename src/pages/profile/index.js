@@ -40,6 +40,19 @@ class Profile extends Component {
     })
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.name !== this.props.name) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        name: this.props.name,
+        email: this.props.email,
+        avatar: this.props.avatar,
+        password: null,
+        passwordConfirm: null
+      })
+    }
+  }
+
   selectPhoto = () => {
     // More info on all the options is below in the API Reference... just some common use cases shown here
     const options = {
