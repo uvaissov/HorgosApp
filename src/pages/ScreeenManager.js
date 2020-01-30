@@ -22,7 +22,7 @@ import Help from './help'
 import Favorite from './favorite'
 import Categories from './categories'
 import Profile from './profile'
-import { w, WHITE, normalize, statusBarHeight, isEmptyString, BLACK, BORDER_COLOR } from '../constants/global'
+import { w, WHITE, normalize, statusBarHeight, isEmptyString, BLACK, BORDER_COLOR, alertApp, confirmApp } from '../constants/global'
 import { ACTION_LOGOUT_SUCCESS } from './auth/types'
 
 import LoginView from './auth/login'
@@ -74,6 +74,7 @@ const CustomDrawerContentComponent = props => {
   const name = useSelector(state => state.profile.name)
   const email = useSelector(state => state.profile.email)
   const avatar = useSelector(state => state.profile.avatar)
+  const isConnected = useSelector(state => state.network.isConnected)
   const dispatch = useDispatch()
   return (
     <SafeAreaView
@@ -106,7 +107,16 @@ const CustomDrawerContentComponent = props => {
           <View>
             {
               !isEmptyString(token) &&
-              <TouchableOpacity onPress={() => dispatch({ type: ACTION_LOGOUT_SUCCESS })}>
+              <TouchableOpacity onPress={() => {
+                if (isConnected === false) {
+                  return alertApp('Внимание', 'Необходимо подключиться к сети интеренет для выхода из аккаунта')
+                }
+                confirmApp('Внимание', 'Вы действительно хотите выйти из аккаунта?').then(() => {
+                  dispatch({ type: ACTION_LOGOUT_SUCCESS })
+                  props.navigation.navigate('Main')
+                })
+              }}
+              >
                 <Feather name="log-out" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
               </TouchableOpacity>
             }
@@ -120,7 +130,7 @@ const CustomDrawerContentComponent = props => {
         </View>
       </ImageBackground>
       <Modal visible={loginVisible} onRequestClose={() => setLoginVisible(false)} transparent animationType="fade">
-        <LoginView param={loginParam} close={() => setLoginVisible(false)} regShow={() => setRegistationVisible(true)} forgetShow={() => setForgetVisible(true)} />
+        <LoginView navigation={props.navigation} param={loginParam} close={() => setLoginVisible(false)} regShow={() => setRegistationVisible(true)} forgetShow={() => setForgetVisible(true)} />
       </Modal>
       <Modal visible={registrationVisible} onRequestClose={() => setRegistationVisible(false)} transparent animationType="fade">
         <RegistrationView
@@ -293,7 +303,7 @@ const Screens = createDrawerNavigator(
     Map: {
       screen: MapShow,
       navigationOptions: {
-        drawerLabel: 'Карта хоргос',
+        drawerLabel: 'Карта Хоргоса',
         drawerIcon: ({ focused }) => {
           let literal = require('../../resources/icons/menu/standart/address.png')
           if (focused) {
