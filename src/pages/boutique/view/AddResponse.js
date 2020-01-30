@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
   header: { marginBottom: 20, flexDirection: 'row' },
   headerText: { fontSize: normalize(16), fontWeight: 'bold', color: BLACK },
   text: { fontSize: normalize(12), fontWeight: 'bold' },
-  textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15 },
+  textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 },
   raitingView: { marginBottom: 15 },
-  textResponse: { fontSize: normalize(12), marginVertical: 15, marginHorizontal: 10 }
+  textResponse: { fontSize: normalize(12), margin: 0, padding: 0 }
 })
 
 const AddResponse = ({ close, id, afterAdd }) => {

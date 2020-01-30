@@ -21,13 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>4</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>For choosing a photo for profile avatar.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>For taking a photo for profile avatar.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>For saving a photo for profile avatar.</string>
+	<string>5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -43,8 +37,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>For taking a photo for profile avatar.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>For saving a photo for profile avatar.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For choosing a photo for profile avatar.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
