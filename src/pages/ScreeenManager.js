@@ -89,7 +89,7 @@ const CustomDrawerContentComponent = props => {
                   !isEmptyString(token) &&
                   <FastImage
                     style={styles.avatar}
-                    resizeMode={FastImage.resizeMode.contain}
+                    resizeMode={FastImage.resizeMode.cover}
                     source={avatar}
                   />
               }

@@ -15,7 +15,7 @@ import * as manager from '../../service/manager'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
-  body: { flex: 1, marginHorizontal: 15, paddingTop: 35 },
+  body: { flex: 1, marginHorizontal: 15 },
   avatar: { height: 120, width: 120, borderRadius: 60 },
   text: { fontSize: normalize(12), margin: 0, padding: 0 },
   textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 }
@@ -90,7 +90,6 @@ class Profile extends Component {
     } else if ((!isEmptyString(password) || isEmptyString(passwordConfirm)) && password !== passwordConfirm) {
       alertApp('Внимание', 'Пароль и подтверждение пароля должны совпадать')
     } else {
-      console.log('asd')
       const { errors, data, message } = await manager.doUpdateProfile(true, token, name, email, password, passwordConfirm, avatar)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
@@ -114,8 +113,8 @@ class Profile extends Component {
     }
 
     return (
-      <ScrollView>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 25 }}>
           <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => this.selectPhoto()}>
             <FastImage
               style={styles.avatar}

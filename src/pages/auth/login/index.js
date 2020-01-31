@@ -27,9 +27,9 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
   const dispatch = useDispatch()
   const loginPress = async () => {
     if (isEmptyString(login)) {
-      alertApp('Alert', '1')
+      alertApp('Внимание', 'Необходимо указать почту для авторизации')
     } else if (isEmptyString(password)) {
-      alertApp('Alert', '1')
+      alertApp('Внимание', 'Необходимо указать пароль для авторизации')
     } else {
       const { errors, access_token, message } = await manager.doLogin(true, login, password)
       if (!_.isEmpty(errors)) {

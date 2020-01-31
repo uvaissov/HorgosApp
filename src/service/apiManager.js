@@ -422,15 +422,14 @@ export const getUser = async (token, persistData) => {
 
 export const doUpdateProfile = async (token, name, email, password, passwordConfirm, avatar) => {
   try {
-    console.log('sad')
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
       }
     }
-    let formData = {}
+    const formData = new FormData()
     if (avatar.uri && avatar.fileName && avatar.type) {
-      formData = new FormData()
       formData.append('photo', {
         name: avatar.fileName,
         type: avatar.type,
@@ -439,23 +438,18 @@ export const doUpdateProfile = async (token, name, email, password, passwordConf
       })
     }
     const body = { name, email, password, password_confirmation: passwordConfirm }
-    let params = ''
     Object.keys(body).forEach(key => {
       if (body[key]) {
-        params += params === '' ? `?${key}=${body[key]}` : `&${key}=${body[key]}`
+        formData.append(key, body[key])
       }
     })
-    console.log(formData)
-    console.log(`/api/user/update${params}`)
-    const { data = {} } = await instance.put(`/api/user/update${params}`, formData, config)
+    const { data = {} } = await instance.post('/api/user/update', formData, config)
     const { message } = data
     return {
       data: message
     }
   } catch (error) {
-    console.log('error', error)
     const { response: { data } } = error
-    console.log('data', data)
     return data
   }
 }
