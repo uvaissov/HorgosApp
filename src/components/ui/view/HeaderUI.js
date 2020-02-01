@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import { MaskGradient } from '../kit/MaskGradient'
 import { WHITE, normalize, BLACK, isEmptyString, alertApp } from '../../../constants/global'
@@ -38,14 +38,16 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
     fetchData(text)
   }
 
-  const renderText = () => {
-    if (true) {
-      return (<TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
-    }
-    return (
-      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || 'Каталог бутиков'}</Text>
-    )
-  }
+
+  const renderText = () => <TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />
+  // const renderText = () => {
+  //   if (true) {
+  //     return (<TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
+  //   }
+  //   return (
+  //     <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || 'Каталог бутиков'}</Text>
+  //   )
+  // }
 
   return (
     <View style={[styles.view, style]}>

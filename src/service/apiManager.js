@@ -424,14 +424,13 @@ export const doUpdateProfile = async (token, name, email, password, passwordConf
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        Authorization: `Bearer ${token}`
       }
     }
     const formData = new FormData()
-    if (avatar.uri && avatar.fileName && avatar.type) {
+    if (avatar.uri && avatar.type) {
       formData.append('photo', {
-        name: avatar.fileName,
+        name: avatar.fileName || 'AVATAR',
         type: avatar.type,
         uri:
           Platform.OS === 'android' ? avatar.uri : avatar.uri.replace('file://', '')
@@ -450,6 +449,7 @@ export const doUpdateProfile = async (token, name, email, password, passwordConf
     }
   } catch (error) {
     const { response: { data } } = error
+    console.log(error, data)
     return data
   }
 }

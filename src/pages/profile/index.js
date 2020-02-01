@@ -30,7 +30,8 @@ class Profile extends Component {
       email: props.email,
       avatar: props.avatar,
       password: null,
-      passwordConfirm: null
+      passwordConfirm: null,
+      updated: false
     }
   }
 
@@ -41,15 +42,17 @@ class Profile extends Component {
     })
   }
 
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.name !== this.props.name) {
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.updated === false && this.state.updated === true) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         name: this.props.name,
         email: this.props.email,
         avatar: this.props.avatar,
         password: null,
-        passwordConfirm: null
+        passwordConfirm: null,
+        isLoading: this.props.isLoading,
+        updated: false
       })
     }
   }
@@ -72,7 +75,6 @@ class Profile extends Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton)
       } else {
-        //const source = { uri: response.uri }
         this.setState({
           avatar: response
         })
@@ -90,25 +92,32 @@ class Profile extends Component {
     } else if ((!isEmptyString(password) || isEmptyString(passwordConfirm)) && password !== passwordConfirm) {
       alertApp('Внимание', 'Пароль и подтверждение пароля должны совпадать')
     } else {
-      const { errors, data, message } = await manager.doUpdateProfile(true, token, name, email, password, passwordConfirm, avatar)
-      if (!_.isEmpty(errors)) {
-        const values = _.values(errors)
-        let messageText = ''
-        values.map((row) => row.map((inner) => messageText += `${inner}\n`))
-        alertApp('Внимание', messageText)
-      } else if (!isEmptyString(data) && data === 'Updated') {
-        this.setState({ password: null, passwordConfirm: null })
-        this.props.getUser()
-        alertApp('Спасибо', 'Данные успешно изменены')
-      } else if (!isEmptyString(message)) {
-        alertApp('Внимание', message)
+      try {
+        this.setState({ isLoading: true })
+        const { errors, data, message } = await manager.doUpdateProfile(true, token, name, email, password, passwordConfirm, avatar)
+        //await this.sleep(2000)
+        if (!_.isEmpty(errors)) {
+          const values = _.values(errors)
+          let messageText = ''
+          values.map((row) => row.map((inner) => messageText += `${inner}\n`))
+          alertApp('Внимание', messageText)
+        } else if (!isEmptyString(data) && data === 'Updated') {
+          this.setState({ password: null, passwordConfirm: null })
+          await this.props.getUser()
+          this.setState({ updated: true })
+          alertApp('Спасибо', 'Данные успешно изменены')
+        } else if (!isEmptyString(message)) {
+          alertApp('Внимание', message)
+        }
+      } catch {
+        this.setState({ isLoading: false })
       }
     }
   }
 
   init = () => {
-    const { didFinishInitialAnimation, name, avatar, email, password, passwordConfirm } = this.state
-    if (didFinishInitialAnimation === false) {
+    const { didFinishInitialAnimation, name, avatar, email, password, passwordConfirm, isLoading } = this.state
+    if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
 
