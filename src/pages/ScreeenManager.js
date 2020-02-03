@@ -97,10 +97,10 @@ const CustomDrawerContentComponent = props => {
             <View style={styles.textView}>
               {
                 !isEmptyString(token) &&
-                <>
-                  <Text style={styles.loginText}>{name}</Text>
-                  <Text style={styles.numberText}>{email}</Text>
-                </>
+                <TouchableOpacity onPress={() => props.navigation.navigate('Profile')}>
+                  <Text style={styles.loginText} ellipsizeMode="tail">{name}</Text>
+                  <Text style={styles.numberText} ellipsizeMode="tail">{email}</Text>
+                </TouchableOpacity>
               }
             </View>
           </View>
@@ -185,8 +185,8 @@ const MainStack = createStackNavigator(
 
 const BoutiqueListStack = createStackNavigator(
   {
-    Boutique,
     BoutiqueList,
+    Boutique,
     Products
   },
   {
@@ -275,7 +275,7 @@ const Screens = createDrawerNavigator(
         }
       }
     },
-    BoutiqueList: {
+    BoutiqueListMenu: {
       screen: BoutiqueListStack,
       navigationOptions: {
         drawerLabel: 'Каталог бутиков',

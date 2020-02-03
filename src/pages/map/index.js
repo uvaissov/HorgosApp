@@ -66,8 +66,8 @@ class MapShow extends Component {
     const { navigation } = this.props
     return (
       <View style={[styles.view]}>
-        <CustomStatusBar backgroundColor={WHITE} barStyle="light-content" />
-        <HeaderUI text="Карта Хоргос" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
+        <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
+        <HeaderUI text="Карта Хоргоса" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

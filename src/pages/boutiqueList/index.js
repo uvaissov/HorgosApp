@@ -22,12 +22,15 @@ class BoutiqueList extends Component {
   state = {
     didFinishInitialAnimation: false,
     isLoading: true,
-    selected: 0
+    selected: 0,
+    local: false
   }
 
   componentDidMount = async () => {
+    const { navigation } = this.props
     InteractionManager.runAfterInteractions(() => {
-      this.setState({ didFinishInitialAnimation: true })
+      const local = navigation.getParam('filter') === undefined
+      this.setState({ didFinishInitialAnimation: true, local })
     })
     this.fetchData()
   }
@@ -76,11 +79,12 @@ class BoutiqueList extends Component {
 
   render() {
     const { navigation } = this.props
+    const { local } = this.state
     const text = navigation.getParam('text')
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={text} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} placeHolder="Каталог бутиков" fetchData={this.fetchData} />
+        <HeaderUI text={text} leftIcon={local ? 'menu' : 'arrow-left'} leftOnPress={() => (local ? navigation.openDrawer() : navigation.goBack())} placeHolder="Каталог бутиков" fetchData={this.fetchData} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

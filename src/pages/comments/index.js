@@ -52,7 +52,7 @@ class Comments extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Отзывы о Хоргос" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
+        <HeaderUI text="Отзывы о Хоргосе" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

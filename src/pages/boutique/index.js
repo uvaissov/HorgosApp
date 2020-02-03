@@ -229,7 +229,7 @@ class Boutique extends Component {
     })
     return (
       <View style={[styles.view]}>
-        <CustomStatusBar backgroundColor={TRASPARENT} barStyle="light-content" blank />
+        <CustomStatusBar backgroundColor={TRASPARENT} barStyle="light-content" absolute={{ position: 'absolute', top: 0 }} />
         <Animated.View style={[styles.body]}>
           {this.init(headerHeight)}
           <HeaderScroll boutique={boutique} headerHeight={headerHeight} navigation={navigation} inputOpacity={inputOpacity} pressToText={this.pressToText} highlightHeader={highlightHeader} />

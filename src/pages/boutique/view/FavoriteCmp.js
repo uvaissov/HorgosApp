@@ -5,7 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { WHITE, RED, GRAY_SECOND, ORANGE, normalize, BLACK } from '../../../constants/global'
+import { WHITE, RED, GRAY_SECOND, ORANGE, normalize, BLACK, alertApp } from '../../../constants/global'
 import * as manager from '../../../service/manager'
 
 
@@ -29,14 +29,16 @@ const FavoriteCmp = ({ boutique, token, getFavorite }) => {
   const color = selected ? WHITE : RED
   const backgroundColor = !selected ? WHITE : RED
   const actionFav = async () => {
+    if (!token) {
+      return alertApp('Внимание', 'Необходимо авторизоваться для сохранения избранного')
+    }
+
     if (loadFav === true) return
     setLoadFav(true)
     if (!selected) {
-      const data = await manager.addFav(true, token, boutique.id)
-      console.log('data', data)
+      await manager.addFav(true, token, boutique.id)
     } else {
-      const data = await manager.delFav(true, token, boutique.id)
-      console.log('data', data)
+      await manager.delFav(true, token, boutique.id)
     }
     getFavorite()
     setSelected(!selected)

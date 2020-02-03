@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react'
 import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native'
 import _ from 'lodash'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector, connect } from 'react-redux'
 import Feather from 'react-native-vector-icons/Feather'
 import { ButtonGradient } from '../../../components/ui/kit/ButtonGradient'
 import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, BLACK, isEmptyString, alertApp, MAIN_COLOR, GRAY } from '../../../constants/global'
 import * as manager from '../../../service/manager'
 import { ACTION_LOGIN_SUCCESS } from '../types'
 import { ACTION_GET_PROFILE_FINISH } from '../../profile/actions/types'
+import { getFavorite } from '../../favorite/actions'
 
 const styles = StyleSheet.create({
   view: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
   textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 }
 })
 
-const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordParam] = [] }) => {
+const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordParam] = [], getFavorite: getFavoriteAction }) => {
   const [login, setLogin] = useState(emailParam)
   const [password, setPassword] = useState(passwordParam)
   const passwordInput = useRef(null)
@@ -39,6 +40,7 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
         alertApp('Внимание', messageText)
       } else if (!isEmptyString(access_token)) {
         const data = await manager.getUser(isConnected, access_token)
+        getFavoriteAction()
         dispatch({
           type: ACTION_LOGIN_SUCCESS,
           payload: access_token
@@ -96,5 +98,10 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
   )
 }
 
+const mapStateToProps = state => ({
+  authToken: state.currentUser && state.currentUser.authToken,
+  items: state.items
+})
 
-export default LoginView
+export default connect(mapStateToProps, { getFavorite })(LoginView)
+// export default LoginView

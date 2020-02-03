@@ -16,6 +16,7 @@ import {
   getVideoAboutHorgos,
   getSliders
 } from './actions'
+import { getFavorite } from '../favorite/actions'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import { Header, ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle, ScrollVideoWithTitle } from './view'
 import { WHITE, normalize } from '../../constants/global'
@@ -38,6 +39,7 @@ class Main extends Component {
     manager.loadFromServer(this.props.isConnected)
     await this.props.getSliders()
     await this.props.getRecommended()
+    this.props.getFavorite()
     this.props.getSpecialForYou()
     this.props.getCategoryStocks()
     this.props.getCustomerChoices()
@@ -109,6 +111,7 @@ export default connect(
     getBestProducts,
     getFreebies,
     getVideoAboutHorgos,
-    getSliders
+    getSliders,
+    getFavorite
   }
 )(Main)

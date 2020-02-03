@@ -2,6 +2,7 @@ import {
   ACTION_GET_FAVORITE_FINISH,
   ACTION_GET_FAVORITE_START
 } from '../actions/types'
+import { ACTION_LOGOUT_SUCCESS } from '../../auth/types'
 
 const initialState = {
   list: [],
@@ -29,6 +30,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: true
+      }
+    }
+    case ACTION_LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        list: [],
+        remove: [],
+        add: [],
+        trading_houses: [],
+        ids: []
       }
     }
     default: {

@@ -7,12 +7,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { w } from '../../../constants/global'
 
+const height = (0.53 * (w - 30))
+const width = w - 30
 
 const styles = StyleSheet.create({
   container: { margin: 15 },
   view: { width: w - 30, flex: 1, borderRadius: 9, overflow: 'hidden' },
-  image: { height: (0.53 * (w - 30)), width: w - 30, justifyContent: 'center', alignItems: 'center' },
-  playImage: { height: (0.53 * (w - 30)) / 3, width: w - 30 / 3, opacity: 0.8 }
+  image: { height, width, justifyContent: 'center', alignItems: 'center' },
+  playImage: { height: height / 3, width: width / 3, opacity: 0.8 }
 })
 
 const ScrollVideoWithTitle = (props) => {
