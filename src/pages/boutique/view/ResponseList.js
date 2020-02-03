@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
 })
 
 
-const ResponseList = ({ data, onLayourRef, boutique, afterAdd }) => {
+const ResponseList = ({ data, onLayourRef, boutique, afterAdd, onPress }) => {
   const [visible, setVisible] = useState(false)
   return (
-    <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={() => {}} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
+    <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={onPress} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
       <View style={styles.view}>
         {
           _.orderBy(data, ['date'], ['desc']).slice(0, 3).map((item, index) => (
