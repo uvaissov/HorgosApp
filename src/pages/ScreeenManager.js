@@ -12,6 +12,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import Main from './main'
 import Boutique from './boutique'
 import BoutiqueList from './boutiqueList'
+import ResponseLists from './responseList'
 import CouncilsList from './сouncils'
 import CouncilItemView from './сouncils/item'
 import HelpItemView from './help/item'
@@ -172,6 +173,7 @@ const MainStack = createStackNavigator(
   {
     Main,
     Boutique,
+    ResponseLists,
     BoutiqueList,
     Products
   },
@@ -186,6 +188,7 @@ const MainStack = createStackNavigator(
 const BoutiqueListStack = createStackNavigator(
   {
     Boutique,
+    ResponseLists,
     BoutiqueList,
     Products
   },
@@ -227,6 +230,7 @@ const FavotiteStack = createStackNavigator(
   {
     Favorite,
     Boutique,
+    ResponseLists,
     BoutiqueList,
     Products
   },
@@ -242,6 +246,7 @@ const CategoriesStack = createStackNavigator(
   {
     Categories,
     Boutique,
+    ResponseLists,
     BoutiqueList,
     Products
   },

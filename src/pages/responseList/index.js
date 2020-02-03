@@ -1,8 +1,8 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { StyleSheet, View, InteractionManager, ScrollView, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
 import _ from 'lodash'
-import { HeaderUI, FooterUI } from '../../components/ui/view'
+import { HeaderUI, FooterUI, Response } from '../../components/ui/view'
 import { WHITE, GRAY, normalize, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   element: { flex: 1, paddingVertical: 15, borderTopWidth: 1, borderTopColor: BORDER_COLOR }
 })
 
-class Products extends Component {
-  state = { didFinishInitialAnimation: false, sortByName: false }
+class ResponseLists extends Component {
+  state = { didFinishInitialAnimation: false }
 
   componentDidMount = () => {
     InteractionManager.runAfterInteractions(() => {
@@ -27,23 +27,16 @@ class Products extends Component {
   }
 
   init = () => {
-    const { didFinishInitialAnimation, sortByName } = this.state
+    const { didFinishInitialAnimation } = this.state
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
     const { navigation } = this.props
-    const items = sortByName === true ? _.sortBy(navigation.getParam('items'), ['name'], ['asc']) : navigation.getParam('items')
+    const items = navigation.getParam('items')
     return (
       <ScrollView>
         {
-          items.map((item, index) => {
-            const { name } = item
-            return (
-              <View key={_.uniqueId()} style={[styles.row]}>
-                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{name}</Text></View>
-              </View>
-            )
-          })
+          _.orderBy(items, ['date'], ['desc']).map((item, index) => <Response key={_.uniqueId()} index={index} name={item.name} rating={item.rating} text={item.text} date={item.date} />)
         }
       </ScrollView>
     )
@@ -51,20 +44,11 @@ class Products extends Component {
 
   render() {
     const { navigation } = this.props
-    const { sortByName } = this.state
     const title = navigation.getParam('title')
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={`Товары магазина "${title}"`} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
-        <TouchableOpacity onPress={() => this.setState({ sortByName: !sortByName })}>
-          <View style={styles.sortView}>
-            {
-              sortByName ?
-                (<Text style={styles.sortText}>Сбросить сортировку</Text>) : (<Text style={styles.sortText}>Сортировка товаров по алфавиту</Text>)
-            }
-          </View>
-        </TouchableOpacity>
+        <HeaderUI text={`Отзывы магазина "${title}"`} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
         <View style={styles.body}>
           {this.init()}
         </View>
@@ -74,4 +58,4 @@ class Products extends Component {
   }
 }
 
-export default Products
+export default ResponseLists
