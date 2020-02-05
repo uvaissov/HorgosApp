@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import { MaskGradient } from '../kit/MaskGradient'
@@ -29,9 +29,13 @@ const styles = StyleSheet.create({
 })
 
 const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style, withSearch = true, fetchData, onChangeFilter, filter }) => {
-  //const [isSearch, setSearch] = useState(false)
+  const input = useRef(null)
   const [text, setText] = useState(fromExport)
   const clickToIcon = () => {
+    if (onChangeFilter) {
+      input.current.focus()
+      return
+    }
     if (isEmptyString(text)) {
       return alertApp('Внимание', 'Необходимо указать фразу для поиска')
     }
@@ -42,10 +46,10 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
   //const renderText = () => <TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />
   const renderText = () => {
     if (onChangeFilter) {
-      return (<TextInput value={filter} onChangeText={onChangeFilter} style={styles.text} placeholder={placeHolder} placeholderTextColor={GRAY} returnKeyType="search" />)
+      return (<TextInput ref={input} value={filter} onChangeText={onChangeFilter} style={styles.text} placeholder={placeHolder} placeholderTextColor={GRAY} returnKeyType="search" />)
     }
     if (withSearch) {
-      return (<TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
+      return (<TextInput ref={input} value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
     }
     return (
       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || 'Каталог бутиков'}</Text>

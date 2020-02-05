@@ -75,9 +75,9 @@ class Main extends Component {
             <ScrollRoundWithTitle key="6" data={bestProducts} title="Лучшие товары" navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: bestProducts.map(el => el.id) })} />
             <ScrollCardWithTitle key="7" data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: customerChoices.map(el => el.id) })} />
             <ScrollCardWithTitle key="8" data={popularBoutiques} title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: popularBoutiques.map(el => el.id) })} />
-            <ScrollCardWithTitle key="9" data={stockToday} title="Скидки сегодня" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: stockToday.map(el => el.id) })} />
-            <ScrollVideoWithTitle key="10" data={videos} title="Видео" />
-            <ScrollCardWithTitle key="11" data={freebies} title="Халява" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: freebies.map(el => el.id) })} />
+            <ScrollCardWithTitle key="9" data={stockToday} title="Скидки сегодня!" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: stockToday.map(el => el.id) })} />
+            <ScrollVideoWithTitle key="10" data={videos} title="Видео о Хоргосе" />
+            <ScrollCardWithTitle key="11" data={freebies} title="Халява!" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: freebies.map(el => el.id) })} />
           </ScrollView>
         </View>
         <FooterUI selected="main" navigation={navigation} />

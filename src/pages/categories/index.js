@@ -52,7 +52,7 @@ class Categories extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI filter={filter} onChangeFilter={(text) => this.setState({ filter: text })} text="Категория товаров" placeHolder="Введите название категории товаров" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
+        <HeaderUI filter={filter} onChangeFilter={(text) => this.setState({ filter: text })} text="Категория товаров" placeHolder="Введите название категории товаров" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}
