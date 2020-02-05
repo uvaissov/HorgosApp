@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 
 const ScrollListWithTitle = (props) => {
   const { onPress, masked, title, data, navigation } = props
+  if (!data || data.length === 0) return null
   return (
     <BlockTitleAndButton onPress={onPress} title={title} masked={masked}>
       <FlatList

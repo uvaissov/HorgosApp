@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import { MaskGradient } from '../kit/MaskGradient'
-import { WHITE, normalize, BLACK, isEmptyString, alertApp } from '../../../constants/global'
+import { WHITE, normalize, BLACK, isEmptyString, alertApp, GRAY } from '../../../constants/global'
 
 const styles = StyleSheet.create({
   view: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   text: { flex: 1, fontSize: normalize(13), color: BLACK, padding: 0 }
 })
 
-const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style, withSearch = true, fetchData }) => {
+const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style, withSearch = true, fetchData, onChangeFilter, filter }) => {
   //const [isSearch, setSearch] = useState(false)
   const [text, setText] = useState(fromExport)
   const clickToIcon = () => {
@@ -41,6 +41,9 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
 
   //const renderText = () => <TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />
   const renderText = () => {
+    if (onChangeFilter) {
+      return (<TextInput value={filter} onChangeText={onChangeFilter} style={styles.text} placeholder={placeHolder} placeholderTextColor={GRAY} returnKeyType="search" />)
+    }
     if (withSearch) {
       return (<TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
     }
