@@ -1,4 +1,5 @@
 import { Platform } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import axios from 'axios'
 import { hostName } from '../constants/global'
 import * as transform from './transform'
@@ -90,6 +91,7 @@ export const getMaps = async (persistData) => {
   try {
     const { data } = await instance.get('/api/maps')
     const payload = transform.toMaps(data)
+    FastImage.preload(payload.images)
     return {
       payload
     }
@@ -294,6 +296,9 @@ export const getCategories = async (persistData) => {
         populare: allData.filter((el) => el.is_popular === 1).map((el) => transform.toCategory(el))
       }
     }
+    const { payload: { list } } = payload
+    const images = list.map((el) => el.img)
+    FastImage.preload(images)
     return payload
   } catch (error) {
     return {

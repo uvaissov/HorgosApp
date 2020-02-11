@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
 import SQLite from 'react-native-sqlite-storage'
+import FastImage from 'react-native-fast-image'
 import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT, BY_TRADING_HOUSE } from '../constants/static'
 
 SQLite.DEBUG(false)
@@ -177,6 +178,8 @@ export default class Database {
           const len = rows.length
           for (let i = 0; i < len; i += 1) {
             const row = rows[i]
+            const { boutique: { img, images } } = row
+            FastImage.preload([img, ...images])
             tx.executeSql('INSERT INTO Boutique VALUES (?, ?, ?, ?, ?, ?)', [row.id, row.name, row.categories, row.trading_house, JSON.stringify(row.boutique), new Date().toString()]).then(([tx, results]) => {
               resolve(results)
             })

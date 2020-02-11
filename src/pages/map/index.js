@@ -1,14 +1,15 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { View, StyleSheet, InteractionManager, TouchableOpacity } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, StyleSheet, InteractionManager } from 'react-native'
 import { connect } from 'react-redux'
 import ImageView from 'react-native-image-view'
+import { ImageZoomer } from './component/ImageZoomer'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import { getMaps } from './actions'
 import Loader from '../../components/Loader'
+
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -34,7 +35,7 @@ class MapShow extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getMaps()
+    //this.props.getMaps()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
@@ -43,15 +44,15 @@ class MapShow extends Component {
   init = () => {
     const { didFinishInitialAnimation, isVisible } = this.state
     const { list = [], isLoading } = this.props
-    const [firstImage] = list
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
     return (
       <>
-        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.setState({ isVisible: true })}>
-          <FastImage source={firstImage} style={styles.body} resizeMode={FastImage.resizeMode.contain} />
-        </TouchableOpacity>
+        {/*<TouchableOpacity style={{ flex: 1 }} onPress={() => this.setState({ isVisible: true })}>*/}
+        {/*  <FastImage source={firstImage} style={styles.body} resizeMode={FastImage.resizeMode.contain} />*/}
+        {/*</TouchableOpacity>*/}
+        <ImageZoomer images={list} contain />
         <ImageView
           images={list.map((el) => ({ source: el }))}
           imageIndex={0}

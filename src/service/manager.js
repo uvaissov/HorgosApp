@@ -25,7 +25,7 @@ export const getCustomerChoices = async (online = true, persistData) => {
   return data
 }
 export const getMaps = async (online = true, persistData) => {
-  const data = online ? await apiManager.getMaps(persistData) : { payload: persistData }
+  const data = online ? await apiManager.getMaps(persistData) : { payload: { images: persistData } }
   return data
 }
 
@@ -161,9 +161,11 @@ export const loadFromServer = async (online = true) => {
         const { date } = row
         const now = Date.now()
         const createdAt = new Date(date)
-        const oneDay = 24 * 60 * 60 * 1000
+        //const oneDay = 24 * 60 * 60 * 1000
+        const oneDay = 1000
         const isMoreThanADay = (now - createdAt) > oneDay
         if (isMoreThanADay === true) {
+          console.log('isMoreThanADay')
           db.deleteAllBoutique().then(() => {
             apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
               .then(({ payload: { list } }) => {
