@@ -691,7 +691,7 @@
 			baseConfigurationReference = 4ED0780FCB601C8CDA2FAD30 /* Pods-HorgosApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ZS7TGSTLHR;
 				INFOPLIST_FILE = HorgosApp/Info.plist;
@@ -712,7 +712,7 @@
 			baseConfigurationReference = CB1FE4FFF80CC3E10A7295E6 /* Pods-HorgosApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = ZS7TGSTLHR;
 				INFOPLIST_FILE = HorgosApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
