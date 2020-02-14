@@ -37,7 +37,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
       return
     }
     if (isEmptyString(text)) {
-      return alertApp('Внимание', 'Необходимо указать фразу для поиска')
+      return alertApp('Внимание', 'Необходимо указать фразу для поиска').then(() => input.current.focus())
     }
     fetchData(text)
   }
@@ -49,7 +49,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
       return (<TextInput ref={input} value={filter} onChangeText={onChangeFilter} style={styles.text} placeholder={placeHolder} placeholderTextColor={GRAY} returnKeyType="search" />)
     }
     if (withSearch) {
-      return (<TextInput ref={input} value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
+      return (<TextInput ref={input} value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={GRAY} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
     }
     return (
       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || 'Каталог бутиков'}</Text>

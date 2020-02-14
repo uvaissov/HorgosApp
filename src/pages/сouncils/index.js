@@ -4,6 +4,7 @@ import { StyleSheet, View, InteractionManager } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import nextId from 'react-id-generator'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
 
 class CouncilsList extends Component {
   state = {
-    didFinishInitialAnimation: false
+    didFinishInitialAnimation: false, filter: null
   }
 
   componentDidMount = () => {
@@ -33,28 +34,54 @@ class CouncilsList extends Component {
 
   init = () => {
     const { navigation } = this.props
-    const { didFinishInitialAnimation } = this.state
+    const { didFinishInitialAnimation, filter } = this.state
     const { list, isLoading } = this.props
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
+    const data = _.filter(list, (item) => {
+      if (filter) {
+        if (item.title) {
+          if (item.title.toUpperCase().indexOf(filter.toUpperCase()) !== -1) {
+            return true
+          }
+        }
+        if (item.content) {
+          if (item.content.toUpperCase().indexOf(filter.toUpperCase()) !== -1) {
+            return true
+          }
+        }
+        if (item.description) {
+          if (item.description.toUpperCase().indexOf(filter.toUpperCase()) !== -1) {
+            return true
+          }
+        }
+        return false
+      }
+      return true
+    })
     return (
       <FlatList
         style={styles.flatListStyle}
         keyExtractor={() => nextId()}
-        data={list}
+        data={data}
         renderItem={(item) => <ConcilItem item={item.item} onPress={() => navigation.push('CouncilItemView', { item: item.item })} />}
       />
     )
   }
 
+  onChangeFilter = (text) => {
+    this.setState({ filter: text })
+  }
+
 
   render() {
     const { navigation } = this.props
+    const { filter } = this.state
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Советы" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
+        <HeaderUI filter={filter} placeHolder="Советы" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} onChangeFilter={this.onChangeFilter} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

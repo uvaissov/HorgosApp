@@ -88,8 +88,8 @@ export const addHelp = async (online = true, text) => {
 }
 
 //Добавить отзыв
-export const addReview = async (online = true, id, text, name, raiting) => {
-  const data = online ? await apiManager.addReview(id, text, name, raiting) : null
+export const addReview = async (online = true, id, text, name, raiting, token) => {
+  const data = online ? await apiManager.addReview(id, text, name, raiting, token) : null
   return data
 }
 

@@ -275,9 +275,12 @@ export const delFav = async (token, id) => {
   }
 }
 
-export const addReview = async (id, text, name, raiting) => {
+export const addReview = async (id, text, name, raiting, token) => {
   try {
-    const { data } = await instance.get(`/api/boutique/${id}/reviews/create?name=${name}&review=${text}&rating=${raiting}`)
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    const { data } = await instance.get(`/api/boutique/${id}/reviews/create?name=${name}&review=${text}&rating=${raiting}`, config)
     return {
       data
     }
@@ -323,7 +326,7 @@ export const getBoutiqueList = async (params) => {
         url += `ids=${ids.join()}`
         break
       case BY_SEARCH_TEXT:
-        url += `name=${text}`
+        url += `search=${text}`
         break
       case BY_TRADING_HOUSE:
         url += `trading_house=${trading_house_id}`

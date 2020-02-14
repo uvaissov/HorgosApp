@@ -25,6 +25,7 @@ const AddResponse = ({ close, id, afterAdd }) => {
   const [text, setText] = useState(null)
   const [raiting, setRaiting] = useState(3)
   const isConnected = useSelector(state => state.network.isConnected)
+  const token = useSelector(state => state.auth.token)
   const onPress = async () => {
     if (isConnected === false) {
       alertApp('Внимание', 'Отсутствует соединение с сетью')
@@ -33,7 +34,7 @@ const AddResponse = ({ close, id, afterAdd }) => {
     } else if (isEmptyString(name)) {
       alertApp('Внимание', 'Необходимо указать имя')
     } else {
-      const { errors, data, message } = await manager.addReview(true, id, text, name, raiting)
+      const { errors, data, message } = await manager.addReview(true, id, text, name, raiting, token)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let messageText = ''
