@@ -3,15 +3,15 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { WHITE, normalize, w, BORDER_COLOR } from '../../../../constants/global'
 
-const imageWH = w * 0.1
+const imageWH = w * 0.115
 
 const styles = StyleSheet.create({
   view: { marginBottom: 10, backgroundColor: WHITE, flexDirection: 'row', justifyContent: 'flex-start' },
   shadow: { shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.8, shadowRadius: 5, elevation: 4, shadowColor: '#C4C4C4' },
   imageView: { height: imageWH, width: imageWH, borderRadius: 200, backgroundColor: WHITE, alignItems: 'center', borderWidth: 1, borderColor: BORDER_COLOR },
-  image: { flex: 1, height: imageWH, width: imageWH, borderRadius: 200, zIndex: 1, margin: 5 },
+  image: { height: imageWH - 15, width: imageWH - 15, zIndex: 1, margin: 5 },
   infoView: { flex: 1, paddingLeft: 10, justifyContent: 'center' },
-  title: { fontSize: normalize(11) }
+  title: { fontSize: normalize(13) }
 })
 
 const ListItem = ({ style, item = {}, onPress }) => {

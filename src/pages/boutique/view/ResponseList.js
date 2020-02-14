@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text, Modal } from 'react-native'
+import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Feather'
 import _ from 'lodash'
 import nextId from 'react-id-generator'
@@ -21,6 +22,10 @@ const styles = StyleSheet.create({
 
 const ResponseList = ({ data, onLayourRef, boutique, afterAdd, onPress }) => {
   const [visible, setVisible] = useState(false)
+  const token = useSelector(state => state.auth.token)
+  if (!token && (!data || data.length < 1)) {
+    return null
+  }
   return (
     <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={onPress} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
       <View style={styles.view}>
@@ -30,11 +35,14 @@ const ResponseList = ({ data, onLayourRef, boutique, afterAdd, onPress }) => {
           ))
         }
       </View>
-      <TouchableOpacity onPress={() => setVisible(true)}>
-        <View style={styles.btnView}>
-          <Text style={styles.btnText}>Добавить отзыв</Text>
-        </View>
-      </TouchableOpacity>
+      {
+        token &&
+        <TouchableOpacity onPress={() => setVisible(true)}>
+          <View style={styles.btnView}>
+            <Text style={styles.btnText}>Добавить отзыв</Text>
+          </View>
+        </TouchableOpacity>
+      }
       <Modal visible={visible} onRequestClose={() => setVisible(false)} transparent>
         <AddResponse id={boutique.id} close={() => setVisible(false)} afterAdd={afterAdd} />
       </Modal>

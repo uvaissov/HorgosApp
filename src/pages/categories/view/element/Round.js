@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   imageView: { height: imageWH, width: imageWH, borderRadius: 200, backgroundColor: WHITE, alignItems: 'center', justifyContent: 'center' },
   image: { height: innerImageWH, width: innerImageWH, margin: 5 },
   infoView: { flex: 1, paddingTop: 10 },
-  title: { fontSize: normalize(11), textAlign: 'center' }
+  title: { fontSize: normalize(13), textAlign: 'center' }
 })
 
 const Round = ({ style, index, item = {}, onPress }) => {

@@ -24,10 +24,12 @@ const ImageZoomer = (props) => {
       <ScrollView horizontal pagingEnabled style={styles.body}>
         {
             images.map((el) =>
-              <TouchableOpacity onPress={() => {
-                setImage(el)
-                setVisible(true)
-              }}
+              <TouchableOpacity
+                onPress={() => {
+                  setImage(el)
+                  setVisible(true)
+                }}
+                key={nextId()}
               >
                 <View key={nextId()} style={styles.container}>
                   <FastImage source={el} style={[styles.body]} resizeMode={contain ? FastImage.resizeMode.contain : FastImage.resizeMode.cover} />

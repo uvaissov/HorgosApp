@@ -16,7 +16,7 @@ const ScrollRoundWithTitle = (props) => {
       <FlatList
         style={styles.scrollView}
         data={data}
-        renderItem={(item) => (<RoundBig item={item.item} onPress={() => setSelected(item.index)} selected={selected === item.index} />)}
+        renderItem={(item) => (<RoundBig item={item.item} onPress={() => setSelected(item.item.id)} selected={!selected.includes(item.item.id)} />)}
         horizontal
         keyExtractor={() => nextId()}
         showsHorizontalScrollIndicator={false}

@@ -7286,11 +7286,6 @@ react-native-ratings@^6.5.0:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
-react-native-read-more-text@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-read-more-text/-/react-native-read-more-text-1.1.0.tgz#d6f02a5caff8c91297957be66ecb42287c084e96"
-  integrity sha512-xmaytGMZyZPnJZQ8z0Tkbx6ff1XNznIRmbsfhaTczEbxkZonIIcPt9RmCMgyoSxOrXAsINsKNNbUt1OopNb92Q==
-
 react-native-reanimated@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.7.0.tgz#896db2576552ac59d288a1f6c7f00afc171f240c"
@@ -7359,11 +7354,6 @@ react-native-swiper@^1.6.0-nightly.5:
   integrity sha512-aZk6M7WsFdxlfHfS6OKb7gsaS3q7Z4Oqm8iTyJO7duE28EUK9kzfA2Cp5S6FdZkGXoWCXoUFGlzaO0lnhW/jtw==
   dependencies:
     prop-types "^15.5.10"
-
-react-native-thumbnail-video@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-thumbnail-video/-/react-native-thumbnail-video-0.1.2.tgz#a50e3c665ce987d641da43d2528e372cac111322"
-  integrity sha512-+dD8dIUxiZz/QaL+gOtmb3Co/VE0MK5s8el9fYXpuEZbQu882voz7ALJmEn5o7A62sDTT3mpR2UF1V0ioXTFKA==
 
 react-native-vector-icons@^6.6.0:
   version "6.6.0"

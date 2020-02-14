@@ -264,7 +264,7 @@ const Screens = createDrawerNavigator(
     Categories: {
       screen: CategoriesStack,
       navigationOptions: {
-        drawerLabel: 'Категории товаров',
+        drawerLabel: 'Категории',
         drawerIcon: ({ focused }) => {
           let literal = require('../../resources/icons/menu/standart/menu.png')
           if (focused) {
@@ -283,7 +283,7 @@ const Screens = createDrawerNavigator(
     BoutiqueListMenu: {
       screen: BoutiqueListStack,
       navigationOptions: {
-        drawerLabel: 'Каталог бутиков',
+        drawerLabel: 'Каталог',
         drawerIcon: ({ focused }) => {
           let literal = require('../../resources/icons/menu/standart/store.png')
           if (focused) {

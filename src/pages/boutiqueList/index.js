@@ -22,15 +22,12 @@ class BoutiqueList extends Component {
   state = {
     didFinishInitialAnimation: false,
     isLoading: true,
-    selected: 0,
-    local: false
+    selected: []
   }
 
   componentDidMount = async () => {
-    const { navigation } = this.props
     InteractionManager.runAfterInteractions(() => {
-      const local = navigation.getParam('filter') === undefined
-      this.setState({ didFinishInitialAnimation: true, local })
+      this.setState({ didFinishInitialAnimation: true })
     })
     this.fetchData()
   }
@@ -50,8 +47,15 @@ class BoutiqueList extends Component {
     this.setState({ isLoading: false, ...data })
   }
 
-  setSelected = (selected) => {
-    this.setState({ selected })
+  setSelected = (id) => {
+    const { selected } = this.state
+    const idx = selected.indexOf(id)
+    if (idx !== -1) {
+      selected.splice(idx, 1)
+      this.setState({ selected: [...selected] })
+    } else {
+      this.setState({ selected: [...selected, id] })
+    }
   }
 
   init = () => {
@@ -60,7 +64,7 @@ class BoutiqueList extends Component {
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
-    const trading_house = trading_houses[selected] || {}
+    const trading_house = trading_houses[0] || {}
     if (_.isEmpty(trading_house)) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }}>
@@ -70,8 +74,8 @@ class BoutiqueList extends Component {
     return (
       <ScrollView>
         <ScrollRoundWithTitle selected={selected} setSelected={this.setSelected} title="Торговые дома" data={trading_houses} />
-        <ScrollCardWithTitle data={hits.filter(el => el.trading_house_id === trading_house.id).map(el => ({ ...el, boutique: el }))} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
-        <BootiqueGrid data={list.filter(el => el.trading_house_id === trading_house.id)} navigation={navigation} />
+        <ScrollCardWithTitle data={hits.filter(el => !selected.includes(el.trading_house_id)).map(el => ({ ...el, boutique: el }))} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+        <BootiqueGrid data={list.filter(el => !selected.includes(el.trading_house_id))} navigation={navigation} />
       </ScrollView>
     )
   }
@@ -79,7 +83,7 @@ class BoutiqueList extends Component {
 
   render() {
     const { navigation } = this.props
-    const { local } = this.state
+    const local = navigation.getParam('filter') === undefined
     const text = navigation.getParam('text')
     return (
       <View style={[styles.view]}>

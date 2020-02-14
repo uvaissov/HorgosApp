@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 const MapShow = ({ data, onLayourRef }) => {
   if (!data || data.length < 1) return null
   return (
-    <BlockTitleAndButton onLayourRef={onLayourRef} name="map" title="Карта торгового центра">
+    <BlockTitleAndButton onLayourRef={onLayourRef} name="map" title="Расположение бутика">
       <View style={styles.view}>
         <ImageZoomer images={data} style={styles.image} />
       </View>
