@@ -36,6 +36,7 @@
     "react": "16.12.0",
     "react-id-generator": "^3.0.0",
     "react-native": "0.61.5",
+    "react-native-autocomplete-input": "^4.1.0",
     "react-native-easy-grid": "^0.2.2",
     "react-native-fast-image": "^7.0.2",
     "react-native-gesture-handler": "^1.4.1",

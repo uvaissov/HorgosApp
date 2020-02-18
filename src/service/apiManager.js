@@ -1,6 +1,7 @@
 import { Platform } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import axios from 'axios'
+import _ from 'lodash'
 import { hostName } from '../constants/global'
 import * as transform from './transform'
 import { BY_CATEGORY, BY_BOUTIQUE_IDS, BY_SEARCH_TEXT, BY_TRADING_HOUSE, BY_ALL_DATA } from '../constants/static'
@@ -405,6 +406,16 @@ export const doForget = async (email) => {
     return {
       data
     }
+  } catch (error) {
+    const { response: { data } } = error
+    return data
+  }
+}
+
+export const searchWord = async (word) => {
+  try {
+    const { data = {} } = await instance.get(`/api/search-words?word=${word}`)
+    return _.values(data)
   } catch (error) {
     const { response: { data } } = error
     return data
