@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-//import _ from 'lodash'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import CustomStatusBar from '../../components/CustomStatusBar'

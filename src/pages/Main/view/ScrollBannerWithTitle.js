@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, FlatList, View, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
-//import Icon from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { w, WHITE } from '../../../constants/global'

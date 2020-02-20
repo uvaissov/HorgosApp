@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 import { StyleSheet, View, StatusBar } from 'react-native'
-//import StatusBar from 'react-native-statusbar'
 import { statusBarHeight } from '../constants/global'
 
 

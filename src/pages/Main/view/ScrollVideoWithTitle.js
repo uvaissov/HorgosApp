@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, FlatList, Linking } from 'react-native'
 import nextId from 'react-id-generator'
-//import YouTube, { YouTubeStandaloneAndroid } from 'react-native-youtube'
 import FastImage from 'react-native-fast-image'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
@@ -22,13 +21,6 @@ const ScrollVideoWithTitle = (props) => {
   if (!data || data.length < 1) return null
 
   const openPlayer = (url) => {
-    // YouTubeStandaloneAndroid.playVideo({
-    //   apiKey: 'AIzaSyCjLofUnRphhjlhKQ0BCzuU86F7VLCTj00',
-    //   videoId: url,
-    //   autoplay: true
-    // })
-    //   .then(() => console.log('Player closed'))
-    //   .catch(e => console.error(e))
     Linking.canOpenURL(url).then((supported) => {
       if (!supported) {
         return
@@ -51,20 +43,6 @@ const ScrollVideoWithTitle = (props) => {
                   <FastImage source={require('../../../../resources/icons/element/play.png')} style={styles.playImage} resizeMode={FastImage.resizeMode.center} />
                 </FastImage>
               </TouchableOpacity>
-              {/* {Platform.OS === 'ios' &&
-              (
-              <YouTube
-                //key={nextId()}
-                videoId="xBKyXQwUzkY"// The YouTube video ID
-                controls={1}
-                showinfo
-                style={{ alignSelf: 'stretch', height: PixelRatio.roundToNearestPixel((w - 30) / (16 / 9)), marginVertical: 0 }}
-                onReady={e => console.log('onReady', e)}
-                onChangeState={e => console.log('onChangeState', e)}
-                onChangeQuality={e => console.log('onChangeQuality', e)}
-                onError={e => console.log('onError', e)}
-              />
-              )} */}
             </View>
           </View>
         )}

@@ -104,4 +104,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { getFavorite })(LoginView)
-// export default LoginView

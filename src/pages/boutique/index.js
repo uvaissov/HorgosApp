@@ -145,7 +145,6 @@ class Boutique extends Component {
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
-    //console.log('boutique', boutique)
     return (
       <Animated.ScrollView
         ref={(ref) => this.scrollView = ref}

@@ -115,7 +115,6 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
     )
   }
 
-  //const renderText = () => <TextInput value={text} onChangeText={(el) => setText(el)} style={styles.text} placeholder={placeHolder} placeholderTextColor={BLACK} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />
   const renderText = () => {
     if (onChangeFilter) {
       return (<TextInput ref={input} value={filter} onChangeText={onChangeFilter} style={styles.text} placeholder={placeHolder} placeholderTextColor={GRAY} returnKeyType="search" />)

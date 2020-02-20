@@ -24,7 +24,6 @@ const RegistrationView = ({ close, loginShow }) => {
   const mailInput = useRef(null)
   const passwordInput = useRef(null)
   const ConfPasswordInput = useRef(null)
-  //const dispatch = useDispatch()
   const onPress = async () => {
     if (isEmptyString(name)) {
       alertApp('Внимание', 'Необходимо указать имя')

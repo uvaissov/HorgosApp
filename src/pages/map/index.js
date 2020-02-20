@@ -17,17 +17,6 @@ const styles = StyleSheet.create({
   sortView: { paddingHorizontal: 15, borderBottomWidth: 1, borderBottomColor: BORDER_COLOR, paddingBottom: 15 }
 })
 
-// const images = [
-//   {
-//     source: {
-//       uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg'
-//     },
-//     title: 'Paris',
-//     width: 802,
-//     height: 720
-//   }
-// ]
-
 class MapShow extends Component {
   state = {
     didFinishInitialAnimation: false,
@@ -35,7 +24,6 @@ class MapShow extends Component {
   }
 
   componentDidMount = () => {
-    //this.props.getMaps()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })

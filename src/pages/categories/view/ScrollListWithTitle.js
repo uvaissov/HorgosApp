@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-//import { BLACK, normalize } from '../../../constants/global'
 import { ListItem } from './element/ListItem'
 import { BY_CATEGORY } from '../../../constants/static'
 

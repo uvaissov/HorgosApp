@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-//import { BLACK, normalize } from '../../../constants/global'
 import { CardBig } from '../../../components/ui/view/index'
 
 const styles = StyleSheet.create({
@@ -14,8 +13,6 @@ const ScrollCardWithTitle = (props) => {
   if (!data || data.length < 1) return null
 
   const onItemPress = (boutique) => {
-    //const { boutique } = item
-    //console.log('onItemPress:', boutique)
     if (boutique && boutique.id) {
       navigation.push('Boutique', { boutique })
     }

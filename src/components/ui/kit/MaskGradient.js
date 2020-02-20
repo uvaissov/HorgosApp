@@ -2,7 +2,6 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import MaskedView from '@react-native-community/masked-view'
 import LinearGradient from 'react-native-linear-gradient'
-//import { w } from '../../constants/global'
 
 const styles = StyleSheet.create({
   view: { flex: 1, flexDirection: 'row', height: '100%' },

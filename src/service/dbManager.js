@@ -17,11 +17,8 @@ export default class Database {
   initDB() {
     let db
     return new Promise((resolve) => {
-      //console.log('Plugin integrity check ...')
       SQLite.echoTest()
         .then(() => {
-          //console.log('Integrity check passed ...')
-          //console.log('Opening database ...')
           SQLite.openDatabase(
             database_name,
             database_version,
@@ -30,13 +27,10 @@ export default class Database {
           )
             .then(DB => {
               db = DB
-              //console.log('Database OPEN')
               db.executeSql('SELECT 1 FROM Boutique LIMIT 1').then(() => {
-                //console.log('Database is ready ... executing query ...')
                 resolve(db)
               }).catch((error) => {
                 console.log('Received error: ', error)
-                //console.log('Database not yet ready ... populating data')
                 db.transaction((tx) => {
                   tx.executeSql('CREATE TABLE IF NOT EXISTS Boutique (id, name, categories, trading_house, boutique, date)')
                 }).then(() => {
@@ -60,10 +54,8 @@ export default class Database {
 
   closeDatabase(db) {
     if (db) {
-      //console.log('Closing DB')
       db.close()
         .then(status => {
-          //console.log('Database CLOSED')
         })
         .catch(error => {
           this.errorCB(error)
@@ -82,7 +74,6 @@ export default class Database {
       this.initDB().then((db) => {
         db.transaction((tx) => {
           tx.executeSql('SELECT * FROM Boutique  LIMIT 1', []).then(([tx, results]) => {
-            //console.log('Query completed')
             const len = results.rows.length
             if (len > 0) {
               const row = results.rows.item(0)
@@ -133,12 +124,10 @@ export default class Database {
               })
           }
           tx.executeSql(`SELECT * FROM Boutique WHERE ${param}`).then(([tx, results]) => {
-            //console.log(results)
             const len = results.rows.length
             const data = []
             for (let i = 0; i < len; i += 1) {
               const row = results.rows.item(i)
-              //console.log(`Boutique ID: ${row.id}, Boutique Name: ${row.name}`)
               const { boutique } = row
               data.push(JSON.parse(boutique))
             }
@@ -170,7 +159,6 @@ export default class Database {
   }
 
   addBoutique(rows) {
-    //console.log('addBoutique', rows)
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
@@ -196,7 +184,6 @@ export default class Database {
   }
 
   updateBoutique(id, row) {
-    //console.log('updateBoutique', id, row)
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
@@ -221,7 +208,6 @@ export default class Database {
       this.initDB().then((db) => {
         db.transaction((tx) => {
           tx.executeSql('SELECT * FROM Boutique WHERE id = ?', [id]).then(([tx, results]) => {
-            //console.log('Query completed')
             const len = results.rows.length
             if (len > 0) {
               const row = results.rows.item(0)
@@ -246,7 +232,6 @@ export default class Database {
       this.initDB().then((db) => {
         db.transaction((tx) => {
           tx.executeSql('DELETE FROM Boutique WHERE id = ?', [id]).then(([tx, results]) => {
-            //console.log(results)
             resolve(results)
           })
         }).then((result) => {
@@ -265,7 +250,6 @@ export default class Database {
       this.initDB().then((db) => {
         db.transaction((tx) => {
           tx.executeSql('DELETE FROM Boutique ').then(([tx, results]) => {
-            //console.log(results)
             resolve(results)
           })
         }).then((result) => {

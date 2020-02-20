@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     width: w,
     backgroundColor: WHITE,
     padding: 10,
-    //borderWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.1)'
   }
 })

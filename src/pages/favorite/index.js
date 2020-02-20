@@ -24,7 +24,6 @@ class Favorite extends Component {
   }
 
   componentDidMount = () => {
-    //const { isLoading } = this.props
     this.props.getFavorite()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)

@@ -3,7 +3,6 @@ import { StyleSheet, FlatList } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-//import { BLACK, normalize } from '../../../constants/global'
 import { RoundWithDiscont } from '../../../components/ui/view/index'
 
 const styles = StyleSheet.create({

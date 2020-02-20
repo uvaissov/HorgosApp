@@ -25,7 +25,6 @@ class Categories extends Component {
   }
 
   componentDidMount = () => {
-    //this.props.getCategories()
     InteractionManager.runAfterInteractions(() => {
       this.setState({ didFinishInitialAnimation: true })
     })

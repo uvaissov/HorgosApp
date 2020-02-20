@@ -5,7 +5,6 @@ import { ScrollView, StyleSheet, Platform, ImageBackground, View, Text, Modal, T
 import { createAppContainer, SafeAreaView } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer'
-//import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FastImage from 'react-native-fast-image'
 import { useSelector, useDispatch } from 'react-redux'
 import Feather from 'react-native-vector-icons/Feather'
@@ -181,7 +180,6 @@ const MainStack = createStackNavigator(
     initialRouteName: 'Main',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
-    //transitionConfig: TransitionConfiguration
   }
 )
 
@@ -196,7 +194,6 @@ const BoutiqueListStack = createStackNavigator(
     initialRouteName: 'BoutiqueList',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
-    //transitionConfig: TransitionConfiguration
   }
 )
 
@@ -209,7 +206,6 @@ const CouncilsStack = createStackNavigator(
     initialRouteName: 'CouncilsList',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
-    //transitionConfig: TransitionConfiguration
   }
 )
 
@@ -222,7 +218,6 @@ const HelpStack = createStackNavigator(
     initialRouteName: 'Help',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
-    //transitionConfig: TransitionConfiguration
   }
 )
 
@@ -238,7 +233,6 @@ const FavotiteStack = createStackNavigator(
     initialRouteName: 'Favorite',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
-    //transitionConfig: TransitionConfiguration
   }
 )
 
@@ -254,7 +248,6 @@ const CategoriesStack = createStackNavigator(
     initialRouteName: 'Categories',
     headerMode: 'none',
     mode: Platform.OS === 'ios' ? 'modal' : 'card'
-    //transitionConfig: TransitionConfiguration
   }
 )
 
@@ -388,7 +381,6 @@ const Screens = createDrawerNavigator(
       activeTintColor: '#9071EA',
       inactiveTintColor: '#272833',
       activeBackgroundColor: 'rgba(157, 71, 209, 0.08)',
-      //cityName: this.props,
       itemsContainerStyle: {
         backgroundColor: '#FFFFFF'
       },

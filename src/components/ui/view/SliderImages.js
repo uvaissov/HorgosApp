@@ -25,11 +25,8 @@ const styles = StyleSheet.create({
 
 const _renderSwiper = (data) => {
   if (!data || data.length < 1) return null
-  //const images = data.map((el) => ({ source: el }))
   const [isImageViewVisible, setImageViewVisible] = useState(false)
   const [selected, setSelected] = useState(0)
-  //const [scrollEnabled, setScrollEnabled] = useState(true)
-  //const scroll = useRef(null)
   return (
     <View style={{ zIndex: 0 }}>
       <Swiper index={selected} paginationStyle={{ marginHorizontal: 15 }} key={nextId()} height={height} activeDotColor={WHITE} dotStyle={{ borderColor: 'rgba(255,255,255,0.8)', borderWidth: 1 }}>

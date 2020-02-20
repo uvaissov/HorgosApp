@@ -1,6 +1,5 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-//import _ from 'lodash'
 import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
 import { FooterUI, HeaderUI } from '../../../components/ui/view'
 import { WHITE, BORDER_COLOR, GRAY_SECOND, BLACK, normalize } from '../../../constants/global'
@@ -49,7 +48,6 @@ class HelpItemView extends Component {
 
   render() {
     const { navigation } = this.props
-    //const { didFinishInitialAnimation } = this.state
     const item = navigation.getParam('item')
 
     return (

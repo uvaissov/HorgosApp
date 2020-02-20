@@ -95,7 +95,6 @@ class Profile extends Component {
       try {
         this.setState({ isLoading: true })
         const { errors, data, message } = await manager.doUpdateProfile(true, token, name, email, password, passwordConfirm, avatar)
-        //await this.sleep(2000)
         if (!_.isEmpty(errors)) {
           const values = _.values(errors)
           let messageText = ''

@@ -21,7 +21,6 @@ const FavoriteGrid = (props) => {
   const onPress = () => {
     setExpand(!expanded)
   }
-  //const title = 'ТЦ Чжун Кэ-1'
   const count = item.items.length || 0
   const elements = item.items
   return (
