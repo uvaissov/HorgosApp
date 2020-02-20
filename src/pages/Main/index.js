@@ -71,7 +71,7 @@ class Main extends Component {
       <View style={styles.view}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
         <View style={styles.body}>
-          <ScrollView style={styles.scrollView}>
+          <ScrollView style={styles.scrollView} keyboardShouldPersistTaps="handled" keyboardDismissMode="none">
             <Header key="1" style={{ margin: 15 }} placeHolder="Введите название бутика" navigation={navigation} />
             <SliderApp key="2" data={sliders} navigation={navigation} />
             <ScrollCardWithTitle key="3" title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />

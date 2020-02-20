@@ -5,7 +5,7 @@ import Share from 'react-native-share'
 import nextId from 'react-id-generator'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import * as manager from '../../../service/manager'
-import { BG_COLOR_HEADER, normalize, hostName, isEmptyString, alertApp, w, WHITE, h, BORDER_COLOR } from '../../../constants/global'
+import { BG_COLOR_HEADER, normalize, hostName, isEmptyString, alertApp, w, h, WHITE, BORDER_COLOR } from '../../../constants/global'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
 
 let searchWaiting
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 10,
     borderRadius: 5
-    //zIndex: 10
   },
   menu: {
     paddingRight: 15,
@@ -39,25 +38,17 @@ const styles = StyleSheet.create({
   share: {
     flex: 1
   },
-  touchView: {
-    flex: 1,
-    backgroundColor: 'red'
-  },
   touchContainer: {
     flex: 1,
     width: w,
     height: h,
     position: 'absolute',
-    //backgroundColor: 'red',
     zIndex: 15,
     top: 65
   },
   resultContainer: {
-    //marginLeft: 50,
-    //borderRadius: 4,
     maxHeight: 220,
     width: w,
-    zIndex: 15,
     backgroundColor: WHITE,
     padding: 10,
     borderWidth: 1,
@@ -83,13 +74,14 @@ const Header = (props) => {
     if (isEmptyString(value || text)) {
       return alertApp('Внимание', 'Необходимо указать фразу для поиска')
     }
+    setShowResults(false)
     navigation.push('BoutiqueList', { filter: BY_SEARCH_TEXT, text: value || text })
   }
 
   const handleSelectItem = (item) => {
     setText(item.item)
-    setShowResults(false)
     pressToSearch(item.item)
+    setData([])
   }
 
   const fetchData = async (inputValue) => {
@@ -97,13 +89,17 @@ const Header = (props) => {
     setData(dataRes)
   }
   const onEndEdit = async (el) => {
-    if (!el || el.length < 3) return
+    if (!el || el.length < 3) {
+      setShowResults(false)
+      return
+    }
     if (searchWaiting) {
       clearTimeout(searchWaiting)
     }
     searchWaiting = setTimeout(() => {
       searchWaiting = null
       fetchData(el)
+      setShowResults(true)
     }, 300)
   }
   const onChangeText = async (el) => {
@@ -113,7 +109,7 @@ const Header = (props) => {
   const renderItem = (item) => {
     const name = item.item
     return (
-      <View key={nextId()} style={{ zIndex: 50 }}>
+      <View key={nextId()}>
         <TouchableOpacity onPress={() => handleSelectItem(item)}>
           <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: BORDER_COLOR }}>
             <Text style={{ fontSize: normalize(14), fontWeight: '400' }}>{name}</Text>
@@ -122,12 +118,11 @@ const Header = (props) => {
       </View>
     )
   }
-
   return (
     <View style={[styles.viewStyle]}>
       <View style={[styles.view, props.style]}>
         <TouchableOpacity style={styles.menu} onPress={() => navigation.openDrawer()} hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}><MaskGradient element={<Feather name="menu" size={23} />} /></TouchableOpacity>
-        <TextInput returnKeyType="search" onSubmitEditing={() => pressToSearch()} style={{ flex: 1, fontSize: normalize(14) }} placeholder={placeHolder} value={text} onChangeText={onChangeText} onFocus={() => setShowResults(true)} />
+        <TextInput returnKeyType="search" onSubmitEditing={() => pressToSearch()} style={{ flex: 1, fontSize: normalize(14) }} placeholder={placeHolder} value={text} onChangeText={onChangeText} onFocus={() => setShowResults(true)} onBlur={() => setShowResults(false)} />
         <View style={styles.rightView}>
           <TouchableOpacity style={styles.search} onPress={() => pressToSearch()}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>
           <TouchableOpacity style={styles.share} onPress={() => share()}><MaskGradient element={<Feather name="share-2" size={20} />} /></TouchableOpacity>
@@ -144,14 +139,10 @@ const Header = (props) => {
           <View style={styles.touchContainer}>
             <View style={styles.resultContainer}>
               <ScrollView
-                style={{ zIndex: 15 }}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="none"
                 nestedScrollEnabled
                 key={data.length}
-                //data={data}
-                //renderItem={renderItem}
-                //keyExtractor={() => nextId()}
               >
                 {
                   data.map(el => renderItem({ item: el }))

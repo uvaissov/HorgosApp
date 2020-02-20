@@ -188,6 +188,9 @@ class Boutique extends Component {
         style={[styles.scrollView]}
         scrollEventThrottle={8}
         showsVerticalScrollIndicator={false}
+        nestedScrollEnabled
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="none"
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
           {
