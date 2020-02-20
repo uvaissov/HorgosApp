@@ -139,42 +139,6 @@ class Boutique extends Component {
     }
   }
 
-  getInfo = () => {
-    const { boutique } = this.state
-    const array = []
-    if (boutique.trading_house_name) {
-      array.push({ key: 'Торговый дом', value: boutique.trading_house_name })
-    }
-    if (boutique.categoriesName) {
-      array.push({ key: 'Категория', value: boutique.categoriesName })
-    }
-    if (boutique.floor) {
-      array.push({ key: 'Этаж', value: boutique.floor })
-    }
-    if (boutique.boutique_number) {
-      array.push({ key: 'Бутик #', value: boutique.boutique_number })
-    }
-    if (boutique.seller_name) {
-      array.push({ key: 'Имя продавца', value: boutique.seller_name })
-    }
-    if (boutique.wner_name) {
-      array.push({ key: 'Имя владельца', value: boutique.wner_name })
-    }
-    if (boutique.languages) {
-      array.push({ key: 'Знание языков', value: boutique.languages })
-    }
-    if (boutique.phone) {
-      array.push({ key: 'Телефон', value: boutique.phone })
-    }
-    if (boutique.whatsapp) {
-      array.push({ key: 'WhatsApp', value: boutique.whatsapp })
-    }
-    if (boutique.weechat) {
-      array.push({ key: 'WeChat', value: boutique.weechat })
-    }
-    return array
-  }
-
   init = (headerHeight) => {
     const { didFinishInitialAnimation, isLoading, boutique = {}, relaters, recommenders } = this.state
     const { navigation, token } = this.props
@@ -204,7 +168,7 @@ class Boutique extends Component {
         <Animated.View style={[styles.scrollViewContent, { transform: [{ translateY: headerHeight }] }]}>
           <SliderImages data={boutique.images} />
           <FavoriteCmp boutique={boutique} token={token} getFavorite={this.props.getFavorite} />
-          <DetailInfo data={this.getInfo()} />
+          <DetailInfo boutique={boutique} />
           <Description text={boutique.description} />
           <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />
           <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products, title: boutique.name })} data={boutique.all_products} />

@@ -37,7 +37,7 @@ const ImageZoomer = (props) => {
               </TouchableOpacity>)
         }
       </ScrollView>
-      <Modal visible={isVisible} onRequestClose={() => setVisible(false)}>
+      <Modal transparent visible={isVisible} onRequestClose={() => setVisible(false)}>
         <View style={styles.modalBody} onStartShouldSetResponder={() => true}>
           <View style={{ zIndex: 1500, position: 'absolute', right: 15, top: 15, padding: 10, borderRadius: 50, backgroundColor: GRAY_SECOND, borderWidth: 1, borderColor: GRAY_SECOND }}>
             <TouchableOpacity onPress={() => setVisible(false)} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
@@ -48,7 +48,7 @@ const ImageZoomer = (props) => {
             maxZoom={3}
             minZoom={0.5}
             zoomStep={0.5}
-            initialZoom={1}
+            initialZoom={0.95}
             bindToBorders
             zoomEnabled
             captureEvent

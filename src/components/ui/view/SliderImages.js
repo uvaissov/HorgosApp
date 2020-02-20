@@ -53,7 +53,7 @@ const _renderSwiper = (data) => {
           ))
         }
       </Swiper>
-      <Modal visible={isImageViewVisible} onRequestClose={() => setImageViewVisible(false)}>
+      <Modal transparent visible={isImageViewVisible} onRequestClose={() => setImageViewVisible(false)}>
         <View style={styles.modalBody} onStartShouldSetResponder={() => true}>
           <View style={{ zIndex: 1500, position: 'absolute', right: 15, top: statusBarHeight + 15, padding: 10, borderRadius: 50, backgroundColor: GRAY_SECOND, borderWidth: 1, borderColor: GRAY_SECOND }}>
             <TouchableOpacity onPress={() => setImageViewVisible(false)} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
@@ -64,7 +64,7 @@ const _renderSwiper = (data) => {
             maxZoom={3}
             minZoom={0.5}
             zoomStep={0.5}
-            initialZoom={1}
+            initialZoom={0.9}
             bindToBorders
             zoomEnabled
             captureEvent

@@ -76,7 +76,7 @@ export function toBoutique(data) {
     phone, whatsapp, weechat, categoriesName, description_mobile,
     popular, top, stock, new: news, is_hit, averageRating: { rating }, trading_houses: [house = {}],
     firstImage, images, products, all_products, map, boutique_number, floor,
-    reviews, recommended_relations, related_relations, categories } = data
+    reviews, recommended_relations, related_relations, categories, qr_code } = data
   const { id: trading_house_id, name: trading_house_name } = house
   let imagesArr = []
   try {
@@ -114,6 +114,7 @@ export function toBoutique(data) {
     trading_house: toHouse(house),
     categoryId: (categories || []).map(el => `(${el.id})`).join(),
     img: { uri: genImageUri(firstImage) },
+    qr_code: qr_code ? { uri: genImageUri(qr_code) } : undefined,
     images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })),
     products: (products || []).map(el => toProduct(el)),
     all_products: (all_products || []).map(el => toProduct(el)),
