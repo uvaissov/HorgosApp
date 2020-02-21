@@ -131,8 +131,8 @@ android {
         applicationId "com.horgosapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 15
-        versionName "1.15"
+        versionCode 16
+        versionName "1.16"
     }
     splits {
         abi {
