@@ -7,7 +7,7 @@ import nextId from 'react-id-generator'
 import * as manager from '../../../service/manager'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
-import { HEADER_MAX_HEIGHT, normalize, BG_COLOR_HEADER, RED, hostName, isEmptyString, alertApp, w, h, WHITE, BORDER_COLOR } from '../../../constants/global'
+import { HEADER_MAX_HEIGHT, normalize, BG_COLOR_HEADER, RED, hostName, isEmptyString, alertApp, w, h, WHITE, BORDER_COLOR, BLACK } from '../../../constants/global'
 
 const styles = StyleSheet.create({
   header: {
@@ -152,7 +152,7 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, hig
         <LinearGradient useAngle angle={91} locations={[0, 0.5, 1]} colors={['#9D47D1', '#9071EA', '#7B71EA']} style={styles.linearGradient}>
           <Animated.View style={[styles.searchView, { opacity: inputOpacity }]}>
             <TouchableOpacity style={styles.menu} onPress={() => navigation.goBack()} hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}><MaskGradient element={<Feather name="arrow-left" size={23} />} /></TouchableOpacity>
-            <TextInput onFocus={() => setShowResults(true)} onBlur={() => setShowResults(false)} style={{ flex: 1, fontSize: normalize(14) }} placeholder="Введите название бутика" value={text} onChangeText={onChangeText} returnKeyType="search" onSubmitEditing={() => pressToSearch()} />
+            <TextInput onFocus={() => setShowResults(true)} onBlur={() => setShowResults(false)} style={{ flex: 1, fontSize: normalize(14), color: BLACK }} placeholder="Введите название бутика" value={text} onChangeText={onChangeText} returnKeyType="search" onSubmitEditing={() => pressToSearch()} />
             <View style={styles.rightView}>
               <TouchableOpacity style={styles.search} onPress={() => pressToSearch()}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>
               <TouchableOpacity style={styles.share} onPress={() => share()}><MaskGradient element={<Feather name="share-2" size={20} />} /></TouchableOpacity>

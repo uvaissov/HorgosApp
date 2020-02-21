@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
+import { View, StyleSheet, TextInput, Text, Platform, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import Share from 'react-native-share'
 import nextId from 'react-id-generator'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import * as manager from '../../../service/manager'
-import { BG_COLOR_HEADER, normalize, hostName, isEmptyString, alertApp, w, h, WHITE, BORDER_COLOR } from '../../../constants/global'
+import { BG_COLOR_HEADER, normalize, hostName, isEmptyString, alertApp, w, h, WHITE, BORDER_COLOR, BLACK } from '../../../constants/global'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
 
 let searchWaiting
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'flex-start',
     position: 'relative',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    ...(Platform.OS === 'ios' ? { zIndex: 1 } : {})
   },
   touchContainer: {
     flex: 1,
@@ -123,7 +124,7 @@ const Header = (props) => {
     <View style={[styles.viewStyle]}>
       <View style={[styles.view, props.style]}>
         <TouchableOpacity style={styles.menu} onPress={() => navigation.openDrawer()} hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}><MaskGradient element={<Feather name="menu" size={23} />} /></TouchableOpacity>
-        <TextInput returnKeyType="search" onSubmitEditing={() => pressToSearch()} style={{ flex: 1, fontSize: normalize(14) }} placeholder={placeHolder} value={text} onChangeText={onChangeText} onFocus={() => setShowResults(true)} onBlur={() => setShowResults(false)} />
+        <TextInput returnKeyType="search" onSubmitEditing={() => pressToSearch()} style={{ flex: 1, fontSize: normalize(14), color: BLACK }} placeholder={placeHolder} value={text} onChangeText={onChangeText} onFocus={() => setShowResults(true)} onBlur={() => setShowResults(false)} />
         <View style={styles.rightView}>
           <TouchableOpacity style={styles.search} onPress={() => pressToSearch()}><MaskGradient element={<Feather name="search" size={20} />} /></TouchableOpacity>
           <TouchableOpacity style={styles.share} onPress={() => share()}><MaskGradient element={<Feather name="share-2" size={20} />} /></TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Text, Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import { View, StyleSheet, Platform, TextInput, TouchableOpacity, Text, Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
 import { MaskGradient } from '../kit/MaskGradient'
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'flex-start',
     position: 'relative',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    ...(Platform.OS === 'ios' ? { zIndex: 1 } : {})
   },
   touchContainer: {
     flex: 1,

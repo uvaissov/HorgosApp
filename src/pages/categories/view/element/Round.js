@@ -21,7 +21,7 @@ const Round = ({ style, index, item = {}, onPress }) => {
     <TouchableOpacity onPress={onPress}>
       <View style={[styles.view, style, { marginLeft: index === 0 ? 15 : 15 }]}>
         <View style={[styles.imageView, styles.shadow]}>
-          <FastImage source={img} style={styles.image} width={innerImageWH} height={innerImageWH} resizeMode={FastImage.resizeMode.center} />
+          <FastImage source={img} style={styles.image} width={innerImageWH} height={innerImageWH} resizeMode={FastImage.resizeMode.contain} />
         </View>
         <View style={styles.infoView}>
           <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>
