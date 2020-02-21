@@ -31,21 +31,19 @@ const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'flex-start',
     position: 'relative',
-    alignItems: 'flex-start',
-    zIndex: 15
+    alignItems: 'flex-start'
   },
   touchContainer: {
     flex: 1,
     width: w,
     height: h,
     position: 'absolute',
-    zIndex: 15,
+    zIndex: 1,
     top: 65
   },
   resultContainer: {
     maxHeight: 220,
     width: w,
-    zIndex: 15,
     backgroundColor: WHITE,
     padding: 10,
     borderWidth: 1,
@@ -152,11 +150,10 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
           <View style={styles.touchContainer}>
             <View style={styles.resultContainer}>
               <ScrollView
-                style={{ zIndex: 15 }}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="none"
                 nestedScrollEnabled
-                key={data.length}
+                key={nextId()}
               >
                 {
                   data.map(el => renderItem({ item: el }))

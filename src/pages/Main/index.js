@@ -70,18 +70,18 @@ class Main extends Component {
       <View style={styles.view}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
         <View style={styles.body}>
-          <ScrollView style={styles.scrollView} keyboardShouldPersistTaps="handled" keyboardDismissMode="none">
-            <Header key="1" style={{ margin: 15 }} placeHolder="Введите название бутика" navigation={navigation} />
-            <SliderApp key="2" data={sliders} navigation={navigation} />
-            <ScrollCardWithTitle key="3" title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
-            <AdBlockWithTitle key="4" data={specialsForYou} title="Специально для вас" navigation={navigation} />
-            <ScrollBannerWithTitle key="5" data={categoryStocks} title="Скидки по категориям" navigation={navigation} />
-            <ScrollRoundWithTitle key="6" data={bestProducts} title="Лучшие товары" navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: bestProducts.map(el => el.id) })} />
-            <ScrollCardWithTitle key="7" data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: customerChoices.map(el => el.id) })} />
-            <ScrollCardWithTitle key="8" data={popularBoutiques} title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: popularBoutiques.map(el => el.id) })} />
-            <ScrollCardWithTitle key="9" data={stockToday} title="Скидки сегодня!" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: stockToday.map(el => el.id) })} />
-            <ScrollVideoWithTitle key="10" data={videos} title="Видео о Хоргосе" />
-            <ScrollCardWithTitle key="11" data={freebies} title="Халява!" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: freebies.map(el => el.id) })} />
+          <ScrollView style={styles.scrollView} keyboardShouldPersistTaps="handled" keyboardDismissMode="none" nestedScrollEnabled>
+            <Header style={{ margin: 15 }} placeHolder="Введите название бутика" navigation={navigation} />
+            <SliderApp data={sliders} navigation={navigation} />
+            <ScrollCardWithTitle title="Рекомендуем" data={recomended} masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recomended.map(el => el.id) })} />
+            <AdBlockWithTitle data={specialsForYou} title="Специально для вас" navigation={navigation} />
+            <ScrollBannerWithTitle data={categoryStocks} title="Скидки по категориям" navigation={navigation} />
+            <ScrollRoundWithTitle data={bestProducts} title="Лучшие товары" navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: bestProducts.map(el => el.id) })} />
+            <ScrollCardWithTitle data={customerChoices} title="Выбор покупателей" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: customerChoices.map(el => el.id) })} />
+            <ScrollCardWithTitle data={popularBoutiques} title="Популярные бутики" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: popularBoutiques.map(el => el.id) })} />
+            <ScrollCardWithTitle data={stockToday} title="Скидки сегодня!" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: stockToday.map(el => el.id) })} />
+            <ScrollVideoWithTitle data={videos} title="Видео о Хоргосе" />
+            <ScrollCardWithTitle data={freebies} title="Халява!" masked element={<Text style={styles.text}>смотреть все</Text>} navigation={navigation} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: freebies.map(el => el.id) })} />
           </ScrollView>
         </View>
         <FooterUI selected="main" navigation={navigation} />

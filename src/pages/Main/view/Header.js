@@ -10,12 +10,6 @@ import { BY_SEARCH_TEXT } from '../../../constants/static'
 
 let searchWaiting
 const styles = StyleSheet.create({
-  viewStyle: {
-    justifyContent: 'flex-start',
-    position: 'relative',
-    alignItems: 'flex-start',
-    zIndex: 15
-  },
   view: {
     backgroundColor: BG_COLOR_HEADER,
     height: 50,
@@ -39,13 +33,19 @@ const styles = StyleSheet.create({
   share: {
     flex: 1
   },
+  viewStyle: {
+    justifyContent: 'flex-start',
+    position: 'relative',
+    alignItems: 'flex-start'
+  },
   touchContainer: {
     flex: 1,
     width: w,
     height: h,
     position: 'absolute',
-    zIndex: 15,
-    top: 65
+    zIndex: 1,
+    top: 65,
+    left: 0
   },
   resultContainer: {
     maxHeight: 220,
@@ -143,7 +143,7 @@ const Header = (props) => {
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="none"
                 nestedScrollEnabled
-                key={data.length}
+                key={nextId()}
               >
                 {
                   data.map(el => renderItem({ item: el }))
