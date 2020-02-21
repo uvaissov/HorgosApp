@@ -31,19 +31,21 @@ const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'flex-start',
     position: 'relative',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    zIndex: 15
   },
   touchContainer: {
     flex: 1,
     width: w,
     height: h,
     position: 'absolute',
-    zIndex: 1,
+    zIndex: 15,
     top: 65
   },
   resultContainer: {
     maxHeight: 220,
     width: w,
+    zIndex: 15,
     backgroundColor: WHITE,
     padding: 10,
     borderWidth: 1,

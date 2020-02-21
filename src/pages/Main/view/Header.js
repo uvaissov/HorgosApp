@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'flex-start',
     position: 'relative',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    zIndex: 15
   },
   view: {
     backgroundColor: BG_COLOR_HEADER,
