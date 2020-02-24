@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
   text: { fontSize: normalize(12), fontWeight: 'bold' },
   textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 },
   raitingView: { marginBottom: 15 },
-  textResponse: { fontSize: normalize(12), margin: 0, padding: 0 }
+  textResponse: { fontSize: normalize(12), margin: 0, padding: 0, color: BLACK }
 })
 
 const AddResponse = ({ close, id, afterAdd }) => {
   const [name, setName] = useState(null)
   const [text, setText] = useState(null)
-  const [raiting, setRaiting] = useState(3)
+  const [raiting, setRaiting] = useState(5)
   const isConnected = useSelector(state => state.network.isConnected)
   const token = useSelector(state => state.auth.token)
   const onPress = async () => {

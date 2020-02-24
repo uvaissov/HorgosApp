@@ -1,6 +1,6 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { StyleSheet, View, InteractionManager, ScrollView } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView, KeyboardAvoidingView, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
@@ -54,10 +54,13 @@ class Help extends Component {
       }
       return true
     })
+    const behavior = Platform.OS === 'ios' ? 'position' : ''
     return (
       <ScrollView>
-        <ScrollListWithTitle data={data} title="Частые вопросы" navigation={navigation} />
-        <RequestView title="Остались вопросы?" />
+        <KeyboardAvoidingView behavior={behavior} enabled style={{ flex: 1 }}>
+          <ScrollListWithTitle data={data} title="Частые вопросы" navigation={navigation} />
+          <RequestView title="Остались вопросы?" />
+        </KeyboardAvoidingView>
       </ScrollView>
     )
   }

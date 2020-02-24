@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   content: { margin: 15 },
   header: { marginBottom: 20, flexDirection: 'row' },
   headerText: { fontSize: normalize(16), fontWeight: 'bold', color: BLACK },
-  text: { fontSize: normalize(12), margin: 0, padding: 0 },
+  text: { fontSize: normalize(12), margin: 0, padding: 0, color: BLACK },
   textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 }
 })
 
