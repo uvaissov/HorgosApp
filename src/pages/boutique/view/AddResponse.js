@@ -82,7 +82,7 @@ const AddResponse = ({ close, id, afterAdd }) => {
             <TextInput style={styles.textResponse} value={name} onChangeText={(el) => setName(el)} placeholder="Ваше имя" placeholderTextColor={GRAY_SECOND} />
           </View>
           <View style={styles.textView}>
-            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder="Ваш отзыв" placeholderTextColor={GRAY_SECOND} returnKeyType="done" blurOnSubmit={false} />
+            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder="Ваш отзыв" placeholderTextColor={GRAY_SECOND} returnKeyType="send" onSubmitEditing={() => onPress()} blurOnSubmit />
           </View>
           <ButtonGradient title="Отправить" onPress={() => onPress()} />
         </View>

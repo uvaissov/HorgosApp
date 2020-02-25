@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, InteractionManager, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, InteractionManager, ScrollView, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 import FastImage from 'react-native-fast-image'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { HeaderUI, FooterUI } from '../../components/ui/view'
-import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, MAIN_COLOR, isEmptyString, alertApp } from '../../constants/global'
+import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, MAIN_COLOR, isEmptyString, alertApp, BLACK } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ButtonGradient } from '../../components/ui/kit/ButtonGradient'
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
   body: { flex: 1, marginHorizontal: 15 },
   avatar: { height: 120, width: 120, borderRadius: 60 },
-  text: { fontSize: normalize(12), margin: 0, padding: 0 },
+  text: { fontSize: normalize(12), margin: 0, padding: 0, color: BLACK },
   textView: { borderWidth: 1, borderRadius: 5, borderColor: BORDER_COLOR, paddingLeft: 10, marginBottom: 15, paddingVertical: 10 }
 })
 
@@ -119,32 +119,34 @@ class Profile extends Component {
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
     }
-
+    const behavior = Platform.OS === 'ios' ? 'position' : ''
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 25 }}>
-          <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => this.selectPhoto()}>
-            <FastImage
-              style={styles.avatar}
-              resizeMode={FastImage.resizeMode.cover}
-              source={avatar}
-            />
-            <Text style={{ marginVertical: 20, color: MAIN_COLOR }}>Изменить</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.textView}>
-          <TextInput style={styles.text} value={name} textContentType="name" onChangeText={(el) => this.setState({ name: el })} placeholder="Имя" placeholderTextColor={GRAY_SECOND} />
-        </View>
-        <View style={styles.textView}>
-          <TextInput style={styles.text} value={email} textContentType="emailAddress" onChangeText={(el) => this.setState({ email: el })} placeholder="E-Mail" placeholderTextColor={GRAY_SECOND} />
-        </View>
-        <View style={styles.textView}>
-          <TextInput style={styles.text} value={password} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ password: el })} placeholder="Новый пароль" placeholderTextColor={GRAY_SECOND} />
-        </View>
-        <View style={styles.textView}>
-          <TextInput style={styles.text} value={passwordConfirm} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ passwordConfirm: el })} placeholder="Повторите новый пароль" placeholderTextColor={GRAY_SECOND} />
-        </View>
-        <ButtonGradient title="Сохранить" onPress={() => this.onPress()} />
+        <KeyboardAvoidingView behavior={behavior} enabled style={{ flex: 1 }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 25 }}>
+            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => this.selectPhoto()}>
+              <FastImage
+                style={styles.avatar}
+                resizeMode={FastImage.resizeMode.cover}
+                source={avatar}
+              />
+              <Text style={{ marginVertical: 20, color: MAIN_COLOR }}>Изменить</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.textView}>
+            <TextInput style={styles.text} value={name} textContentType="name" onChangeText={(el) => this.setState({ name: el })} placeholder="Имя" placeholderTextColor={GRAY_SECOND} />
+          </View>
+          <View style={styles.textView}>
+            <TextInput style={styles.text} value={email} textContentType="emailAddress" onChangeText={(el) => this.setState({ email: el })} placeholder="E-Mail" placeholderTextColor={GRAY_SECOND} />
+          </View>
+          <View style={styles.textView}>
+            <TextInput style={styles.text} value={password} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ password: el })} placeholder="Новый пароль" placeholderTextColor={GRAY_SECOND} />
+          </View>
+          <View style={styles.textView}>
+            <TextInput style={styles.text} value={passwordConfirm} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ passwordConfirm: el })} placeholder="Повторите новый пароль" placeholderTextColor={GRAY_SECOND} />
+          </View>
+          <ButtonGradient title="Сохранить" onPress={() => this.onPress()} />
+        </KeyboardAvoidingView>
       </ScrollView>
     )
   }

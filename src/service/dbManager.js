@@ -188,7 +188,6 @@ export default class Database {
       this.initDB().then((db) => {
         db.transaction((tx) => {
           tx.executeSql('UPDATE Boutique SET name = ?, categories = ?, trading_house = ?, boutique = ? WHERE id = ?', [row.name, row.categoryId, row.trading_house_id, JSON.stringify(row), id]).then(([tx, results]) => {
-            console.log('res')
             resolve(results)
           })
         }).then((result) => {
