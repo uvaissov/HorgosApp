@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import I18n from 'i18n-js'
 import en from './localization/en'
 import ru from './localization/ru'
+import kk from './localization/kk'
 
 
 // Should the app fallback to English if user locale doesn't exists
@@ -14,7 +15,8 @@ I18n.defaultLocale = 'ru'
 // Define the supported translations
 I18n.translations = {
   ru,
-  en
+  en,
+  kk
 }
 
 // const warningLanguageChange = () => {
