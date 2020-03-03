@@ -9,6 +9,7 @@ import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ScrollListWithTitle, RequestView } from './view'
 import { getHelp } from './actions'
+import { strings } from '../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -58,8 +59,8 @@ class Help extends Component {
     return (
       <ScrollView>
         <KeyboardAvoidingView behavior={behavior} enabled style={{ flex: 1 }}>
-          <ScrollListWithTitle data={data} title="Частые вопросы" navigation={navigation} />
-          <RequestView title="Остались вопросы?" />
+          <ScrollListWithTitle data={data} title={strings('help.popular')} navigation={navigation} />
+          <RequestView title={strings('help.question')} />
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -75,7 +76,7 @@ class Help extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI filter={filter} placeHolder="Помощь" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} onChangeFilter={this.onChangeFilter} />
+        <HeaderUI filter={filter} placeHolder={strings('help.title')} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} onChangeFilter={this.onChangeFilter} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

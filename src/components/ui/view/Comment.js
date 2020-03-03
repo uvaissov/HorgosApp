@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { MaskGradient } from '../kit/MaskGradient'
 import { BLACK, WHITE, normalize } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { },
@@ -18,17 +19,17 @@ const styles = StyleSheet.create({
 const Comment = ({ text }) => {
   const [isView, showView] = useState(false)
 
-  this.renderViewMore = (onPress) => {
+  const renderViewMore = (onPress) => {
     showView(true)
     return (
-      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient element={<Text>Подробнее</Text>} /></TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient element={<Text>{strings('comments.more')}</Text>} /></TouchableOpacity>
     )
   }
 
-  this.renderViewLess = (onPress) => {
+  const renderViewLess = (onPress) => {
     showView(false)
     return (
-      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient style={{ alignItems: 'flex-start' }} element={<Text>Скрыть</Text>} /></TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient style={{ alignItems: 'flex-start' }} element={<Text>{strings('comments.hide')}</Text>} /></TouchableOpacity>
     )
   }
 
@@ -36,8 +37,8 @@ const Comment = ({ text }) => {
     <View style={styles.view}>
       <ViewMoreText
         numberOfLines={4}
-        renderViewMore={this.renderViewMore}
-        renderViewLess={this.renderViewLess}
+        renderViewMore={renderViewMore}
+        renderViewLess={renderViewLess}
         textStyle={styles.cardText}
       >
         <Text>

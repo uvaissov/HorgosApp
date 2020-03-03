@@ -7,6 +7,7 @@ import { AirbnbRating } from 'react-native-ratings'
 import { ButtonGradient } from '../../../components/ui/kit/ButtonGradient'
 import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, BLACK, isEmptyString, alertApp, ORANGE } from '../../../constants/global'
 import * as manager from '../../../service/manager'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
@@ -28,27 +29,27 @@ const AddResponse = ({ close, id, afterAdd }) => {
   const token = useSelector(state => state.auth.token)
   const onPress = async () => {
     if (isConnected === false) {
-      alertApp('Внимание', 'Отсутствует соединение с сетью')
+      alertApp(strings('message.warning'), strings('message.networkOffline'))
     } else if (isEmptyString(text)) {
-      alertApp('Внимание', 'Необходимо заполнить текстовое поле')
+      alertApp(strings('message.warning'), strings('message.textNotEmpty'))
     } else if (isEmptyString(name)) {
-      alertApp('Внимание', 'Необходимо указать имя')
+      alertApp(strings('message.warning'), strings('message.nameNotEmpty'))
     } else {
       const { errors, data, message } = await manager.addReview(true, id, text, name, raiting, token)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let messageText = ''
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
-        alertApp('Внимание', messageText)
+        alertApp(strings('message.warning'), messageText)
       } else if (!isEmptyString(data) && data === 'Отзыв оставлен') {
         afterAdd()
         close()
-        alertApp('Спасибо', 'Ваш отзыв добавлен').then(() => {
+        alertApp(strings('message.thank'), strings('comments.addSuccess')).then(() => {
           setRaiting(3)
           setText(null)
         })
       } else if (!isEmptyString(message)) {
-        alertApp('Внимание', message)
+        alertApp(strings('message.warning'), message)
       }
     }
   }
@@ -62,7 +63,7 @@ const AddResponse = ({ close, id, afterAdd }) => {
         <View style={styles.content}>
           <View style={styles.header}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.headerText}>Добавление отзыва</Text>
+              <Text style={styles.headerText}>{strings('comments.commentAdd')}</Text>
             </View>
             <View style={{ marginHorizontal: 10 }}>
               <TouchableOpacity onPress={() => close()}>
@@ -79,12 +80,12 @@ const AddResponse = ({ close, id, afterAdd }) => {
             />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.textResponse} value={name} onChangeText={(el) => setName(el)} placeholder="Ваше имя" placeholderTextColor={GRAY_SECOND} />
+            <TextInput style={styles.textResponse} value={name} onChangeText={(el) => setName(el)} placeholder={strings('comments.name')} placeholderTextColor={GRAY_SECOND} />
           </View>
           <View style={styles.textView}>
-            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder="Ваш отзыв" placeholderTextColor={GRAY_SECOND} returnKeyType="send" onSubmitEditing={() => onPress()} blurOnSubmit />
+            <TextInput multiline numberOfLines={3} style={styles.textResponse} value={text} onChangeText={(el) => setText(el)} placeholder={strings('comments.text')} placeholderTextColor={GRAY_SECOND} returnKeyType="send" onSubmitEditing={() => onPress()} blurOnSubmit />
           </View>
-          <ButtonGradient title="Отправить" onPress={() => onPress()} />
+          <ButtonGradient title={strings('comments.send')} onPress={() => onPress()} />
         </View>
       </View>
     </View>

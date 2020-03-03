@@ -6,6 +6,7 @@ import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndBut
 import { ListItem } from './element/ListItem'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import { w, normalize } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 const staticLimit = 5
 const textWidth = w / 3
@@ -32,7 +33,7 @@ const ScrollListWithTitle = (props) => {
         <View style={styles.textView}>
           <TouchableOpacity onPress={() => setLimit(size)}>
             <View style={{ width: textWidth, height: normalize(12) + 5 }}>
-              <MaskGradient style={{ alignItems: 'flex-start' }} element={(<Text style={styles.text}>Все вопросы</Text>)} />
+              <MaskGradient style={{ alignItems: 'flex-start' }} element={(<Text style={styles.text}>{strings('help.all')}</Text>)} />
             </View>
           </TouchableOpacity>
         </View>
@@ -42,7 +43,7 @@ const ScrollListWithTitle = (props) => {
         <View style={styles.textView}>
           <TouchableOpacity onPress={() => setLimit(staticLimit)}>
             <View style={{ width: textWidth, height: normalize(12) }}>
-              <MaskGradient style={{ alignItems: 'flex-start' }} element={(<Text style={styles.text}>Скрыть</Text>)} />
+              <MaskGradient style={{ alignItems: 'flex-start' }} element={(<Text style={styles.text}>{strings('help.hide')}</Text>)} />
             </View>
           </TouchableOpacity>
         </View>

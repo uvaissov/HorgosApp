@@ -8,6 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import ModalSelector from 'react-native-modal-selector'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { normalize, GRAY_SECOND, BLACK, BORDER_COLOR, RED, GRAY } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { marginHorizontal: 15 },
@@ -35,7 +36,7 @@ const selector = (rate, setRate) => (
     data={rates}
     accessible
     animationType="fade"
-    cancelText="Отмена"
+    cancelText={strings('message.cancel')}
     onChange={(option) => { setRate(option.key) }}
   >
     <TouchableOpacity>
@@ -52,7 +53,7 @@ const ProductPrices = ({ onLayourRef, data }) => {
 
   const [rate, setRate] = useState(0)
   return (
-    <BlockTitleAndButton name="price" onLayourRef={onLayourRef} element={selector(rate, setRate)} title="Цены на товары">
+    <BlockTitleAndButton name="price" onLayourRef={onLayourRef} element={selector(rate, setRate)} title={strings('boutique.priceOnProducts')}>
       <View style={styles.view}>
         <Grid>
           {

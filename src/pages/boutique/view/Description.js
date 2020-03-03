@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native'
 import { BLACK, normalize } from '../../../constants/global'
 import { Comment } from '../../../components/ui/view'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { marginHorizontal: 15 },
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
 const Description = ({ text }) => {
   if (!text) { return null }
   return (
-    <BlockTitleAndButton title="Описание магазина">
+    <BlockTitleAndButton title={strings('boutique.description')}>
       <View style={styles.view}>
         <Comment text={text} />
       </View>

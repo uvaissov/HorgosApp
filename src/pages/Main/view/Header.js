@@ -7,6 +7,7 @@ import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import * as manager from '../../../service/manager'
 import { BG_COLOR_HEADER, normalize, hostName, isEmptyString, alertApp, w, h, WHITE, BORDER_COLOR, BLACK } from '../../../constants/global'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
+import { strings } from '../../../service/Locale'
 
 let searchWaiting
 const styles = StyleSheet.create({
@@ -74,7 +75,7 @@ const Header = (props) => {
   }
   const pressToSearch = (value) => {
     if (isEmptyString(value || text)) {
-      return alertApp('Внимание', 'Необходимо указать фразу для поиска')
+      return alertApp(strings('message.warning'), strings('message.searchNotEmpty'))
     }
     setShowResults(false)
     navigation.push('BoutiqueList', { filter: BY_SEARCH_TEXT, text: value || text })

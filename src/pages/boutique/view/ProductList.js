@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native'
 import _ from 'lodash'
 import Icon from 'react-native-vector-icons/Feather'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-
+import { strings } from '../../../service/Locale'
 import { normalize, GRAY, BORDER_COLOR } from '../../../constants/global'
 
 
@@ -19,7 +19,7 @@ const ProductList = ({ data, onPress, onLayourRef }) => {
   if (!data) return null
 
   return (
-    <BlockTitleAndButton onLayourRef={onLayourRef} name="product" onPress={() => onPress()} element={<Icon name="arrow-right" size={20} />} title="Ассортимент товаров А-Я">
+    <BlockTitleAndButton onLayourRef={onLayourRef} name="product" onPress={() => onPress()} element={<Icon name="arrow-right" size={20} />} title={strings('boutique.productList')}>
       <View style={styles.view}>
         {
           data.slice(0, 5).map((item, index) => {

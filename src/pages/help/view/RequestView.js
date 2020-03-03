@@ -6,6 +6,7 @@ import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndBut
 import { ButtonGradient } from '../../../components/ui/kit/ButtonGradient'
 import { normalize, BORDER_COLOR, GRAY_SECOND, alertApp } from '../../../constants/global'
 import * as manager from '../../../service/manager'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { marginHorizontal: 15 },
@@ -19,17 +20,17 @@ const RequestView = (props) => {
   const isConnected = useSelector(state => state.network.isConnected)
   const sendHelp = async () => {
     if (!isConnected) {
-      return alertApp('Внимание', 'Отсутствует соединение с сетью')
+      return alertApp(strings('message.warning'), strings('message.networkOffline'))
     }
     if (_.isEmpty(text)) {
-      return alertApp('Внимание', 'Перед отправкой сообщения необходимо заполнить тектовое поле')
+      return alertApp(strings('message.warning'), strings('help.textNotEmpty'))
     }
-    const { payload: { id, title: titleResponse }, error } = await manager.addHelp(true, text)
+    const { payload: { id }, error } = await manager.addHelp(true, text)
     if (error) {
-      alertApp('Внимание', 'Произошла ошибка при передаче сообщения, повторите попытку позже')
+      alertApp(strings('message.warning'), strings('help.requestError'))
     }
     if (id) {
-      alertApp('Спасибо', `Мы приняли вашу заявку с сообщением "${titleResponse}"`).then(() => {
+      alertApp(strings('message.thank'), strings('help.requestSuccess')).then(() => {
         setText(null)
       })
     }
@@ -40,9 +41,9 @@ const RequestView = (props) => {
     <BlockTitleAndButton onPress={onPress} title={title}>
       <View style={styles.view}>
         <View style={styles.textView}>
-          <TextInput style={{ textAlignVertical: 'top', marginVertical: 15, marginHorizontal: 10 }} value={text} onChangeText={(el) => setText(el)} numberOfLines={6} multiline placeholder="Оставляйте свои заявки на сайте http://mcps-khorgos.info" placeholderTextColor={GRAY_SECOND} />
+          <TextInput style={{ textAlignVertical: 'top', marginVertical: 15, marginHorizontal: 10 }} value={text} onChangeText={(el) => setText(el)} numberOfLines={6} multiline placeholder={strings('help.helpPlaceHolder')} placeholderTextColor={GRAY_SECOND} />
         </View>
-        <ButtonGradient title="Оставить заявку" onPress={() => sendHelp()} />
+        <ButtonGradient title={strings('help.send')} onPress={() => sendHelp()} />
       </View>
     </BlockTitleAndButton>
   )

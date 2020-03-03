@@ -9,6 +9,7 @@ import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { getReviewsAbout } from './actions'
+import { strings } from '../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -52,7 +53,7 @@ class Comments extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Отзывы о Хоргосе" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
+        <HeaderUI text={strings('comments.title')} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

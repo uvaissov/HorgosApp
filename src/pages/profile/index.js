@@ -11,6 +11,7 @@ import Loader from '../../components/Loader'
 import { ButtonGradient } from '../../components/ui/kit/ButtonGradient'
 import { getUser } from './actions'
 import * as manager from '../../service/manager'
+import { strings } from '../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -60,7 +61,7 @@ class Profile extends Component {
   selectPhoto = () => {
     // More info on all the options is below in the API Reference... just some common use cases shown here
     const options = {
-      title: 'Выбор фото для профайла',
+      title: strings('profile.choice'),
       storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -86,11 +87,11 @@ class Profile extends Component {
     const { name, email, password, passwordConfirm, avatar } = this.state
     const { token } = this.props
     if (isEmptyString(name)) {
-      alertApp('Внимание', 'Необходимо указать имя')
+      alertApp(strings('message.warning'), strings('message.nameNotEmpty'))
     } else if (isEmptyString(email)) {
-      alertApp('Внимание', 'Необходимо указать почту')
+      alertApp(strings('message.warning'), strings('message.emailNotEmpty'))
     } else if ((!isEmptyString(password) || isEmptyString(passwordConfirm)) && password !== passwordConfirm) {
-      alertApp('Внимание', 'Пароль и подтверждение пароля должны совпадать')
+      alertApp(strings('message.warning'), strings('auth.passwordEqConfirm'))
     } else {
       try {
         this.setState({ isLoading: true })
@@ -99,14 +100,14 @@ class Profile extends Component {
           const values = _.values(errors)
           let messageText = ''
           values.map((row) => row.map((inner) => messageText += `${inner}\n`))
-          alertApp('Внимание', messageText)
+          alertApp(strings('message.warning'), messageText)
         } else if (!isEmptyString(data) && data === 'Updated') {
           this.setState({ password: null, passwordConfirm: null })
           await this.props.getUser()
           this.setState({ updated: true })
-          alertApp('Спасибо', 'Данные успешно изменены')
+          alertApp(strings('message.thank'), strings('auth.editSuccess'))
         } else if (!isEmptyString(message)) {
-          alertApp('Внимание', message)
+          alertApp(strings('message.warning'), message)
         }
       } catch {
         this.setState({ isLoading: false })
@@ -130,22 +131,22 @@ class Profile extends Component {
                 resizeMode={FastImage.resizeMode.cover}
                 source={avatar}
               />
-              <Text style={{ marginVertical: 20, color: MAIN_COLOR }}>Изменить</Text>
+              <Text style={{ marginVertical: 20, color: MAIN_COLOR }}>{strings('auth.edit')}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={name} textContentType="name" onChangeText={(el) => this.setState({ name: el })} placeholder="Имя" placeholderTextColor={GRAY_SECOND} />
+            <TextInput style={styles.text} value={name} textContentType="name" onChangeText={(el) => this.setState({ name: el })} placeholder={strings('auth.name')} placeholderTextColor={GRAY_SECOND} />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={email} textContentType="emailAddress" onChangeText={(el) => this.setState({ email: el })} placeholder="E-Mail" placeholderTextColor={GRAY_SECOND} />
+            <TextInput style={styles.text} value={email} textContentType="emailAddress" onChangeText={(el) => this.setState({ email: el })} placeholder={strings('auth.email')} placeholderTextColor={GRAY_SECOND} />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={password} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ password: el })} placeholder="Новый пароль" placeholderTextColor={GRAY_SECOND} />
+            <TextInput style={styles.text} value={password} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ password: el })} placeholder={strings('auth.newPassword')} placeholderTextColor={GRAY_SECOND} />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={passwordConfirm} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ passwordConfirm: el })} placeholder="Повторите новый пароль" placeholderTextColor={GRAY_SECOND} />
+            <TextInput style={styles.text} value={passwordConfirm} secureTextEntry textContentType="password" onChangeText={(el) => this.setState({ passwordConfirm: el })} placeholder={strings('auth.confirmNewPassword')} placeholderTextColor={GRAY_SECOND} />
           </View>
-          <ButtonGradient title="Сохранить" onPress={() => this.onPress()} />
+          <ButtonGradient title={strings('auth.save')} onPress={() => this.onPress()} />
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -156,7 +157,7 @@ class Profile extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Личный кабинет" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
+        <HeaderUI text={strings('menu.profile')} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.body}>
           {this.init()}
         </View>

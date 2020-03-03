@@ -11,6 +11,7 @@ import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ConcilItem } from './element/ConcilItem'
 import { getPosts } from './actions'
+import { strings } from '../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -81,7 +82,7 @@ class CouncilsList extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI filter={filter} placeHolder="Советы" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} onChangeFilter={this.onChangeFilter} />
+        <HeaderUI filter={filter} placeHolder={strings('menu.consults')} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} onChangeFilter={this.onChangeFilter} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

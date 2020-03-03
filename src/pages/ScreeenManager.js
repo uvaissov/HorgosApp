@@ -29,6 +29,8 @@ import LoginView from './auth/login'
 import RegistrationView from './auth/registration'
 import ForgotView from './auth/forgot'
 
+import { strings } from '../service/Locale'
+
 const styles = StyleSheet.create({
   headerView: {
     paddingTop: statusBarHeight,
@@ -109,9 +111,9 @@ const CustomDrawerContentComponent = props => {
               !isEmptyString(token) &&
               <TouchableOpacity onPress={() => {
                 if (isConnected === false) {
-                  return alertApp('Внимание', 'Необходимо подключиться к сети интеренет для выхода из аккаунта')
+                  return alertApp(strings('message.warning'), strings('menu.msg.needInternetForExit'))
                 }
-                confirmApp('Внимание', 'Вы действительно хотите выйти из аккаунта?').then(() => {
+                confirmApp(strings('message.warning'), strings('menu.msg.exitFromAcc')).then(() => {
                   dispatch({ type: ACTION_LOGOUT_SUCCESS })
                   props.navigation.navigate('Main')
                 })
@@ -153,14 +155,14 @@ const CustomDrawerContentComponent = props => {
         <TouchableOpacity onPress={() => props.navigation.navigate('Profile')}>
           <View style={styles.footerBtnView}>
             <Feather name="user" style={[styles.btnStyle]} size={21} color={BLACK} />
-            <Text style={styles.footerBtnText}>Личный кабинет</Text>
+            <Text style={styles.footerBtnText}>{strings('menu.profile')}</Text>
           </View>
         </TouchableOpacity>
         )}
         <TouchableOpacity onPress={() => props.navigation.navigate('Help')}>
           <View style={styles.footerBtnView}>
             <Feather name="phone-call" style={[styles.btnStyle]} size={21} color={BLACK} />
-            <Text style={styles.footerBtnText}>Помощь</Text>
+            <Text style={styles.footerBtnText}>{strings('menu.help')}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -251,109 +253,116 @@ const CategoriesStack = createStackNavigator(
   }
 )
 
+const CategoriesNavOpts = () => ({
+  drawerLabel: strings('menu.categories'),
+  drawerIcon: ({ focused }) => {
+    let literal = require('../../resources/icons/menu/standart/menu.png')
+    if (focused) {
+      literal = require('../../resources/icons/menu/selected/menu.png')
+    }
+    return (
+      <FastImage
+        style={styles.image}
+        source={literal}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+    )
+  }
+})
+
+const BoutiqueListMenuNavOpts = () => ({
+  drawerLabel: strings('menu.catalog'),
+  drawerIcon: ({ focused }) => {
+    let literal = require('../../resources/icons/menu/standart/store.png')
+    if (focused) {
+      literal = require('../../resources/icons/menu/selected/store.png')
+    }
+    return (
+      <FastImage
+        style={styles.image}
+        source={literal}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+    )
+  }
+})
+
+const MapNavOpts = () => ({
+  drawerLabel: strings('menu.map'),
+  drawerIcon: ({ focused }) => {
+    let literal = require('../../resources/icons/menu/standart/address.png')
+    if (focused) {
+      literal = require('../../resources/icons/menu/selected/address.png')
+    }
+    return (
+      <FastImage
+        style={styles.image}
+        source={literal}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+    )
+  }
+})
+
+const CommentsNavOpts = () => ({
+  drawerLabel: strings('menu.response'),
+  drawerIcon: ({ focused }) => {
+    let literal = require('../../resources/icons/menu/standart/favorites.png')
+    if (focused) {
+      literal = require('../../resources/icons/menu/selected/favorites.png')
+    }
+    return (
+      <FastImage
+        style={styles.image}
+        source={literal}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+    )
+  }
+})
+
+const CouncilsNavOpts = () => ({
+  drawerLabel: strings('menu.consults'),
+  drawerIcon: ({ focused }) => {
+    let literal = require('../../resources/icons/menu/standart/elemental-tip.png')
+    if (focused) {
+      literal = require('../../resources/icons/menu/selected/elemental-tip.png')
+    }
+    return (
+      <FastImage
+        style={styles.image}
+        source={literal}
+        resizeMode={FastImage.resizeMode.contain}
+      />
+    )
+  }
+})
 
 const Screens = createDrawerNavigator(
   {
     Categories: {
       screen: CategoriesStack,
-      navigationOptions: {
-        drawerLabel: 'Категории',
-        drawerIcon: ({ focused }) => {
-          let literal = require('../../resources/icons/menu/standart/menu.png')
-          if (focused) {
-            literal = require('../../resources/icons/menu/selected/menu.png')
-          }
-          return (
-            <FastImage
-              style={styles.image}
-              source={literal}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          )
-        }
-      }
+      navigationOptions: CategoriesNavOpts
     },
     BoutiqueListMenu: {
       screen: BoutiqueListStack,
-      navigationOptions: {
-        drawerLabel: 'Каталог',
-        drawerIcon: ({ focused }) => {
-          let literal = require('../../resources/icons/menu/standart/store.png')
-          if (focused) {
-            literal = require('../../resources/icons/menu/selected/store.png')
-          }
-          return (
-            <FastImage
-              style={styles.image}
-              source={literal}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          )
-        }
-      }
+      navigationOptions: BoutiqueListMenuNavOpts
     },
     Main: {
       screen: MainStack,
-      navigationOptions: {
-        drawerLabel: () => null
-      }
+      navigationOptions: { drawerLabel: () => null }
     },
     Map: {
       screen: MapShow,
-      navigationOptions: {
-        drawerLabel: 'Карта Хоргоса',
-        drawerIcon: ({ focused }) => {
-          let literal = require('../../resources/icons/menu/standart/address.png')
-          if (focused) {
-            literal = require('../../resources/icons/menu/selected/address.png')
-          }
-          return (
-            <FastImage
-              style={styles.image}
-              source={literal}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          )
-        }
-      }
+      navigationOptions: MapNavOpts
     },
     Comments: {
       screen: Comments,
-      navigationOptions: {
-        drawerLabel: 'Отзывы о Хоргосе',
-        drawerIcon: ({ focused }) => {
-          let literal = require('../../resources/icons/menu/standart/favorites.png')
-          if (focused) {
-            literal = require('../../resources/icons/menu/selected/favorites.png')
-          }
-          return (
-            <FastImage
-              style={styles.image}
-              source={literal}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          )
-        }
-      }
+      navigationOptions: CommentsNavOpts
     },
     Councils: {
       screen: CouncilsStack,
-      navigationOptions: {
-        drawerLabel: 'Советы',
-        drawerIcon: ({ focused }) => {
-          let literal = require('../../resources/icons/menu/standart/elemental-tip.png')
-          if (focused) {
-            literal = require('../../resources/icons/menu/selected/elemental-tip.png')
-          }
-          return (
-            <FastImage
-              style={styles.image}
-              source={literal}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          )
-        }
-      }
+      navigationOptions: CouncilsNavOpts
     },
     Help: {
       screen: HelpStack,

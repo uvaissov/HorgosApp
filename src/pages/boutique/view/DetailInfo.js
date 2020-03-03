@@ -5,6 +5,7 @@ import FastImage from 'react-native-fast-image'
 import Feather from 'react-native-vector-icons/Feather'
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 import { WHITE, GRAY_LIGHT, normalize, GRAY_SECOND, BLACK, statusBarHeight } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { margin: 15 },
@@ -23,38 +24,38 @@ const DetailInfo = ({ boutique }) => {
   const getInfo = () => {
     const array = []
     if (boutique.trading_house_name) {
-      array.push({ key: 'Торговый дом', value: boutique.trading_house_name })
+      array.push({ key: strings('boutique.house'), value: boutique.trading_house_name })
     }
     if (boutique.categoriesName) {
-      array.push({ key: 'Категория', value: boutique.categoriesName })
+      array.push({ key: strings('boutique.category'), value: boutique.categoriesName })
     }
     if (boutique.floor) {
-      array.push({ key: 'Этаж', value: boutique.floor })
+      array.push({ key: strings('boutique.floor'), value: boutique.floor })
     }
     if (boutique.boutique_number) {
-      array.push({ key: 'Бутик #', value: boutique.boutique_number })
+      array.push({ key: `${strings('boutique.boutique')} #`, value: boutique.boutique_number })
     }
     if (boutique.seller_name) {
-      array.push({ key: 'Имя продавца', value: boutique.seller_name })
+      array.push({ key: strings('boutique.seller_name'), value: boutique.seller_name })
     }
-    if (boutique.wner_name) {
-      array.push({ key: 'Имя владельца', value: boutique.wner_name })
+    if (boutique.owner_name) {
+      array.push({ key: strings('boutique.owner_name'), value: boutique.owner_name })
     }
     if (boutique.languages) {
-      array.push({ key: 'Знание языков', value: boutique.languages })
+      array.push({ key: strings('boutique.languages'), value: boutique.languages })
     }
     if (boutique.phone) {
-      array.push({ key: 'Телефон', value: boutique.phone })
+      array.push({ key: strings('boutique.phone'), value: boutique.phone })
     }
     if (boutique.whatsapp) {
-      array.push({ key: 'WhatsApp', value: boutique.whatsapp })
+      array.push({ key: strings('boutique.whatsapp'), value: boutique.whatsapp })
     }
     if (boutique.weechat && boutique.qr_code) {
-      array.push({ key: 'WeChat', value: boutique.weechat, image: boutique.qr_code })
+      array.push({ key: strings('boutique.weechat'), value: boutique.weechat, image: boutique.qr_code })
     } else if (boutique.weechat) {
-      array.push({ key: 'WeChat', value: boutique.weechat })
+      array.push({ key: strings('boutique.weechat'), value: boutique.weechat })
     } else if (boutique.qr_code) {
-      array.push({ key: 'WeChat', image: boutique.qr_code })
+      array.push({ key: strings('boutique.weechat'), image: boutique.qr_code })
     }
     return array
   }

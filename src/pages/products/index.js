@@ -6,6 +6,7 @@ import { HeaderUI, FooterUI } from '../../components/ui/view'
 import { WHITE, GRAY, normalize, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import { strings } from '../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -56,12 +57,12 @@ class Products extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={`Товары магазина "${title}"`} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
+        <HeaderUI text={`${strings('product.title')} "${title}"`} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
         <TouchableOpacity onPress={() => this.setState({ sortByName: !sortByName })}>
           <View style={styles.sortView}>
             {
               sortByName ?
-                (<Text style={styles.sortText}>Сбросить сортировку</Text>) : (<Text style={styles.sortText}>Сортировка товаров по алфавиту</Text>)
+                (<Text style={styles.sortText}>{strings('product.sort.off')}</Text>) : (<Text style={styles.sortText}>{strings('product.sort.asc')}</Text>)
             }
           </View>
         </TouchableOpacity>

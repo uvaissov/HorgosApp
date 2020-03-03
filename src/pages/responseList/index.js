@@ -6,6 +6,7 @@ import { HeaderUI, FooterUI, Response } from '../../components/ui/view'
 import { WHITE, GRAY, normalize, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
+import { strings } from '../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -48,7 +49,7 @@ class ResponseLists extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={`Отзывы магазина "${title}"`} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
+        <HeaderUI text={`${strings('comments.titleShop')} "${title}"`} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
         <View style={styles.body}>
           {this.init()}
         </View>

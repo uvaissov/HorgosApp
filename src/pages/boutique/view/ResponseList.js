@@ -9,6 +9,7 @@ import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndBut
 import { Response } from '../../../components/ui/view'
 import { AddResponse } from '.'
 import { normalize, GRAY, BORDER_COLOR } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { marginHorizontal: 15 },
@@ -27,7 +28,7 @@ const ResponseList = ({ data, onLayourRef, boutique, afterAdd, onPress }) => {
     return null
   }
   return (
-    <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={onPress} element={<Icon name="arrow-right" size={20} />} title="Оценки и отзывы">
+    <BlockTitleAndButton onLayourRef={onLayourRef} name="response" onPress={onPress} element={<Icon name="arrow-right" size={20} />} title={strings('boutique.starAndResponse')}>
       <View style={styles.view}>
         {
           _.orderBy(data, ['date'], ['desc']).slice(0, 3).map((item, index) => (
@@ -39,7 +40,7 @@ const ResponseList = ({ data, onLayourRef, boutique, afterAdd, onPress }) => {
         token &&
         <TouchableOpacity onPress={() => setVisible(true)}>
           <View style={styles.btnView}>
-            <Text style={styles.btnText}>Добавить отзыв</Text>
+            <Text style={styles.btnText}>{strings('boutique.addResponse')}</Text>
           </View>
         </TouchableOpacity>
       }

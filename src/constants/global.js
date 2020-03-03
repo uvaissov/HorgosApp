@@ -1,5 +1,6 @@
 import { Dimensions, Platform, PixelRatio, StatusBar, Alert } from 'react-native'
 import { isIphoneX } from 'react-native-iphone-x-helper'
+import { strings } from '../service/Locale'
 
 export const hostName = 'http://dai5.kz'
 export const STORE_KEY_NAME = '@MyLocalStore:reduxStoreName'
@@ -63,7 +64,7 @@ export function alertApp(titleTxt, msg) {
       titleTxt,
       msg,
       [
-        { text: 'OK', onPress: () => action() }
+        { text: strings('message.ok'), onPress: () => action() }
       ],
       { cancelable: false }
     )
@@ -76,8 +77,8 @@ export function confirmApp(titleTxt, msg) {
       titleTxt,
       msg,
       [
-        { text: 'Да', onPress: () => action() },
-        { text: 'Нет', onPress: () => {} }
+        { text: strings('message.yes'), onPress: () => action() },
+        { text: strings('message.no'), onPress: () => {} }
       ],
       { cancelable: false }
     )

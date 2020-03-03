@@ -10,6 +10,7 @@ import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { FavoriteGrid } from './view'
 import { getFavorite } from './actions'
+import { strings } from '../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -52,7 +53,7 @@ class Favorite extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text="Избранные товары" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
+        <HeaderUI text={strings('favorite.title')} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

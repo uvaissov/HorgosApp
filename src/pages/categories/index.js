@@ -10,6 +10,7 @@ import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { ScrollRoundWithTitle, ScrollListWithTitle } from './view'
+import { strings } from '../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -38,8 +39,8 @@ class Categories extends Component {
     }
     return (
       <ScrollView>
-        <ScrollRoundWithTitle title="Популярные категории" data={_.filter(populare, (item) => (filter ? item.name.toUpperCase().indexOf(filter.toUpperCase()) !== -1 : true))} navigation={navigation} />
-        <ScrollListWithTitle title="Все категории" data={_.filter(list, (item) => (filter ? item.name.toUpperCase().indexOf(filter.toUpperCase()) !== -1 : true))} navigation={navigation} />
+        <ScrollRoundWithTitle title={strings('categories.popular')} data={_.filter(populare, (item) => (filter ? item.name.toUpperCase().indexOf(filter.toUpperCase()) !== -1 : true))} navigation={navigation} />
+        <ScrollListWithTitle title={strings('categories.all')} data={_.filter(list, (item) => (filter ? item.name.toUpperCase().indexOf(filter.toUpperCase()) !== -1 : true))} navigation={navigation} />
       </ScrollView>
     )
   }
@@ -51,7 +52,7 @@ class Categories extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI filter={filter} onChangeFilter={(text) => this.setState({ filter: text })} text="Категория товаров" placeHolder="Введите название категории товаров" leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
+        <HeaderUI filter={filter} onChangeFilter={(text) => this.setState({ filter: text })} text={strings('categories.title')} placeHolder={strings('categories.search')} leftIcon="menu" leftOnPress={() => navigation.openDrawer()} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

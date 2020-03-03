@@ -5,6 +5,7 @@ import nextId from 'react-id-generator'
 import { MaskGradient } from '../kit/MaskGradient'
 import * as manager from '../../../service/manager'
 import { WHITE, normalize, BLACK, isEmptyString, alertApp, GRAY, w, BORDER_COLOR, h } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: {
@@ -64,7 +65,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
       return
     }
     if (isEmptyString(text)) {
-      return alertApp('Внимание', 'Необходимо указать фразу для поиска').then(() => input.current.focus())
+      return alertApp(strings('message.warning'), strings('message.searchNotEmpty')).then(() => input.current.focus())
     }
     Keyboard.dismiss()
     setShowResults(false)
@@ -124,7 +125,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
       return (<TextInput onBlur={() => setShowResults(false)} onFocus={() => setShowResults(true)} ref={input} value={text} onChangeText={onChangeText} style={styles.text} placeholder={placeHolder} placeholderTextColor={GRAY} returnKeyType="search" onSubmitEditing={() => clickToIcon()} />)
     }
     return (
-      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || 'Каталог бутиков'}</Text>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>{text || strings('catalog.header')}</Text>
     )
   }
 

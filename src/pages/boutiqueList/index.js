@@ -11,6 +11,7 @@ import { ScrollRoundWithTitle, BootiqueGrid } from './view'
 import { ScrollCardWithTitle } from '../main/view'
 import * as manager from '../../service/manager'
 import { BY_SEARCH_TEXT } from '../../constants/static'
+import { strings } from '../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -68,12 +69,12 @@ class BoutiqueList extends Component {
     if (_.isEmpty(trading_house)) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 }}>
-          <Text style={{ textAlign: 'center', color: RED, fontWeight: 'bold' }}>Поиск не дал результатов, попробуйте другие параметры для поиска</Text>
+          <Text style={{ textAlign: 'center', color: RED, fontWeight: 'bold' }}>{strings('list.empty')}</Text>
         </View>)
     }
     return (
       <ScrollView>
-        <ScrollRoundWithTitle selected={selected} setSelected={this.setSelected} title="Торговые дома" data={trading_houses} />
+        <ScrollRoundWithTitle selected={selected} setSelected={this.setSelected} title={strings('list.houses')} data={trading_houses} />
         <ScrollCardWithTitle data={hits.filter(el => !selected.includes(el.trading_house_id)).map(el => ({ ...el, boutique: el }))} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
         <BootiqueGrid data={list.filter(el => !selected.includes(el.trading_house_id))} navigation={navigation} />
       </ScrollView>
@@ -88,7 +89,7 @@ class BoutiqueList extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={text} leftIcon={local ? 'menu' : 'arrow-left'} leftOnPress={() => (local ? navigation.openDrawer() : navigation.goBack())} placeHolder="Каталог бутиков" fetchData={this.fetchData} />
+        <HeaderUI text={text} leftIcon={local ? 'menu' : 'arrow-left'} leftOnPress={() => (local ? navigation.openDrawer() : navigation.goBack())} placeHolder={strings('list.title')} fetchData={this.fetchData} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

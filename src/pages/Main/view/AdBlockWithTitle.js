@@ -4,6 +4,7 @@ import nextId from 'react-id-generator'
 import FastImage from 'react-native-fast-image'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { w, GREEN } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { marginHorizontal: 15, borderRadius: 5, overflow: 'hidden', flex: 1 },
@@ -21,7 +22,7 @@ const AdBlockWithTitle = (props) => {
   }
 
   return (
-    <BlockTitleAndButton onPress={onPress} element={<View style={styles.adButtomView}><Text style={styles.adText}>Реклама</Text></View>} title={title} masked={masked}>
+    <BlockTitleAndButton onPress={onPress} element={<View style={styles.adButtomView}><Text style={styles.adText}>{strings('main.ad')}</Text></View>} title={title} masked={masked}>
       <FlatList
         style={styles.scrollView}
         data={data}

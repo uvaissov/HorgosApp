@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import { ButtonGradient } from '../../../components/ui/kit/ButtonGradient'
 import { WHITE, normalize, BORDER_COLOR, GRAY_SECOND, BLACK, isEmptyString, alertApp, GRAY } from '../../../constants/global'
 import * as manager from '../../../service/manager'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
@@ -26,24 +27,24 @@ const RegistrationView = ({ close, loginShow }) => {
   const ConfPasswordInput = useRef(null)
   const onPress = async () => {
     if (isEmptyString(name)) {
-      alertApp('Внимание', 'Необходимо указать имя')
+      alertApp(strings('message.warning'), strings('message.nameNotEmpty'))
     } else if (isEmptyString(email)) {
-      alertApp('Внимание', 'Необходимо указать почту')
+      alertApp(strings('message.warning'), strings('message.emailNotEmpty'))
     } else if (isEmptyString(password)) {
-      alertApp('Внимание', 'Необходимо указать пароль')
+      alertApp(strings('message.warning'), strings('message.passwordNotEmpty'))
     } else if (isEmptyString(confPassword)) {
-      alertApp('Внимание', 'Необходимо указать подтверждение пароля')
+      alertApp(strings('message.warning'), strings('message.confirmPasswordNotEmpty'))
     } else if (password !== confPassword) {
-      alertApp('Внимание', 'Пароль и подтверждение пароля должны совподать')
+      alertApp(strings('message.warning'), strings('message.passwordEqConfirm'))
     } else {
       const { errors, id, message } = await manager.doRegistration(true, name, email, password, confPassword)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let messageText = ''
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
-        alertApp('Внимание', messageText)
+        alertApp(strings('message.warning'), messageText)
       } else if (_.isNumber(id)) {
-        alertApp('Спасибо', 'Регистрация прошла успешно')
+        alertApp(strings('message.thank'), strings('auth.registrationSuccess'))
           .then(() => {
             close()
             loginShow([email, password])
@@ -59,7 +60,7 @@ const RegistrationView = ({ close, loginShow }) => {
         <View style={styles.content}>
           <View style={styles.header}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.headerText}>Регистрация</Text>
+              <Text style={styles.headerText}>{strings('auth.registration')}</Text>
             </View>
             <View style={{ marginHorizontal: 10 }}>
               <TouchableOpacity onPress={() => close()}>
@@ -68,25 +69,25 @@ const RegistrationView = ({ close, loginShow }) => {
             </View>
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={name} onChangeText={(el) => setName(el)} keyboardType="email-address" textContentType="emailAddress" placeholder="Имя" placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => mailInput.current.focus()} />
+            <TextInput style={styles.text} value={name} onChangeText={(el) => setName(el)} keyboardType="email-address" textContentType="emailAddress" placeholder={strings('auth.name')} placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => mailInput.current.focus()} />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={email} onChangeText={(el) => setEmail(el)} keyboardType="email-address" textContentType="emailAddress" placeholder="E-mail" placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => passwordInput.current.focus()} />
+            <TextInput style={styles.text} value={email} onChangeText={(el) => setEmail(el)} keyboardType="email-address" textContentType="emailAddress" placeholder={strings('auth.email')} placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => passwordInput.current.focus()} />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} ref={passwordInput} value={password} secureTextEntry textContentType="password" onChangeText={(el) => setPassword(el)} placeholder="Пароль" placeholderTextColor={GRAY_SECOND} returnKeyType="done" onSubmitEditing={() => ConfPasswordInput.current.focus()} />
+            <TextInput style={styles.text} ref={passwordInput} value={password} secureTextEntry textContentType="password" onChangeText={(el) => setPassword(el)} placeholder={strings('auth.password')} placeholderTextColor={GRAY_SECOND} returnKeyType="done" onSubmitEditing={() => ConfPasswordInput.current.focus()} />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} ref={ConfPasswordInput} value={confPassword} secureTextEntry textContentType="password" onChangeText={(el) => setConfPassword(el)} placeholder="Повторите пароль" placeholderTextColor={GRAY_SECOND} returnKeyType="done" onSubmitEditing={() => onPress()} />
+            <TextInput style={styles.text} ref={ConfPasswordInput} value={confPassword} secureTextEntry textContentType="password" onChangeText={(el) => setConfPassword(el)} placeholder={strings('auth.confirmPassword')} placeholderTextColor={GRAY_SECOND} returnKeyType="done" onSubmitEditing={() => onPress()} />
           </View>
-          <ButtonGradient title="Регистрация" onPress={() => onPress()} />
+          <ButtonGradient title={strings('auth.registration')} onPress={() => onPress()} />
           <View style={{ alignItems: 'center', marginTop: 25 }}>
             <TouchableOpacity onPress={() => {
               close()
               loginShow()
             }}
             >
-              <Text style={{ marginBottom: 10, color: GRAY }}>Отмена</Text>
+              <Text style={{ marginBottom: 10, color: GRAY }}>{strings('message.cancel')}</Text>
             </TouchableOpacity>
           </View>
         </View>

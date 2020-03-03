@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Feather'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { normalize, BLACK } from '../../../constants/global'
+import { strings } from '../../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -33,7 +34,7 @@ const FooterUI = (props) => {
           <Icon name="home" size={22} color={selected === 'main' ? BLACK : unSelectColor} />
         </View>
         <View style={styles.textView}>
-          <Text style={[styles.text, { color: selected === 'main' ? BLACK : unSelectColor }]}>Главная</Text>
+          <Text style={[styles.text, { color: selected === 'main' ? BLACK : unSelectColor }]}>{strings('menu.main')}</Text>
         </View>
       </TouchView>
       <TouchView style={styles.element} onPress={() => navigation.navigate('Councils')}>
@@ -42,7 +43,7 @@ const FooterUI = (props) => {
           <MaterialCommunityIcons name="lightbulb-on-outline" size={24} color={selected === 'idea' ? BLACK : unSelectColor} />
         </View>
         <View style={styles.textView}>
-          <Text style={[styles.text, { color: selected === 'idea' ? BLACK : unSelectColor }]}>Советы</Text>
+          <Text style={[styles.text, { color: selected === 'idea' ? BLACK : unSelectColor }]}>{strings('menu.consults')}</Text>
         </View>
       </TouchView>
       <TouchView style={styles.element} onPress={() => navigation.navigate('Help')}>
@@ -50,7 +51,7 @@ const FooterUI = (props) => {
           <Icon name="phone-call" size={22} color={selected === 'call' ? BLACK : unSelectColor} />
         </View>
         <View style={styles.textView}>
-          <Text style={[styles.text, { color: selected === 'call' ? BLACK : unSelectColor }]}>Помощь</Text>
+          <Text style={[styles.text, { color: selected === 'call' ? BLACK : unSelectColor }]}>{strings('menu.help')}</Text>
         </View>
       </TouchView>
       <TouchView style={styles.element} onPress={() => navigation.navigate('Favorite')}>
@@ -58,7 +59,7 @@ const FooterUI = (props) => {
           <Icon name="heart" size={22} color={selected === 'favorite' ? BLACK : unSelectColor} />
         </View>
         <View style={styles.textView}>
-          <Text style={[styles.text, { color: selected === 'favorite' ? BLACK : unSelectColor }]}>Избранное</Text>
+          <Text style={[styles.text, { color: selected === 'favorite' ? BLACK : unSelectColor }]}>{strings('menu.favorite')}</Text>
         </View>
       </TouchView>
     </View>

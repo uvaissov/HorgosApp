@@ -7,6 +7,7 @@ import _ from 'lodash'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { WHITE, RED, GRAY_SECOND, ORANGE, normalize, BLACK, alertApp } from '../../../constants/global'
 import * as manager from '../../../service/manager'
+import { strings } from '../../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -30,7 +31,7 @@ const FavoriteCmp = ({ boutique, token, getFavorite }) => {
   const backgroundColor = !selected ? WHITE : RED
   const actionFav = async () => {
     if (!token) {
-      return alertApp('Внимание', 'Необходимо авторизоваться для сохранения избранного')
+      return alertApp(strings('message.warning'), strings('message.favOffline'))
     }
 
     if (loadFav === true) return
@@ -62,7 +63,7 @@ const FavoriteCmp = ({ boutique, token, getFavorite }) => {
                   </>
                 )
               }
-              <Text style={[styles.adText, { color }]}>В избранное</Text>
+              <Text style={[styles.adText, { color }]}>{strings('boutique.toFavorite')}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -72,7 +73,7 @@ const FavoriteCmp = ({ boutique, token, getFavorite }) => {
               Array(5).fill().map((el, elIdx) => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={elIdx >= rating ? GRAY_SECOND : ORANGE} size={10} />)
             }
           </View>
-          <View><Text style={styles.raitingText}>{rating || 0 }/5 ( {boutique.reviews.length} отзыва )</Text></View>
+          <View><Text style={styles.raitingText}>{rating || 0 }/5 ( {boutique.reviews.length} {strings('boutique.responses')} )</Text></View>
         </View>
       </View>
     </View>

@@ -9,6 +9,7 @@ import * as manager from '../../../service/manager'
 import { ACTION_LOGIN_SUCCESS } from '../types'
 import { ACTION_GET_PROFILE_FINISH } from '../../profile/actions/types'
 import { getFavorite } from '../../favorite/actions'
+import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' },
@@ -28,16 +29,16 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
   const dispatch = useDispatch()
   const loginPress = async () => {
     if (isEmptyString(login)) {
-      alertApp('Внимание', 'Необходимо указать почту для авторизации')
+      alertApp(strings('message.warning'), strings('message.loginNotEmpty'))
     } else if (isEmptyString(password)) {
-      alertApp('Внимание', 'Необходимо указать пароль для авторизации')
+      alertApp(strings('message.warning'), strings('message.passwordNotEmpty'))
     } else {
       const { errors, access_token, message } = await manager.doLogin(true, login, password)
       if (!_.isEmpty(errors)) {
         const values = _.values(errors)
         let messageText = ''
         values.map((row) => row.map((inner) => messageText += `${inner}\n`))
-        alertApp('Внимание', messageText)
+        alertApp(strings('message.warning'), messageText)
       } else if (!isEmptyString(access_token)) {
         const data = await manager.getUser(isConnected, access_token)
         getFavoriteAction()
@@ -51,7 +52,7 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
         })
         close()
       } else if (!isEmptyString(message)) {
-        alertApp('Внимание', message)
+        alertApp(strings('message.warning'), message)
       }
     }
   }
@@ -61,7 +62,7 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
         <View style={styles.content}>
           <View style={styles.header}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.headerText}>Авторизация</Text>
+              <Text style={styles.headerText}>{strings('auth.title')}</Text>
             </View>
             <View style={{ marginHorizontal: 10 }}>
               <TouchableOpacity onPress={() => close()}>
@@ -70,26 +71,26 @@ const LoginView = ({ close, regShow, forgetShow, param: [emailParam, passwordPar
             </View>
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} value={login} onChangeText={(el) => setLogin(el)} keyboardType="email-address" textContentType="emailAddress" placeholder="E-mail" placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => passwordInput.current.focus()} />
+            <TextInput style={styles.text} value={login} onChangeText={(el) => setLogin(el)} keyboardType="email-address" textContentType="emailAddress" placeholder={strings('auth.email')} placeholderTextColor={GRAY_SECOND} returnKeyType="next" blurOnSubmit={false} onSubmitEditing={() => passwordInput.current.focus()} />
           </View>
           <View style={styles.textView}>
-            <TextInput style={styles.text} ref={passwordInput} value={password} secureTextEntry textContentType="password" onChangeText={(el) => setPassword(el)} placeholder="Пароль" placeholderTextColor={GRAY_SECOND} returnKeyType="done" onSubmitEditing={() => loginPress()} />
+            <TextInput style={styles.text} ref={passwordInput} value={password} secureTextEntry textContentType="password" onChangeText={(el) => setPassword(el)} placeholder={strings('auth.password')} placeholderTextColor={GRAY_SECOND} returnKeyType="done" onSubmitEditing={() => loginPress()} />
           </View>
-          <ButtonGradient title="Войти" onPress={() => loginPress()} />
+          <ButtonGradient title={strings('auth.enter')} onPress={() => loginPress()} />
           <View style={{ alignItems: 'center', marginTop: 25 }}>
             <TouchableOpacity onPress={() => {
               close()
               regShow()
             }}
             >
-              <Text style={{ marginBottom: 40, color: MAIN_COLOR }}>Зарегистрироваться</Text>
+              <Text style={{ marginBottom: 40, color: MAIN_COLOR }}>{strings('auth.doRegistration')}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
               close()
               forgetShow()
             }}
             >
-              <Text style={{ marginBottom: 10, color: GRAY }}>Забыли пароль?</Text>
+              <Text style={{ marginBottom: 10, color: GRAY }}>{strings('auth.forgot')}</Text>
             </TouchableOpacity>
           </View>
         </View>
