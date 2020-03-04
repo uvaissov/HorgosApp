@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   firstImage: { height: firstW, width: firstW, borderRadius: 5 },
   secondImage: { height: secondW, width: secondW, borderRadius: 5 },
   text: { fontSize: 18, color: WHITE, fontWeight: 'bold' },
-  textShadow: { textShadowColor: 'rgba(0, 0, 0, 0.75)', textShadowOffset: { width: -1, height: 1 }, textShadowRadius: 10 }
+  textShadow: { textShadowColor: 'rgba(0, 0, 0, 0.75)', textShadowOffset: { width: 1, height: 0 }, textShadowRadius: 4 }
 })
 
 const ScrollBannerWithTitle = (props) => {
