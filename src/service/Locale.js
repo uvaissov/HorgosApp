@@ -38,7 +38,7 @@ export const setCurLanguage = async language => {
 export const getCurLanguage = async () => {
   try {
     const value = await AsyncStorage.getItem('currentLanguage')
-    const result = (value !== null) ? value : 'en'
+    const result = (value !== null) ? value : 'ru'
     return Promise.resolve(result)
   } catch (error) {
     throw new Error('Error on getting current language', error)

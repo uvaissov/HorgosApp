@@ -11,7 +11,7 @@ export default ({
     'popularBoutique': 'Танымал бутиктер',
     'discountToday': 'Бүгін жеңілдіктер!',
     'video': 'Қорғас туралы видео',
-    'freebie': 'Freebie!'
+    'freebie': 'Халява!'
   },
   'message': {
     'ok': 'Жарайды',
