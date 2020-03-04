@@ -7,7 +7,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ModalSelector from 'react-native-modal-selector'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-import { normalize, GRAY_SECOND, BLACK, BORDER_COLOR, RED, GRAY } from '../../../constants/global'
+import { normalize, GRAY_SECOND, BLACK, BORDER_COLOR, RED, GRAY, WHITE } from '../../../constants/global'
 import { strings } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
@@ -37,6 +37,8 @@ const selector = (rate, setRate) => (
     accessible
     animationType="fade"
     cancelText={strings('message.cancel')}
+    optionContainerStyle={{ backgroundColor: WHITE }}
+    optionTextStyle={{ color: BLACK, fontWeight: 'bold' }}
     onChange={(option) => { setRate(option.key) }}
   >
     <TouchableOpacity>

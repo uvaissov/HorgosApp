@@ -28,12 +28,15 @@ import { ACTION_LOGOUT_SUCCESS } from './auth/types'
 import LoginView from './auth/login'
 import RegistrationView from './auth/registration'
 import ForgotView from './auth/forgot'
+import LocaleView from './auth/locale'
 
 import { strings } from '../service/Locale'
 
 const styles = StyleSheet.create({
   headerView: {
+    flex: 1,
     paddingTop: statusBarHeight,
+    paddingBottom: 20,
     flexDirection: 'row'
   },
   btnStyle: {
@@ -58,10 +61,11 @@ const styles = StyleSheet.create({
     width: 25
   },
   mainView: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'space-between'
   },
   textView: {
-    marginHorizontal: 20
+    marginLeft: 20, marginRight: 5
   },
   footerBtnView: { flexDirection: 'row', paddingVertical: 5, backgroundColor: WHITE, alignItems: 'center', borderTopColor: BORDER_COLOR, borderTopWidth: 1 },
   footerBtnText: { color: BLACK, fontSize: normalize(13), marginLeft: 10 }
@@ -106,7 +110,7 @@ const CustomDrawerContentComponent = props => {
               }
             </View>
           </View>
-          <View>
+          <View style={{ justifyContent: 'space-between', alignItems: 'flex-end' }}>
             {
               !isEmptyString(token) &&
               <TouchableOpacity onPress={() => {
@@ -128,6 +132,7 @@ const CustomDrawerContentComponent = props => {
                 <Feather name="log-in" style={styles.btnStyle} size={normalize(23)} color={WHITE} />
               </TouchableOpacity>
             }
+            <LocaleView />
           </View>
         </View>
       </ImageBackground>

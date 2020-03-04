@@ -29,7 +29,8 @@ export default ({
     'passwordNotEmpty': 'Необходимо заполнить поле "Пароль"',
     'confirmPasswordNotEmpty': 'Необходимо заполнить поле "Подтверждение пароля"',
     'requestSuccess': 'Заявка на восстановление пароля успешно отправлена',
-    'favOffline': 'Необходимо авторизоваться для сохранения избранного'
+    'favOffline': 'Необходимо авторизоваться для сохранения избранного',
+    'changeLang': 'Reload the app to change the language'
   },
   'categories': {
     'title': 'Категория товаров',
@@ -89,7 +90,7 @@ export default ({
     'save': 'Сохранить'
   },
   'menu': {
-    'categories': 'Категории',
+    'categories': 'Categories',
     'catalog': 'Каталог',
     'map': 'Карта Хоргоса',
     'response': 'Отзывы о Хоргосе',

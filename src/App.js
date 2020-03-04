@@ -27,9 +27,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('start')
     if (this.state.isLoading === true || this.state.isLocale === false) return null
-    console.log('next')
     return (
       <Provider store={this.state.store}>
         <PersistGate loading={null} persistor={this.state.persistor}>

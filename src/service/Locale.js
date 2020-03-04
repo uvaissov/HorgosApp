@@ -1,4 +1,5 @@
-//import RNRestart from 'react-native-restart';
+import RNRestart from 'react-native-restart'
+//import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
 import I18n from 'i18n-js'
@@ -19,25 +20,25 @@ I18n.translations = {
   kk
 }
 
-// const warningLanguageChange = () => {
+// const warningLanguageChange = (callback) => {
 //   Alert.alert(
-//     I18n.t('profile.alertTitle'),
-//     I18n.t('profile.alertSubtitle'),
-//     [{ text: 'OK', onPress: () => {} }],
+//     I18n.t('message.warning'),
+//     I18n.t('message.changeLang'),
+//     [{ text: I18n.t('message.ok'), onPress: () => callback() }],
 //     { cancelable: false }
-//   );
-// };
+//   )
+// }
 
 export const setCurLanguage = async language => {
   await AsyncStorage.setItem('currentLanguage', language)
-  //warningLanguageChange();
-  //RNRestart.Restart();
+  //warningLanguageChange(() => RNRestart.Restart())
+  RNRestart.Restart()
 }
 
-const getCurLanguage = async () => {
+export const getCurLanguage = async () => {
   try {
     const value = await AsyncStorage.getItem('currentLanguage')
-    const result = (value !== null) ? value : 'ru'
+    const result = (value !== null) ? value : 'en'
     return Promise.resolve(result)
   } catch (error) {
     throw new Error('Error on getting current language', error)
@@ -46,7 +47,6 @@ const getCurLanguage = async () => {
 
 export const init = async () => {
   const value = await getCurLanguage()
-  console.log(`init locale: ${value}`)
   I18n.locale = value
 }
 
