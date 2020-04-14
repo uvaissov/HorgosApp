@@ -1,11 +1,12 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
-import { StyleSheet, View, InteractionManager } from 'react-native'
+import { StyleSheet, View, InteractionManager, Text, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import nextId from 'react-id-generator'
+import { NavigationEvents } from 'react-navigation'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
-import { WHITE, BORDER_COLOR } from '../../constants/global'
+import { WHITE, BORDER_COLOR, MAIN_COLOR, GRAY_LIGHT } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { FavoriteGrid } from './view'
@@ -25,10 +26,14 @@ class Favorite extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getFavorite()
+    this.loadData()
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
+  }
+
+  loadData = () => {
+    this.props.getFavorite()
   }
 
   init = () => {
@@ -39,11 +44,34 @@ class Favorite extends Component {
       return <Loader />
     }
     return (
-      <FlatList
-        data={trading_houses}
-        keyExtractor={() => nextId()}
-        renderItem={(item) => (<FavoriteGrid title={item.item.trading_house_name} item={item.item} navigation={navigation} />)}
-      />
+      <View>
+        {
+          trading_houses.length === 0 && (
+            <View style={{ justifyContent: 'center', alignItems: 'center', padding: 15, marginTop: 50 }}>
+              <TouchableOpacity onPress={this.loadData}>
+                <View style={{ backgroundColor: GRAY_LIGHT, borderColor: BORDER_COLOR, borderRadius: 60, paddingHorizontal: 20, paddingVertical: 12 }}>
+                  <Text style={{ color: MAIN_COLOR }}>Обновить</Text>
+                </View>
+              </TouchableOpacity>
+              <View style={{ marginTop: 50 }}>
+                <Text style={{ color: BORDER_COLOR }}>Список избранного пуст</Text>
+              </View>
+            </View>
+          )
+        }
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              colors={[MAIN_COLOR]}
+              refreshing={isLoading}
+              onRefresh={this.loadData}
+            />
+        }
+          data={trading_houses}
+          keyExtractor={() => nextId()}
+          renderItem={(item) => (<FavoriteGrid title={item.item.trading_house_name} item={item.item} navigation={navigation} />)}
+        />
+      </View>
     )
   }
 
@@ -58,7 +86,10 @@ class Favorite extends Component {
         <View style={styles.body}>
           {this.init()}
         </View>
-        <FooterUI navigation={navigation} selected="favorite" />
+        <FooterUI navigation={navigation} selected="favorite" repeatAction={this.loadData} />
+        <NavigationEvents
+          onDidFocus={() => this.loadData()}
+        />
       </View>
     )
   }

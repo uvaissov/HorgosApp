@@ -54,7 +54,16 @@ const FooterUI = (props) => {
           <Text style={[styles.text, { color: selected === 'call' ? BLACK : unSelectColor }]}>{strings('menu.help')}</Text>
         </View>
       </TouchView>
-      <TouchView style={styles.element} onPress={() => navigation.navigate('Favorite')}>
+      <TouchView
+        style={styles.element}
+        onPress={() => {
+          if (selected === 'favorite') {
+            props.repeatAction()
+          } else {
+            navigation.navigate('Favorite')
+          }
+        }}
+      >
         <View style={styles.iconView}>
           <Icon name="heart" size={22} color={selected === 'favorite' ? BLACK : unSelectColor} />
         </View>
