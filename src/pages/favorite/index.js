@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager, Text, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { FlatList } from 'react-native-gesture-handler'
 import nextId from 'react-id-generator'
 import { NavigationEvents } from 'react-navigation'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
-import { WHITE, BORDER_COLOR, MAIN_COLOR, GRAY_LIGHT } from '../../constants/global'
+import { WHITE, BORDER_COLOR, MAIN_COLOR, GRAY_SECOND, normalize } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { FavoriteGrid } from './view'
@@ -40,25 +40,11 @@ class Favorite extends Component {
     const { didFinishInitialAnimation } = this.state
     const { navigation } = this.props
     const { trading_houses, isLoading } = this.props
-    if (didFinishInitialAnimation === false || isLoading === true) {
+    if (didFinishInitialAnimation === false) {
       return <Loader />
     }
     return (
       <View>
-        {
-          trading_houses.length === 0 && (
-            <View style={{ justifyContent: 'center', alignItems: 'center', padding: 15, marginTop: 50 }}>
-              <TouchableOpacity onPress={this.loadData}>
-                <View style={{ backgroundColor: GRAY_LIGHT, borderColor: BORDER_COLOR, borderRadius: 60, paddingHorizontal: 20, paddingVertical: 12 }}>
-                  <Text style={{ color: MAIN_COLOR }}>Обновить</Text>
-                </View>
-              </TouchableOpacity>
-              <View style={{ marginTop: 50 }}>
-                <Text style={{ color: BORDER_COLOR }}>Список избранного пуст</Text>
-              </View>
-            </View>
-          )
-        }
         <FlatList
           refreshControl={
             <RefreshControl
@@ -67,6 +53,14 @@ class Favorite extends Component {
               onRefresh={this.loadData}
             />
         }
+          ListEmptyComponent={() => (
+            <View style={{ justifyContent: 'center', alignItems: 'center', padding: 15, marginVertical: 50 }}>
+              <View style={{ marginTop: 50 }}>
+                <Text style={{ color: GRAY_SECOND, textAlign: 'center', fontSize: normalize(15) }}>Список избранного пуст</Text>
+                <Text style={{ color: BORDER_COLOR, textAlign: 'center' }}>Потяните вниз для обновления</Text>
+              </View>
+            </View>
+          )}
           data={trading_houses}
           keyExtractor={() => nextId()}
           renderItem={(item) => (<FavoriteGrid title={item.item.trading_house_name} item={item.item} navigation={navigation} />)}
