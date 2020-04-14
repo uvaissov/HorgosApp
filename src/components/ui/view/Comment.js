@@ -22,14 +22,14 @@ const Comment = ({ text }) => {
   const renderViewMore = (onPress) => {
     showView(true)
     return (
-      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient element={<Text>{strings('comments.more')}</Text>} /></TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 110, marginTop: 10 }}><MaskGradient style={{ alignItems: 'flex-start' }} element={<Text>{strings('comments.more')}</Text>} /></TouchableOpacity>
     )
   }
 
   const renderViewLess = (onPress) => {
     showView(false)
     return (
-      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 75, marginTop: 10 }}><MaskGradient style={{ alignItems: 'flex-start' }} element={<Text>{strings('comments.hide')}</Text>} /></TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={{ height: 15, width: 110, marginTop: 10 }}><MaskGradient style={{ alignItems: 'flex-start' }} element={<Text>{strings('comments.hide')}</Text>} /></TouchableOpacity>
     )
   }
 
@@ -42,7 +42,7 @@ const Comment = ({ text }) => {
         textStyle={styles.cardText}
       >
         <Text>
-          {text }
+          {text}
         </Text>
       </ViewMoreText>
       {

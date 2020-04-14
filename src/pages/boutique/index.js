@@ -34,10 +34,11 @@ class Boutique extends Component {
     const boutique_id = navigation.getParam('boutique_id')
     if (boutique && boutique.id) {
       let [data] = await this.fetchDataList([boutique.id])
-      if (!data && !isConnected) {
+      if (!data && !isConnected && boutique) {
         data = boutique
         await this.addBoutiqueIfNotExistOffline(data)
       }
+      console.log('data', data)
       if (data && data.id) {
         this.setState({ boutique: data, isLoading: false })
         this.getRelations(data)
@@ -48,6 +49,7 @@ class Boutique extends Component {
         this.setState({ boutique: data, isLoading: false })
         this.getRelations(data)
       }
+      console.log('data', data)
     }
   }
 
