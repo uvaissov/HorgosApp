@@ -22,7 +22,8 @@ export const getFavorite = () => async (dispatch, getState) => {
   const trading_houses = []
   const ids = _.orderBy(payload.concat(addArray), ['id'], ['asc']).map(el => {
     const { trading_house_id, trading_house_name } = el
-    const obj = { trading_house_id, trading_house_name, items: [] }
+    const [house = {}] = el.trading_houses
+    const obj = { trading_house_id, trading_house_name, items: [], translation: house.translation }
     let element = trading_houses.find((dir) => dir.trading_house_id === trading_house_id)
     if (trading_house_id && !element) {
       trading_houses.push(obj)

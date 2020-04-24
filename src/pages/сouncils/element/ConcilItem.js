@@ -2,7 +2,8 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import FastImage from 'react-native-fast-image'
-import { w, normalize, BLACK, GRAY_SECOND } from '../../../constants/global'
+import { w, normalize, BLACK, GRAY_SECOND, translate } from '../../../constants/global'
+import { locale } from '../../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -20,9 +21,9 @@ const ConcilItem = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.view} onPress={onPress}>
       <View>
-        <Text style={styles.textTitle}>{item.title}</Text>
+        <Text style={styles.textTitle}>{translate(item, `${locale()}.title`, item.title)}</Text>
         <Text style={styles.textDate}>{item.date}</Text>
-        <Text style={styles.textDesc} numberOfLines={2} ellipsizeMode="tail">{item.description}</Text>
+        <Text style={styles.textDesc} numberOfLines={2} ellipsizeMode="tail">{translate(item, `${locale()}.description`, item.description)}</Text>
         <View style={styles.imgView}>
           <FastImage style={{ height: imageH, width: imageW, borderRadius: 6 }} resizeMode={FastImage.resizeMode.cover} source={item.img} />
         </View>

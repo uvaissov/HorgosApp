@@ -3,8 +3,8 @@ import { View, StyleSheet, Text } from 'react-native'
 import _ from 'lodash'
 import Icon from 'react-native-vector-icons/Feather'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-import { strings } from '../../../service/Locale'
-import { normalize, GRAY, BORDER_COLOR } from '../../../constants/global'
+import { strings, locale } from '../../../service/Locale'
+import { normalize, GRAY, BORDER_COLOR, translate } from '../../../constants/global'
 
 
 const styles = StyleSheet.create({
@@ -26,7 +26,7 @@ const ProductList = ({ data, onPress, onLayourRef }) => {
             const { name } = item
             return (
               <View key={_.uniqueId()} style={[styles.row]}>
-                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{name}</Text></View>
+                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{translate(item, `${locale()}.name`, name)}</Text></View>
               </View>
             )
           })

@@ -5,9 +5,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { WHITE, RED, GRAY_SECOND, ORANGE, normalize, BLACK, alertApp } from '../../../constants/global'
+import { WHITE, RED, GRAY_SECOND, ORANGE, normalize, BLACK, alertApp, translate } from '../../../constants/global'
 import * as manager from '../../../service/manager'
-import { strings } from '../../../service/Locale'
+import { strings, locale } from '../../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -48,7 +48,7 @@ const FavoriteCmp = ({ boutique, token, getFavorite }) => {
   return (
     <View>
       <View style={styles.titleView}>
-        <Text style={styles.titleText}>{name}</Text>
+        <Text style={styles.titleText}>{translate(boutique, `${locale()}.name`, name)}</Text>
       </View>
       <View style={styles.view}>
         <View>
@@ -73,7 +73,7 @@ const FavoriteCmp = ({ boutique, token, getFavorite }) => {
               Array(5).fill().map((el, elIdx) => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={elIdx >= rating ? GRAY_SECOND : ORANGE} size={10} />)
             }
           </View>
-          <View><Text style={styles.raitingText}>{rating || 0 }/5 ( {boutique.reviews.length} {strings('boutique.responses')} )</Text></View>
+          <View><Text style={styles.raitingText}>{(rating || 0).toFixed(2) }/5 ( {boutique.reviews.length} {strings('boutique.responses')} )</Text></View>
         </View>
       </View>
     </View>

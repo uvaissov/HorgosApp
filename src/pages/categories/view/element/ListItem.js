@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { WHITE, normalize, w, BORDER_COLOR } from '../../../../constants/global'
+import { WHITE, normalize, w, BORDER_COLOR, translate } from '../../../../constants/global'
+import { locale } from '../../../../service/Locale'
 
 const imageWH = w * 0.115
 
@@ -16,6 +17,7 @@ const styles = StyleSheet.create({
 
 const ListItem = ({ style, item = {}, onPress }) => {
   const { name, img } = item
+  console.log(item)
   return (
     <TouchableOpacity onPress={onPress}>
       <>
@@ -24,7 +26,7 @@ const ListItem = ({ style, item = {}, onPress }) => {
             <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.contain} />
           </View>
           <View style={styles.infoView}>
-            <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>
+            <Text ellipsizeMode="clip" style={styles.title}>{translate(item, `${locale()}.name`, name)}</Text>
           </View>
         </View>
       </>

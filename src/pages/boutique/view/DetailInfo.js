@@ -4,8 +4,8 @@ import _ from 'lodash'
 import FastImage from 'react-native-fast-image'
 import Feather from 'react-native-vector-icons/Feather'
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
-import { WHITE, GRAY_LIGHT, normalize, GRAY_SECOND, BLACK, statusBarHeight } from '../../../constants/global'
-import { strings } from '../../../service/Locale'
+import { WHITE, GRAY_LIGHT, normalize, GRAY_SECOND, BLACK, statusBarHeight, translateArray, translate } from '../../../constants/global'
+import { strings, locale } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { margin: 15 },
@@ -18,31 +18,31 @@ const styles = StyleSheet.create({
   modalBody: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }
 })
 
-
 const DetailInfo = ({ boutique }) => {
+  console.log(`locale:${locale()} ${boutique.id}`)
   const [isImageViewVisible, setImageViewVisible] = useState(false)
   const getInfo = () => {
     const array = []
     if (boutique.trading_house_name) {
-      array.push({ key: strings('boutique.house'), value: boutique.trading_house_name })
+      array.push({ key: strings('boutique.house'), value: translateArray(boutique.trading_houses, `${locale()}.name`, boutique.trading_house_name) })
     }
     if (boutique.categoriesName) {
-      array.push({ key: strings('boutique.category'), value: boutique.categoriesName })
+      array.push({ key: strings('boutique.category'), value: translateArray(boutique.categories, `${locale()}.name`, boutique.categoriesName) })
     }
     if (boutique.floor) {
-      array.push({ key: strings('boutique.floor'), value: boutique.floor })
+      array.push({ key: strings('boutique.floor'), value: translate(boutique, `${locale()}.floor`, boutique.floor) })
     }
     if (boutique.boutique_number) {
-      array.push({ key: `${strings('boutique.boutique')} #`, value: boutique.boutique_number })
+      array.push({ key: `${strings('boutique.boutique')} #`, value: translate(boutique, `${locale()}.boutique_number`, boutique.boutique_number) })
     }
     if (boutique.seller_name) {
-      array.push({ key: strings('boutique.seller_name'), value: boutique.seller_name })
+      array.push({ key: strings('boutique.seller_name'), value: translate(boutique, `${locale()}.seller_name`, boutique.seller_name) })
     }
     if (boutique.owner_name) {
-      array.push({ key: strings('boutique.owner_name'), value: boutique.owner_name })
+      array.push({ key: strings('boutique.owner_name'), value: translate(boutique, `${locale()}.owner_name`, boutique.owner_name) })
     }
     if (boutique.languages) {
-      array.push({ key: strings('boutique.languages'), value: boutique.languages })
+      array.push({ key: strings('boutique.languages'), value: translate(boutique, `${locale()}.languages`, boutique.languages) })
     }
     if (boutique.phone) {
       array.push({ key: strings('boutique.phone'), value: boutique.phone })

@@ -3,6 +3,7 @@ import { View, StyleSheet, TextInput, Text, Platform, TouchableOpacity, Touchabl
 import Feather from 'react-native-vector-icons/Feather'
 import Share from 'react-native-share'
 import nextId from 'react-id-generator'
+import { useSelector } from 'react-redux'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import * as manager from '../../../service/manager'
 import { BG_COLOR_HEADER, normalize, hostName, isEmptyString, alertApp, w, h, WHITE, BORDER_COLOR, BLACK } from '../../../constants/global'
@@ -64,6 +65,7 @@ const Header = (props) => {
   const [text, setText] = useState(null)
   const [showResults, setShowResults] = useState(false)
   const [data, setData] = useState([])
+  const isConnected = useSelector(state => state.network.isConnected)
   const share = () => {
     Share.open({
       title: 'Dai5.kz',
@@ -88,7 +90,7 @@ const Header = (props) => {
   }
 
   const fetchData = async (inputValue) => {
-    const dataRes = await manager.searchWord(true, inputValue)
+    const dataRes = await manager.searchWord(isConnected, inputValue)
     setData(dataRes)
   }
   const onEndEdit = async (el) => {
@@ -103,7 +105,7 @@ const Header = (props) => {
       searchWaiting = null
       fetchData(el)
       setShowResults(true)
-    }, 300)
+    }, isConnected ? 300 : 50)
   }
   const onChangeText = async (el) => {
     setText(el)
@@ -131,7 +133,7 @@ const Header = (props) => {
           <TouchableOpacity style={styles.share} onPress={() => share()}><MaskGradient element={<Feather name="share-2" size={20} />} /></TouchableOpacity>
         </View>
       </View>
-      { showResults && data.length > 0 &&
+      { showResults && data.filter(el => text && el.toLowerCase().includes(text.toLowerCase())).length > 0 &&
         <TouchableWithoutFeedback
           onPress={() => {
             Keyboard.dismiss()

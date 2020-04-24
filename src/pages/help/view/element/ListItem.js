@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
-import { WHITE, normalize, w, BORDER_COLOR, RED, GRAY } from '../../../../constants/global'
+import { WHITE, normalize, w, BORDER_COLOR, RED, GRAY, translate } from '../../../../constants/global'
+import { locale } from '../../../../service/Locale'
 
 const imageWH = w * 0.1
 
@@ -22,7 +23,7 @@ const ListItem = ({ style, item = {}, onPress }) => (
           <Entypo name="dot-single" size={23} color={RED} />
         </View>
         <View style={styles.infoView}>
-          <Text ellipsizeMode="clip" style={styles.title}>{item.title}</Text>
+          <Text ellipsizeMode="clip" style={styles.title}>{translate(item, `${locale()}.title`, item.title)}</Text>
         </View>
       </View>
     </>

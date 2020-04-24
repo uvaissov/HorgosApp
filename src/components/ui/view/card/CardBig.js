@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { WHITE, normalize, GRAY, GRAY_SECOND } from '../../../../constants/global'
+import { WHITE, normalize, GRAY, GRAY_SECOND, translate, translateArray } from '../../../../constants/global'
+import { locale } from '../../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { borderRadius: 6, backgroundColor: WHITE, borderWidth: 0.1, borderColor: '#E2E8F0', flex: 1 },
@@ -16,9 +17,9 @@ const styles = StyleSheet.create({
 const CardBig = ({ width, style, index, onPress, item, hit }) => {
   const { name, img, trading_house_name, categoriesName, boutique = {} } = item //main info
   const { name: nameB, trading_house_name: trading_house_nameB, categoriesName: categoriesNameB } = boutique //secondary info
-  const nameField = name || nameB
-  const categoriesNameField = categoriesName || categoriesNameB
-  const tradingHouseName = trading_house_name || trading_house_nameB
+  const nameField = translate(item, `${locale()}.name`, name) || translate(boutique, `${locale()}.name`, nameB)
+  const categoriesNameField = categoriesName || translateArray(boutique.categories, `${locale()}.name`, categoriesNameB)
+  const tradingHouseName = trading_house_name || translateArray(boutique.trading_houses, `${locale()}.name`, trading_house_nameB)
   const imageH = width * 0.5
   const hitW = width * 0.4
   const hitH = hitW * 0.5

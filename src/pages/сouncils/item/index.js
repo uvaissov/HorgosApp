@@ -3,9 +3,10 @@ import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { FooterUI, HeaderUI } from '../../../components/ui/view'
-import { WHITE, BORDER_COLOR, GRAY_SECOND, BLACK, w, normalize } from '../../../constants/global'
+import { WHITE, BORDER_COLOR, GRAY_SECOND, BLACK, w, normalize, translate } from '../../../constants/global'
 import CustomStatusBar from '../../../components/CustomStatusBar'
 import Loader from '../../../components/Loader'
+import { locale } from '../../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -44,9 +45,9 @@ class CouncilItemView extends Component {
         <View style={styles.imgView}>
           <FastImage style={{ height: imageH, width: imageW, borderRadius: 6 }} resizeMode={FastImage.resizeMode.cover} source={item.img} />
         </View>
-        <Text style={styles.textTitle}>{item.title}</Text>
+        <Text style={styles.textTitle}>{translate(item, `${locale()}.title`, item.title)}</Text>
         <Text style={styles.textDate}>{item.date}</Text>
-        <Text style={styles.textDesc}>{item.content}</Text>
+        <Text style={styles.textDesc}>{translate(item, `${locale()}.content`, item.content)}</Text>
       </ScrollView>
     )
   }
@@ -59,7 +60,7 @@ class CouncilItemView extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={item.title} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
+        <HeaderUI text={translate(item, `${locale()}.title`, item.title)} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

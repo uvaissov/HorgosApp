@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { WHITE, normalize, GRAY, GRAY_SECOND } from '../../../../constants/global'
+import { WHITE, normalize, GRAY, GRAY_SECOND, translate, translateArray } from '../../../../constants/global'
+import { locale } from '../../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { borderRadius: 6, backgroundColor: WHITE },
@@ -23,8 +24,8 @@ const CardSmall = ({ width, style, onPress, item }) => {
             <FastImage source={img} style={[styles.image, { width, height: imageH }]} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
-            <Text style={styles.title}>{name}</Text>
-            <Text style={styles.desc} ellipsizeMode="tail" numberOfLines={3}>{categoriesName}</Text>
+            <Text style={styles.title}>{translate(item, `${locale()}.name`, name)}</Text>
+            <Text style={styles.desc} ellipsizeMode="tail" numberOfLines={3}>{translateArray(item.categories, `${locale()}.name`, categoriesName) }</Text>
           </View>
         </View>
       </TouchableOpacity>

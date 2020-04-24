@@ -6,13 +6,13 @@ import { StyleSheet, View, Text, InteractionManager, Animated } from 'react-nati
 import { ScrollCardWithTitle } from '../main/view'
 import { FooterUI, SliderImages } from '../../components/ui/view'
 import { DetailInfo, FavoriteCmp, Description, ProductPrices, HeaderScroll, ProductList, MapShow, ResponseList } from './view'
-import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, TRASPARENT } from '../../constants/global'
+import { WHITE, normalize, HEADER_MAX_HEIGHT, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, TRASPARENT, translate } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import * as manager from '../../service/manager'
 import { BY_BOUTIQUE_IDS } from '../../constants/static'
 import { getFavorite } from '../favorite/actions'
-import { strings } from '../../service/Locale'
+import { strings, locale } from '../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -38,7 +38,6 @@ class Boutique extends Component {
         data = boutique
         await this.addBoutiqueIfNotExistOffline(data)
       }
-      console.log('data', data)
       if (data && data.id) {
         this.setState({ boutique: data, isLoading: false })
         this.getRelations(data)
@@ -49,7 +48,6 @@ class Boutique extends Component {
         this.setState({ boutique: data, isLoading: false })
         this.getRelations(data)
       }
-      console.log('data', data)
     }
   }
 
@@ -171,9 +169,9 @@ class Boutique extends Component {
           <SliderImages data={boutique.images} />
           <FavoriteCmp boutique={boutique} token={token} getFavorite={this.props.getFavorite} />
           <DetailInfo boutique={boutique} />
-          <Description text={boutique.description} />
+          <Description text={translate(boutique, `${locale()}.description_mobile`, boutique.description)} />
           <ProductPrices onLayourRef={this.onLayourRef} data={boutique.products} />
-          <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products, title: boutique.name })} data={boutique.all_products} />
+          <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products, title: translate(boutique, `${locale().name}`, boutique.name) })} data={boutique.all_products} />
           <MapShow onLayourRef={this.onLayourRef} data={boutique.map} />
           <ResponseList onLayourRef={this.onLayourRef} onPress={() => navigation.push('ResponseLists', { items: boutique.reviews, title: boutique.name })} data={boutique.reviews} boutique={boutique} afterAdd={() => this.updateBoutique(boutique)} />
           <ScrollCardWithTitle title={strings('boutique.relations')} masked element={<Text style={styles.text}>{strings('main.all')}</Text>} navigation={navigation} data={relaters} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: relaters.map(el => el.id) })} />

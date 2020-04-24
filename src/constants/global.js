@@ -1,4 +1,5 @@
 import { Dimensions, Platform, PixelRatio, StatusBar, Alert } from 'react-native'
+import _ from 'lodash'
 import { isIphoneX } from 'react-native-iphone-x-helper'
 import { strings } from '../service/Locale'
 
@@ -87,4 +88,29 @@ export function confirmApp(titleTxt, msg) {
 
 export function isEmptyString(str) {
   return (!str || str.trim().length === 0)
+}
+
+export function translate(object, key, defaultValue) {
+  if (!object || !object.translation || !key) return defaultValue
+  if (!_.isEmpty(_.get(object.translation, key))) {
+    return _.get(object.translation, key)
+  }
+  return _.get(object.translation, key, defaultValue)
+}
+
+export function translateArray(object, key, defaultValue) {
+  if (!object || object.length < 1 || !key) return defaultValue
+  const data = []
+  object.forEach(p => {
+    if (p && p.translation) {
+      if (!_.isEmpty(_.get(p.translation, key))) {
+        data.push(_.get(p.translation, key))
+      }
+    }
+  })
+  if (!_.isEmpty(data)) {
+    return _.join(data, ',')
+  }
+
+  return defaultValue
 }

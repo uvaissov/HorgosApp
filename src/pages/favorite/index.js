@@ -6,12 +6,12 @@ import { FlatList } from 'react-native-gesture-handler'
 import nextId from 'react-id-generator'
 import { NavigationEvents } from 'react-navigation'
 import { FooterUI, HeaderUI } from '../../components/ui/view'
-import { WHITE, BORDER_COLOR, MAIN_COLOR, GRAY_SECOND, normalize } from '../../constants/global'
+import { WHITE, BORDER_COLOR, MAIN_COLOR, GRAY_SECOND, normalize, translate } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
 import { FavoriteGrid } from './view'
 import { getFavorite } from './actions'
-import { strings } from '../../service/Locale'
+import { strings, locale } from '../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -43,6 +43,7 @@ class Favorite extends Component {
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
+    console.log(trading_houses)
     return (
       <View>
         <FlatList
@@ -63,7 +64,7 @@ class Favorite extends Component {
           )}
           data={trading_houses}
           keyExtractor={() => nextId()}
-          renderItem={(item) => (<FavoriteGrid title={item.item.trading_house_name} item={item.item} navigation={navigation} />)}
+          renderItem={(item) => (<FavoriteGrid title={translate(item.item, `${locale()}.name`, item.item.trading_house_name)} item={item.item} navigation={navigation} />)}
         />
       </View>
     )

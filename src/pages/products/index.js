@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager, ScrollView, Text, TouchableOpacity } from 'react-native'
 import _ from 'lodash'
 import { HeaderUI, FooterUI } from '../../components/ui/view'
-import { WHITE, GRAY, normalize, BORDER_COLOR } from '../../constants/global'
+import { WHITE, GRAY, normalize, BORDER_COLOR, translate } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
 import Loader from '../../components/Loader'
-import { strings } from '../../service/Locale'
+import { strings, locale } from '../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { backgroundColor: WHITE, flex: 1 },
@@ -33,7 +33,14 @@ class Products extends Component {
       return <Loader />
     }
     const { navigation } = this.props
-    const items = sortByName === true ? _.sortBy(navigation.getParam('items'), ['name'], ['asc']) : navigation.getParam('items')
+    const itemsList = navigation.getParam('items')
+    const data = itemsList.map(item => {
+      const { name } = item
+      return ({ ...item, name: _.trim(translate(item, `${locale()}.name`, name)) })
+    })
+    console.log(data)
+    const items = sortByName === true ? _.sortBy(data, ['name'], ['asc']) : data
+    console.log(items)
     return (
       <ScrollView>
         {
@@ -41,7 +48,7 @@ class Products extends Component {
             const { name } = item
             return (
               <View key={_.uniqueId()} style={[styles.row]}>
-                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{name}</Text></View>
+                <View style={[styles.element, { borderTopWidth: index === 0 ? 0 : 1 }]}><Text style={styles.text}>{translate(item, `${locale()}.name`, name)}</Text></View>
               </View>
             )
           })

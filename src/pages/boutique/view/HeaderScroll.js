@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import Share from 'react-native-share'
 import Feather from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
+import { useSelector } from 'react-redux'
 import * as manager from '../../../service/manager'
 import { MaskGradient } from '../../../components/ui/kit/MaskGradient'
 import { BY_SEARCH_TEXT } from '../../../constants/static'
@@ -90,6 +91,7 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, hig
   const [text, setText] = useState(null)
   const [showResults, setShowResults] = useState(false)
   const [data, setData] = useState([])
+  const isConnected = useSelector(state => state.network.isConnected)
 
   const pressToSearch = (value) => {
     if (isEmptyString(value || text)) {
@@ -114,7 +116,7 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, hig
   }
 
   const fetchData = async (inputValue) => {
-    const dataRes = await manager.searchWord(true, inputValue)
+    const dataRes = await manager.searchWord(isConnected, inputValue)
     setData(dataRes)
   }
   const onEndEdit = async (el) => {
@@ -129,7 +131,7 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, hig
       searchWaiting = null
       fetchData(el)
       setShowResults(true)
-    }, 300)
+    }, isConnected ? 300 : 50)
   }
   const onChangeText = async (el) => {
     setText(el)
@@ -179,7 +181,7 @@ const HeaderScroll = ({ headerHeight, navigation, inputOpacity, pressToText, hig
           </View>
         </LinearGradient>
       </View>
-      { showResults && data.length > 0 &&
+      { showResults && data.filter(el => text && el.toLowerCase().includes(text.toLowerCase())).length > 0 &&
         <TouchableWithoutFeedback
           onPress={() => {
             Keyboard.dismiss()

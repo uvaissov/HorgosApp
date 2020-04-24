@@ -1,12 +1,12 @@
-import { genImageUri } from '../constants/global'
+import { genImageUri, translate } from '../constants/global'
 
 export function toCategory(data) {
-  const { id, name, icon } = data
-  return { id, name, img: { uri: genImageUri(icon) } }
+  const { id, name, icon, translation } = data
+  return { id, name, img: { uri: genImageUri(icon) }, translation }
 }
 
 export function toProduct(data) {
-  const { id, name, price_from, price_to, priceFromTenge, priceToTenge, priceFromRub, priceToRub, priceFromDollar, priceToDollar } = data
+  const { id, name, price_from, price_to, priceFromTenge, priceToTenge, priceFromRub, priceToRub, priceFromDollar, priceToDollar, translation } = data
   const price =
   {
     C: { from: price_from, to: price_to },
@@ -14,7 +14,7 @@ export function toProduct(data) {
     R: { from: priceFromRub, to: priceToRub },
     D: { from: priceFromDollar, to: priceToDollar }
   }
-  return { id, name, price }
+  return { id, name, price, translation }
 }
 
 
@@ -29,8 +29,8 @@ export function toReview(data) {
 }
 
 export function toHelp(data) {
-  const { id, title, content, created_at } = data
-  return { id, title, content, date: created_at }
+  const { id, title, content, created_at, translation } = data
+  return { id, title, content, date: created_at, translation }
 }
 
 export function toSlider(data) {
@@ -39,8 +39,8 @@ export function toSlider(data) {
 }
 
 export function toPost(data) {
-  const { id, image, title, description, content, created_at } = data
-  return { id, title, description, content, img: { uri: genImageUri(image) }, date: created_at }
+  const { id, image, title, description, content, created_at, translation } = data
+  return { id, title, description, content, img: { uri: genImageUri(image) }, date: created_at, translation }
 }
 
 export function toRecomended(data) {
@@ -59,14 +59,14 @@ export function toFavAnswer(data) {
 }
 
 export function toHouse(data) {
-  const { id, name, images, logo } = data
+  const { id, name, images, logo, translation } = data
   let imagesArr = []
   try {
     imagesArr = JSON.parse(images)
   } catch (e) {
     imagesArr = []
   }
-  return { id, name, img: { uri: genImageUri(logo) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
+  return { id, name, img: { uri: genImageUri(logo) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })), translation }
 }
 
 export function toBoutique(data) {
@@ -74,10 +74,43 @@ export function toBoutique(data) {
     id,
     name, seller_name, owner_name, languages,
     phone, whatsapp, weechat, categoriesName, description_mobile,
-    popular, top, stock, new: news, is_hit, averageRating: { rating }, trading_houses: [house = {}],
+    popular, top, stock, new: news, is_hit, averageRating: { rating }, trading_houses,
     firstImage, images, products, all_products, map, boutique_number, floor,
-    reviews, recommended_relations, related_relations, categories, qr_code } = data
+    reviews, recommended_relations, related_relations, categories, qr_code, translation, str_products_all } = data
+  const [house = {}] = trading_houses
   const { id: trading_house_id, name: trading_house_name } = house
+
+  let text = ''
+  if (name) {
+    text += ` ${name}`
+    text += ` ${translate({ translation }, 'en.name', name)}`
+    text += ` ${translate({ translation }, 'kz.name', name)}`
+  }
+  if (str_products_all) {
+    text += ` ${str_products_all}`
+    text += ` ${translate({ translation }, 'en.str_products_all', str_products_all)}`
+    text += ` ${translate({ translation }, 'kz.str_products_all', str_products_all)}`
+  }
+  if (boutique_number) {
+    text += ` ${boutique_number}`
+    text += ` ${translate({ translation }, 'en.boutique_number', boutique_number)}`
+    text += ` ${translate({ translation }, 'kz.boutique_number', boutique_number)}`
+  }
+  if (seller_name) {
+    text += ` ${seller_name}`
+    text += ` ${translate({ translation }, 'en.seller_name', seller_name)}`
+    text += ` ${translate({ translation }, 'kz.seller_name', seller_name)}`
+  }
+  if (owner_name) {
+    text += ` ${owner_name}`
+    text += ` ${translate({ translation }, 'en.seller_name', owner_name)}`
+    text += ` ${translate({ translation }, 'kz.seller_name', owner_name)}`
+  }
+  if (phone) {
+    text += ` ${phone}`
+    text += ` ${translate({ translation }, 'en.phone', phone)}`
+    text += ` ${translate({ translation }, 'kz.phone', phone)}`
+  }
   let imagesArr = []
   try {
     imagesArr = JSON.parse(images)
@@ -110,7 +143,11 @@ export function toBoutique(data) {
     rating,
     trading_house_id,
     trading_house_name,
+    trading_houses,
+    categories,
     categoriesName,
+    translation,
+    text,
     trading_house: toHouse(house),
     categoryId: (categories || []).map(el => `(${el.id})`).join(),
     img: { uri: genImageUri(firstImage) },
@@ -126,20 +163,20 @@ export function toBoutique(data) {
 }
 
 export function toBoutiqueShort(data) {
-  const { boutique_id, name, image, boutique, discount } = data
-  return { id: boutique_id, name, boutique: boutique ? toBoutique(boutique) : undefined, img: { uri: genImageUri(image) }, discount }
+  const { boutique_id, name, image, boutique, discount, translation } = data
+  return { id: boutique_id, name, boutique: boutique ? toBoutique(boutique) : undefined, img: { uri: genImageUri(image) }, discount, translation }
 }
 
 
 export function toCategoryStock(data) {
-  const { id, name, images, background, category_id } = data
+  const { id, name, images, background, category_id, translation } = data
   let imagesArr = []
   try {
     imagesArr = JSON.parse(images)
   } catch {
     imagesArr = []
   }
-  return { id, name, category_id, background: { uri: genImageUri(background) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })) }
+  return { id, name, category_id, background: { uri: genImageUri(background) }, images: (imagesArr || []).map((el) => ({ uri: genImageUri(el) })), translation }
 }
 
 export function toMaps(data) {

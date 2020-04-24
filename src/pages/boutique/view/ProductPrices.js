@@ -7,8 +7,8 @@ import { Col, Row, Grid } from 'react-native-easy-grid'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ModalSelector from 'react-native-modal-selector'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-import { normalize, GRAY_SECOND, BLACK, BORDER_COLOR, RED, GRAY, WHITE } from '../../../constants/global'
-import { strings } from '../../../service/Locale'
+import { normalize, GRAY_SECOND, BLACK, BORDER_COLOR, RED, GRAY, WHITE, translate } from '../../../constants/global'
+import { strings, locale } from '../../../service/Locale'
 
 const styles = StyleSheet.create({
   view: { marginHorizontal: 15 },
@@ -83,7 +83,7 @@ const ProductPrices = ({ onLayourRef, data }) => {
                   <Col>
                     <View style={styles.row}>
                       <View><Entypo name="dot-single" size={22} color={RED} /></View>
-                      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.nameText}>{name}</Text>
+                      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.nameText}>{translate(item, `${locale().name}`, name)}</Text>
                     </View>
                   </Col>
                   <Col>

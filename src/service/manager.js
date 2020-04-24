@@ -114,7 +114,8 @@ export const doForget = async (online = true, email) => {
 }
 
 export const searchWord = async (online = true, word) => {
-  const data = online ? await apiManager.searchWord(word) : []
+  console.log(`online: ${online}, word: ${word}`)
+  const data = online ? await apiManager.searchWord(word) : db.getWordsList(word)
   return data
 }
 
@@ -166,15 +167,27 @@ export const loadFromServer = async (online = true) => {
         const { date } = row
         const now = Date.now()
         const createdAt = new Date(date)
-        const oneDay = 24 * 60 * 60 * 1000
-        //const oneDay = 1000
+        //const oneDay = 24 * 60 * 60 * 1000
+        const oneDay = 1000
         const isMoreThanADay = (now - createdAt) > oneDay
         if (isMoreThanADay === true) {
           db.deleteAllBoutique().then(() => {
             apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
               .then(({ payload: { list } }) => {
-                db.addBoutique(list.map(el => ({ id: el.id, name: el.name, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })))
+                db.addBoutique(list.map(el => {
+                  const { text } = el
+                  return ({ id: el.id, name: text, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })
+                }))
               })
+          }).done(() => {
+            db.deleteAllWords().then(() => {
+              apiManager.searchWord('')
+                .then((list) => {
+                  db.addWords(list.map((el, index) => ({ id: index, text: el }))).then(() => {
+                    console.log('word is uploaded')
+                  })
+                })
+            })
           })
         }
       }

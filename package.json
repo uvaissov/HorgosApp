@@ -5,11 +5,10 @@
   "scripts": {
     "ios": "react-native run-ios --simulator='iPhone X' && npm run lint-watch",
     "android": "react-native run-android && npm run lint-watch",
-    "clean android": "cd android && ./gradlew clean",
-    "assembleRelease": "cd android && npm run pwd",
-    "pwd": "./gradlew assembleRelease",
+    "clean": "cd android && gradlew clean",
+    "apk": "cd android && gradlew assembleRelease",
     "start": "react-native start",
-    "dev-win": "c: && cd %ANDROID_HOME%\\tools && emulator -avd Nexus_5X_API_28",
+    "dev-win": "c: && cd %ANDROID_HOME%\\emulator && emulator @Nexus_5X_API_28 -dns-server 8.8.8.8",
     "lint": "esw src/**",
     "lint-watch": "esw -w --changed src/**"
   },

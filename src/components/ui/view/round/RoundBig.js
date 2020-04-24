@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { WHITE, normalize, w } from '../../../../constants/global'
+import { WHITE, normalize, w, translate } from '../../../../constants/global'
+import { locale } from '../../../../service/Locale'
 
 const imageWH = w * 0.27
 
@@ -26,7 +27,7 @@ const RoundBig = ({ style, item = {}, selected, onPress }) => {
             <FastImage source={img} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
           </View>
           <View style={styles.infoView}>
-            <Text ellipsizeMode="clip" style={styles.title}>{name}</Text>
+            <Text ellipsizeMode="clip" style={styles.title}>{translate(item, `${locale()}.name`, name)}</Text>
           </View>
         </View>
       </>

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 const LocaleView = () => {
   const [locale, setLocale] = useState(null)
   const massive = [
-    { key: 'kk', label: 'Қазақша' },
+    { key: 'kz', label: 'Қазақша' },
     { key: 'ru', label: 'Русский' },
     { key: 'en', label: 'English' }
   ]

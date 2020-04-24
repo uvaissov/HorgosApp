@@ -2,9 +2,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, InteractionManager, ScrollView, Text } from 'react-native'
 import { FooterUI, HeaderUI } from '../../../components/ui/view'
-import { WHITE, BORDER_COLOR, GRAY_SECOND, BLACK, normalize } from '../../../constants/global'
+import { WHITE, BORDER_COLOR, GRAY_SECOND, BLACK, normalize, translate } from '../../../constants/global'
 import CustomStatusBar from '../../../components/CustomStatusBar'
 import Loader from '../../../components/Loader'
+import { locale } from '../../../service/Locale'
 
 
 const styles = StyleSheet.create({
@@ -38,9 +39,9 @@ class HelpItemView extends Component {
     }
     return (
       <ScrollView style={styles.scrollView}>
-        <Text style={styles.textTitle}>{item.title}</Text>
+        <Text style={styles.textTitle}>{translate(item, `${locale()}.title`, item.title)}</Text>
         <Text style={styles.textDate}>{item.date}</Text>
-        <Text style={styles.textDesc}>{item.content}</Text>
+        <Text style={styles.textDesc}>{translate(item, `${locale()}.content`, item.content)}</Text>
       </ScrollView>
     )
   }
@@ -53,7 +54,7 @@ class HelpItemView extends Component {
     return (
       <View style={[styles.view]}>
         <CustomStatusBar backgroundColor={WHITE} barStyle="dark-content" />
-        <HeaderUI text={item.title} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
+        <HeaderUI text={translate(item, `${locale()}.title`, item.title)} leftIcon="arrow-left" leftOnPress={() => navigation.goBack()} withSearch={false} />
         <View style={styles.sortView} />
         <View style={styles.body}>
           {this.init()}

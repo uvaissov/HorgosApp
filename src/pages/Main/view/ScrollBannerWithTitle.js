@@ -3,8 +3,9 @@ import { StyleSheet, FlatList, View, Text, TouchableOpacity } from 'react-native
 import FastImage from 'react-native-fast-image'
 import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
-import { w, WHITE } from '../../../constants/global'
+import { w, WHITE, translate } from '../../../constants/global'
 import { BY_CATEGORY } from '../../../constants/static'
+import { locale } from '../../../service/Locale'
 
 const bannerW = w * 0.74
 const bannerH = bannerW
@@ -33,14 +34,15 @@ const ScrollBannerWithTitle = (props) => {
       <FlatList
         data={data}
         renderItem={(el) => {
-          const { index, item: { background, name, images, category_id } } = el
+          const { index, item } = el
+          const { background, name, images, category_id } = item
           const [first, second, third] = images
           return (
             <TouchableOpacity onPress={() => _onPress(category_id)}>
               <View style={[styles.view, { marginLeft: index === 0 ? 15 : 5 }]}>
                 <FastImage source={background} style={styles.image} resizeMode={FastImage.resizeMode.cover}>
                   <View style={{ flex: 1, padding: 20 }}>
-                    <View style={{ flex: 1 }}><Text style={[styles.text, styles.textShadow]}>{name}</Text></View>
+                    <View style={{ flex: 1 }}><Text style={[styles.text, styles.textShadow]}>{translate(item, `${locale()}.name`, name)}</Text></View>
                     <View style={{ flex: 2, flexDirection: 'row' }}>
                       <View>
                         <FastImage source={first} style={styles.firstImage} resizeMode={FastImage.resizeMode.cover} />

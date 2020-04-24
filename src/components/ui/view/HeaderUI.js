@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { View, StyleSheet, Platform, TextInput, TouchableOpacity, Text, Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import nextId from 'react-id-generator'
+import { useSelector } from 'react-redux'
 import { MaskGradient } from '../kit/MaskGradient'
 import * as manager from '../../../service/manager'
 import { WHITE, normalize, BLACK, isEmptyString, alertApp, GRAY, w, BORDER_COLOR, h } from '../../../constants/global'
@@ -59,6 +60,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
   const [text, setText] = useState(fromExport)
   const [showResults, setShowResults] = useState(false)
   const [data, setData] = useState([])
+  const isConnected = useSelector(state => state.network.isConnected)
   const clickToIcon = () => {
     if (onChangeFilter) {
       input.current.focus()
@@ -81,7 +83,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
   }
 
   const fetchDataWord = async (inputValue) => {
-    const dataRes = await manager.searchWord(true, inputValue)
+    const dataRes = await manager.searchWord(isConnected, inputValue)
     setData(dataRes)
   }
   const onEndEdit = async (el) => {
@@ -97,7 +99,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
       searchWaiting = null
       fetchDataWord(el)
       setShowResults(true)
-    }, 300)
+    }, isConnected ? 300 : 50)
   }
   const onChangeText = async (el) => {
     setText(el)
@@ -141,7 +143,7 @@ const HeaderUI = ({ text: fromExport, placeHolder, leftIcon, leftOnPress, style,
           </View>
         }
       </View>
-      { showResults && data.length > 0 &&
+      { showResults && data.filter(el => text && el.toLowerCase().includes(text.toLowerCase())).length > 0 &&
         <TouchableWithoutFeedback
           onPress={() => {
             Keyboard.dismiss()
