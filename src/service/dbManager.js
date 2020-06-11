@@ -189,7 +189,7 @@ export default class Database {
       this.initDB().then((db) => {
         db.transaction((tx) => {
           const param = `text like '%${word}%'`
-          tx.executeSql(`SELECT * FROM Word WHERE ${param}`).then(([tx, results]) => {
+          tx.executeSql(`SELECT * FROM Word WHERE ${param} COLLATE NOCASE`).then(([tx, results]) => {
             const len = results.rows.length
             const data = []
             for (let i = 0; i < len; i += 1) {
@@ -218,12 +218,16 @@ export default class Database {
           const len = rows.length
           for (let i = 0; i < len; i += 1) {
             const row = rows[i]
-            const { boutique: { img, images, qr_code } } = row
+            const { boutique: { img, images, qr_code, trading_house } } = row
             FastImage.preload([img, ...images])
             //console.log('ímages', [img, ...images])
             if (qr_code) {
               FastImage.preload([qr_code])
               //console.log('qr_code', [qr_code])
+            }
+            if (trading_house && trading_house.img) {
+              FastImage.preload([trading_house.img])
+              //console.log('trading_house.img', trading_house.img)
             }
             tx.executeSql('INSERT INTO Boutique VALUES (?, ?, ?, ?, ?, ?)', [row.id, row.name, row.categories, row.trading_house, JSON.stringify(row.boutique), new Date().toString()])
             //.then(([tx, results]) => {})

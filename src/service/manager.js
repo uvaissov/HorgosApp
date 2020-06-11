@@ -159,6 +159,7 @@ export const loadFromServer = async (online = true) => {
   db.checkData()
     .then(row => {
       if (!row) {
+        console.log('new')
         apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
           .then(({ payload: { list } }) => {
             db.addBoutique(list.map(el => {
@@ -170,12 +171,13 @@ export const loadFromServer = async (online = true) => {
               apiManager.searchWord('')
                 .then((list) => {
                   db.addWords(list.map((el, index) => ({ id: index, text: el }))).then(() => {
-                    console.log('word is uploaded')
+                    console.log('word is new uploaded')
                   })
                 })
             })
           })
       } else {
+        console.log('update')
         const { date } = row
         const now = Date.now()
         const createdAt = new Date(date)
@@ -196,7 +198,7 @@ export const loadFromServer = async (online = true) => {
               apiManager.searchWord('')
                 .then((list) => {
                   db.addWords(list.map((el, index) => ({ id: index, text: el }))).then(() => {
-                    console.log('word is uploaded')
+                    console.log('word is update uploaded')
                   })
                 })
             })
