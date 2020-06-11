@@ -38,9 +38,7 @@ class Products extends Component {
       const { name } = item
       return ({ ...item, name: _.trim(translate(item, `${locale()}.name`, name)) })
     })
-    console.log(data)
     const items = sortByName === true ? _.sortBy(data, ['name'], ['asc']) : data
-    console.log(items)
     return (
       <ScrollView>
         {

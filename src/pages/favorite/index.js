@@ -43,7 +43,7 @@ class Favorite extends Component {
     if (didFinishInitialAnimation === false) {
       return <Loader />
     }
-    console.log(trading_houses)
+    //console.log(trading_houses)
     return (
       <View>
         <FlatList

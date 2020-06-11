@@ -161,7 +161,19 @@ export const loadFromServer = async (online = true) => {
       if (!row) {
         apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
           .then(({ payload: { list } }) => {
-            db.addBoutique(list.map(el => ({ id: el.id, name: el.name, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })))
+            db.addBoutique(list.map(el => {
+              const { text } = el
+              return ({ id: el.id, name: text, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })
+            }))
+          }).done(() => {
+            db.deleteAllWords().then(() => {
+              apiManager.searchWord('')
+                .then((list) => {
+                  db.addWords(list.map((el, index) => ({ id: index, text: el }))).then(() => {
+                    console.log('word is uploaded')
+                  })
+                })
+            })
           })
       } else {
         const { date } = row

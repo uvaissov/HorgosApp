@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 const ListItem = ({ style, item = {}, onPress }) => {
   const { name, img } = item
-  console.log(item)
+  //console.log(item)
   return (
     <TouchableOpacity onPress={onPress}>
       <>

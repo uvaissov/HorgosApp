@@ -218,8 +218,13 @@ export default class Database {
           const len = rows.length
           for (let i = 0; i < len; i += 1) {
             const row = rows[i]
-            const { boutique: { img, images } } = row
+            const { boutique: { img, images, qr_code } } = row
             FastImage.preload([img, ...images])
+            //console.log('ímages', [img, ...images])
+            if (qr_code) {
+              FastImage.preload([qr_code])
+              //console.log('qr_code', [qr_code])
+            }
             tx.executeSql('INSERT INTO Boutique VALUES (?, ?, ?, ?, ?, ?)', [row.id, row.name, row.categories, row.trading_house, JSON.stringify(row.boutique), new Date().toString()])
             //.then(([tx, results]) => {})
           }

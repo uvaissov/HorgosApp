@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 })
 
 const DetailInfo = ({ boutique }) => {
-  console.log(`locale:${locale()} ${boutique.id}`)
+  //console.log(`locale:${locale()} ${boutique.id}`)
   const [isImageViewVisible, setImageViewVisible] = useState(false)
   const getInfo = () => {
     const array = []
