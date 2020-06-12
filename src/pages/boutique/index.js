@@ -141,7 +141,7 @@ class Boutique extends Component {
   }
 
   init = (headerHeight) => {
-    const { didFinishInitialAnimation, isLoading, boutique = {}, relaters, recommenders } = this.state
+    const { didFinishInitialAnimation, isLoading, boutique = {}, relaters = [], recommenders = [] } = this.state
     const { navigation, token } = this.props
     if (didFinishInitialAnimation === false || isLoading === true) {
       return <Loader />
@@ -174,8 +174,8 @@ class Boutique extends Component {
           <ProductList onLayourRef={this.onLayourRef} onPress={() => navigation.push('Products', { items: boutique.all_products, title: translate(boutique, `${locale().name}`, boutique.name) })} data={boutique.all_products} />
           <MapShow onLayourRef={this.onLayourRef} data={boutique.map} />
           <ResponseList onLayourRef={this.onLayourRef} onPress={() => navigation.push('ResponseLists', { items: boutique.reviews, title: boutique.name })} data={boutique.reviews} boutique={boutique} afterAdd={() => this.updateBoutique(boutique)} />
-          <ScrollCardWithTitle title={strings('boutique.relations')} masked element={<Text style={styles.text}>{strings('main.all')}</Text>} navigation={navigation} data={relaters} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: relaters.map(el => el.id) })} />
-          <ScrollCardWithTitle title={strings('boutique.recommended')} masked element={<Text style={styles.text}>{strings('main.all')}</Text>} navigation={navigation} data={recommenders} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recommenders.map(el => el.id) })} />
+          <ScrollCardWithTitle title={strings('boutique.relations')} masked element={<Text style={styles.text}>{strings('main.all')}</Text>} navigation={navigation} data={relaters.map(el => ({ img: el.img, boutique: el }))} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: relaters.map(el => el.id) })} />
+          <ScrollCardWithTitle title={strings('boutique.recommended')} masked element={<Text style={styles.text}>{strings('main.all')}</Text>} navigation={navigation} data={recommenders.map(el => ({ img: el.img, boutique: el }))} onPress={() => navigation.push('BoutiqueList', { filter: BY_BOUTIQUE_IDS, ids: recommenders.map(el => el.id) })} />
         </Animated.View>
       </Animated.ScrollView>
     )

@@ -13,6 +13,7 @@ const ScrollCardWithTitle = (props) => {
   if (!data || data.length < 1) return null
 
   const onItemPress = (boutique) => {
+    //(boutique)
     if (boutique && boutique.id) {
       navigation.push('Boutique', { boutique })
     }

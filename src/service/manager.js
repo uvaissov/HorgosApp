@@ -114,7 +114,7 @@ export const doForget = async (online = true, email) => {
 }
 
 export const searchWord = async (online = true, word) => {
-  console.log(`online: ${online}, word: ${word}`)
+  //console.log(`online: ${online}, word: ${word}`)
   const data = online ? await apiManager.searchWord(word) : db.getWordsList(word)
   return data
 }
@@ -159,7 +159,7 @@ export const loadFromServer = async (online = true) => {
   db.checkData()
     .then(row => {
       if (!row) {
-        console.log('new')
+        //console.log('new')
         apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
           .then(({ payload: { list } }) => {
             db.addBoutique(list.map(el => {
@@ -177,7 +177,7 @@ export const loadFromServer = async (online = true) => {
             })
           })
       } else {
-        console.log('update')
+        //console.log('update')
         const { date } = row
         const now = Date.now()
         const createdAt = new Date(date)

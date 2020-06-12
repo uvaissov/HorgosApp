@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 })
 
 const CardBig = ({ width, style, index, onPress, item, hit }) => {
+  //console.log('ítem', item)
   const { name, img, trading_house_name, categoriesName, boutique = {} } = item //main info
   const { name: nameB, trading_house_name: trading_house_nameB, categoriesName: categoriesNameB } = boutique //secondary info
   const nameField = translate(item, `${locale()}.name`, name) || translate(boutique, `${locale()}.name`, nameB)
