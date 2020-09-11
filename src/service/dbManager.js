@@ -133,7 +133,7 @@ export default class Database {
               param += `id in (${ids.join()})`
               break
             case BY_SEARCH_TEXT:
-              param += `name like '%${text}%'`
+              param += `lower(name) like '%${text.toLowerCase()}%'`
               break
             case BY_TRADING_HOUSE:
               param += `trading_house=${trading_house_id}`
@@ -149,6 +149,7 @@ export default class Database {
                 }
               })
           }
+          console.log(`SELECT * FROM Boutique WHERE ${param}`)
           tx.executeSql(`SELECT * FROM Boutique WHERE ${param}`).then(([tx, results]) => {
             const len = results.rows.length
             const data = []
@@ -228,6 +229,9 @@ export default class Database {
             }
             if (map) {
               FastImage.preload([...map])
+            }
+            if (row.id === 83) {
+              console.log(row.id, row.name, row.boutique)
             }
             tx.executeSql('INSERT INTO Boutique VALUES (?, ?, ?, ?, ?, ?)', [row.id, row.name, row.categories, row.trading_house, JSON.stringify(row.boutique), new Date().toString()])
             //.then(([tx, results]) => {})

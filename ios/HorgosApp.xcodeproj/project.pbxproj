@@ -19,7 +19,9 @@
 		31A508A388F84A694053DF79 /* libPods-HorgosAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35B2C0EE594E22DC691C1A38 /* libPods-HorgosAppTests.a */; };
 		38CDD3244D31E44D9B413E8A /* libPods-HorgosApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E497C2C487D27938777A397 /* libPods-HorgosApp-tvOS.a */; };
 		4399114207B017A8823FCE27 /* libPods-HorgosApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFB0851502A6E26A3B3FB5B /* libPods-HorgosApp-tvOSTests.a */; };
-		4B4B943623DBFD7C00D36AA8 /* splash_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4B4B943523DBFD7C00D36AA8 /* splash_icon.jpg */; };
+		4B2553212497569500C7F279 /* splash_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B2553202497569500C7F279 /* splash_icon.png */; };
+		4B2553232497577A00C7F279 /* WWWW_8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B2553222497577A00C7F279 /* WWWW_8.png */; };
+		4B2553252497642300C7F279 /* Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B2553242497642200C7F279 /* Splash.png */; };
 		4B689BD823DC7BCF00FFE504 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 4B689BD723DC7BCF00FFE504 /* www */; };
 		B4A01ACCA3CF631DE0483257 /* libPods-HorgosApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8AC0D563430E832BCA70D8 /* libPods-HorgosApp.a */; };
 /* End PBXBuildFile section */
@@ -58,7 +60,9 @@
 		2D02E47B1E0B4A5D006451C7 /* HorgosApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HorgosApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* HorgosApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HorgosApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35B2C0EE594E22DC691C1A38 /* libPods-HorgosAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HorgosAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B4B943523DBFD7C00D36AA8 /* splash_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = splash_icon.jpg; path = "../android/app/src/main/res/mipmap-hdpi/splash_icon.jpg"; sourceTree = "<group>"; };
+		4B2553202497569500C7F279 /* splash_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash_icon.png; sourceTree = "<group>"; };
+		4B2553222497577A00C7F279 /* WWWW_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWWW_8.png; sourceTree = "<group>"; };
+		4B2553242497642200C7F279 /* Splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Splash.png; sourceTree = "<group>"; };
 		4B689BD723DC7BCF00FFE504 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = HorgosApp/www; sourceTree = "<group>"; };
 		4ED0780FCB601C8CDA2FAD30 /* Pods-HorgosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HorgosApp.debug.xcconfig"; path = "Target Support Files/Pods-HorgosApp/Pods-HorgosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		50BF712A057D2BF04D30C46D /* Pods-HorgosAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HorgosAppTests.release.xcconfig"; path = "Target Support Files/Pods-HorgosAppTests/Pods-HorgosAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,15 +133,17 @@
 		13B07FAE1A68108700A75B9A /* HorgosApp */ = {
 			isa = PBXGroup;
 			children = (
+				4B2553242497642200C7F279 /* Splash.png */,
+				4B2553222497577A00C7F279 /* WWWW_8.png */,
+				4B2553202497569500C7F279 /* splash_icon.png */,
 				4B689BD723DC7BCF00FFE504 /* www */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				4B4B943523DBFD7C00D36AA8 /* splash_icon.jpg */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 			);
 			name = HorgosApp;
 			sourceTree = "<group>";
@@ -348,8 +354,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B689BD823DC7BCF00FFE504 /* www in Resources */,
+				4B2553212497569500C7F279 /* splash_icon.png in Resources */,
+				4B2553232497577A00C7F279 /* WWWW_8.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				4B4B943623DBFD7C00D36AA8 /* splash_icon.jpg in Resources */,
+				4B2553252497642300C7F279 /* Splash.png in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -691,7 +699,7 @@
 			baseConfigurationReference = 4ED0780FCB601C8CDA2FAD30 /* Pods-HorgosApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 25;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ZS7TGSTLHR;
 				INFOPLIST_FILE = HorgosApp/Info.plist;
@@ -712,7 +720,7 @@
 			baseConfigurationReference = CB1FE4FFF80CC3E10A7295E6 /* Pods-HorgosApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = ZS7TGSTLHR;
 				INFOPLIST_FILE = HorgosApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

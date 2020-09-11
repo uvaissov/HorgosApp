@@ -111,6 +111,13 @@ export function toBoutique(data) {
     text += ` ${translate({ translation }, 'en.phone', phone)}`
     text += ` ${translate({ translation }, 'kz.phone', phone)}`
   }
+  if (products) {
+    products.forEach((element) => {
+      text += ` ${element.name}`
+      text += ` ${translate(element, 'en.name', element.name)}`
+      text += ` ${translate(element, 'kz.name', element.name)}`
+    })
+  }
   let imagesArr = []
   try {
     imagesArr = JSON.parse(images)

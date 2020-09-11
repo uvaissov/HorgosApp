@@ -159,9 +159,10 @@ export const loadFromServer = async (online = true) => {
   db.checkData()
     .then(row => {
       if (!row) {
-        //console.log('new')
+        console.log('new')
         apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
           .then(({ payload: { list } }) => {
+            console.log(`size: ${list.length}`)
             db.addBoutique(list.map(el => {
               const { text } = el
               return ({ id: el.id, name: text, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })
@@ -177,7 +178,7 @@ export const loadFromServer = async (online = true) => {
             })
           })
       } else {
-        //console.log('update')
+        console.log('update')
         const { date } = row
         const now = Date.now()
         const createdAt = new Date(date)
@@ -188,6 +189,7 @@ export const loadFromServer = async (online = true) => {
           db.deleteAllBoutique().then(() => {
             apiManager.getBoutiqueList({ filter: BY_ALL_DATA })
               .then(({ payload: { list } }) => {
+                console.log(`size: ${list.length}`)
                 db.addBoutique(list.map(el => {
                   const { text } = el
                   return ({ id: el.id, name: text, categories: el.categoryId, trading_house: el.trading_house_id, boutique: el })

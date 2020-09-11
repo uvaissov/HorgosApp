@@ -18,6 +18,7 @@ import {
 import { getFavorite } from '../favorite/actions'
 import { getCategories } from '../categories/actions'
 import { getMaps } from '../map/actions'
+import { getReviewsAbout } from '../comments/actions'
 import { FooterUI, SliderApp } from '../../components/ui/view'
 import Header from './view/Header'
 import { ScrollCardWithTitle, AdBlockWithTitle, ScrollBannerWithTitle, ScrollRoundWithTitle, ScrollVideoWithTitle } from './view'
@@ -45,6 +46,7 @@ class Main extends Component {
     this.props.getCategories()
     this.props.getMaps()
     this.props.getFavorite()
+    this.props.getReviewsAbout()
     this.props.getSpecialForYou()
     this.props.getCategoryStocks()
     this.props.getCustomerChoices()
@@ -119,6 +121,8 @@ export default connect(
     getSliders,
     getFavorite,
     getCategories,
-    getMaps
+    getMaps,
+    getReviewsAbout
+
   }
 )(Main)
