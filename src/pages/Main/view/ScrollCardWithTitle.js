@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import nextId from 'react-id-generator'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { CardBig } from '../../../components/ui/view/index'
 
@@ -25,7 +24,7 @@ const ScrollCardWithTitle = (props) => {
         data={data}
         renderItem={(item) => (<CardBig hit={hit} height={207} width={168} item={item.item} index={item.index} onPress={onItemPress} />)}
         horizontal
-        keyExtractor={() => nextId()}
+        keyExtractor={(item) => `ScrollCardWithTitle-${item.id}`}
         showsHorizontalScrollIndicator={false}
       />
     </BlockTitleAndButton>

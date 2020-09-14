@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, FlatList, View } from 'react-native'
-import nextId from 'react-id-generator'
 import { CardSmall } from '../../../components/ui/view'
 import { w } from '../../../constants/global'
 
@@ -18,11 +17,11 @@ const BootiqueGrid = ({ navigation, data }) => {
   return (
     <View style={styles.view}>
       <FlatList
-        key={nextId()}
+        key={`BootiqueGrid-${data.length}`}
         style={styles.flexView}
         numColumns={3}
         data={data}
-        keyExtractor={() => nextId()}
+        keyExtractor={(item) => item.id}
         renderItem={(item) => (<CardSmall width={elWidth} item={item.item} index={item.index} onPress={onItemPress} />)}
       />
     </View>

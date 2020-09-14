@@ -74,9 +74,9 @@ class BoutiqueList extends Component {
     }
     return (
       <ScrollView>
-        <ScrollRoundWithTitle selected={selected} setSelected={this.setSelected} title={strings('list.houses')} data={trading_houses} />
-        <ScrollCardWithTitle data={hits.filter(el => !selected.includes(el.trading_house_id)).map(el => ({ ...el, boutique: el }))} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
-        <BootiqueGrid data={list.filter(el => !selected.includes(el.trading_house_id))} navigation={navigation} />
+        <ScrollRoundWithTitle key="ScrollRoundWithTitle-0" selected={selected} setSelected={this.setSelected} title={strings('list.houses')} data={trading_houses} />
+        <ScrollCardWithTitle key="ScrollCardWithTitle-1" data={hits.filter(el => !selected.includes(el.trading_house_id)).map(el => ({ ...el, boutique: el }))} hit navigation={navigation} onPress={() => navigation.push('BoutiqueList')} />
+        <BootiqueGrid key="BootiqueGrid-2" data={list.filter(el => !selected.includes(el.trading_house_id))} navigation={navigation} />
       </ScrollView>
     )
   }
