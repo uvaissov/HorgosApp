@@ -230,9 +230,6 @@ export default class Database {
             if (map) {
               FastImage.preload([...map])
             }
-            if (row.id === 83) {
-              console.log(row.id, row.name, row.boutique)
-            }
             tx.executeSql('INSERT INTO Boutique VALUES (?, ?, ?, ?, ?, ?)', [row.id, row.name, row.categories, row.trading_house, JSON.stringify(row.boutique), new Date().toString()])
             //.then(([tx, results]) => {})
           }

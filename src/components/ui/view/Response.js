@@ -35,14 +35,15 @@ const Response = ({ index, name = '', rating = 0, date = '', text = '' }) => {
           <View style={styles.nameAndStartView}>
             <Text style={styles.nameText} numberOfLines={1}>{_.isString(name) ? name.replace(/(?:\r\n|\r|\n)/g, '').replace(/(<([^>]+)>)/ig, '') : ''}</Text>
             <View style={styles.startsView}>{
-              Array(5).fill().map((el, elIdx) => <FontAwesome key={_.uniqueId()} style={styles.startStyle} name="star" color={elIdx >= rating ? GRAY_SECOND : ORANGE} size={11} />)
+              // eslint-disable-next-line react/no-array-index-key
+              Array(5).fill().map((el, elIdx) => <FontAwesome key={`${name}${elIdx}-id`} style={styles.startStyle} name="star" color={elIdx >= rating ? GRAY_SECOND : ORANGE} size={11} />)
               }
             </View>
           </View>
           <View><Text style={styles.telText}>{formateDate}</Text></View>
         </View>
       </View>
-      <Comment text={_.isString(text) ? text.replace(/(?:\r\n|\r|\n)/g, '').replace(/(<([^>]+)>)/ig, '') : ''} />
+      <Comment key={`comment-${index}`} text={_.isString(text) ? text.replace(/(?:\r\n|\r|\n)/g, '').replace(/(<([^>]+)>)/ig, '') : ''} />
     </View>
   )
 }

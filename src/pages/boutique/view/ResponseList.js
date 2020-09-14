@@ -3,7 +3,6 @@ import { View, StyleSheet, Text, Modal } from 'react-native'
 import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Feather'
 import _ from 'lodash'
-import nextId from 'react-id-generator'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { BlockTitleAndButton } from '../../../components/ui/kit/BlockTitleAndButton'
 import { Response } from '../../../components/ui/view'
@@ -32,7 +31,7 @@ const ResponseList = ({ data, onLayourRef, boutique, afterAdd, onPress }) => {
       <View style={styles.view}>
         {
           _.orderBy(data, ['date'], ['desc']).slice(0, 3).map((item, index) => (
-            <Response key={nextId()} index={index} name={item.name} rating={item.rating} text={item.text} date={item.date} />
+            <Response key={`${item.name}-${item.id}`} index={index} name={item.name} rating={item.rating} text={item.text} date={item.date} />
           ))
         }
       </View>

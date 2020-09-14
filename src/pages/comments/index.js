@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, View, InteractionManager } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
-import nextId from 'react-id-generator'
 import { FooterUI, HeaderUI, Response } from '../../components/ui/view'
 import { WHITE, BORDER_COLOR } from '../../constants/global'
 import CustomStatusBar from '../../components/CustomStatusBar'
@@ -25,7 +24,10 @@ class Comments extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getReviewsAbout()
+    const { list } = this.props
+    if (list == null || list.length < 1) {
+      this.props.getReviewsAbout()
+    }
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => this.setState({ didFinishInitialAnimation: true }), 150)
     })
@@ -40,8 +42,9 @@ class Comments extends Component {
     return (
       <FlatList
         style={styles.flatListStyle}
+        initialNumToRender={10}
         data={list}
-        keyExtractor={() => nextId()}
+        keyExtractor={(item) => `${item.id}-${item.name}`}
         renderItem={({ item }) => <Response index={item.index} name={item.name} rating={item.rating} text={item.text} date={item.date} />}
       />
     )
